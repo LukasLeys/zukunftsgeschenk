@@ -119,7 +119,7 @@ export interface Format {
 
 export const FORMATS: Format[] = [
   { id: "mail", label: "Per E-Mail (PDF)", short: "E-Mail", priceCents: 490, detail: "Sofort oder zum Wunschtermin, zum Beispiel am 24.12. um 17 Uhr." },
-  { id: "print", label: "Gedruckt mit Kuvert", short: "Gedruckt", priceCents: 1290, detail: "Klappkarte A6 mit Kuvert, per Post in Österreich, Versand inklusive." },
+  { id: "print", label: "Gedruckt mit Kuvert", short: "Gedruckt", priceCents: 1290, detail: "Im Format des Motivs mit Kuvert, per Post in Österreich, Versand inklusive." },
   { id: "premium", label: "Premium mit Goldkuvert", short: "Premium", priceCents: 1990, detail: "Büttenpapier, Goldkuvert mit Siegel, Versand inklusive." },
 ];
 
