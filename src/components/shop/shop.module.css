@@ -110,12 +110,13 @@
   .pvStage:has(:global(.gc--post)){--k:.74}
 }
 /* Anhänger mit Live-Betrag in der Vorschau: hängt vom oberen Rand der Bühne, neben der Karte */
-.pvStage > .pvTag{top:26px;left:12px;--tw:110px;--th:200px;--tr:-7deg}
+.pvStage > .pvTag{top:26px;left:12px;--tw:132px;--th:200px;--tr:-7deg}
+.pvTag :global(.hangtag-top){font-size:17px;letter-spacing:.02em}
 .pvTag :global(.hangtag-thread){background:rgba(91,74,92,.55)}
 .pvTag :global(.hangtag-big){font-size:31px}
 .pvTag :global(.hangtag-big.long){font-size:22px}
 /* Breite Karten: Anhänger höher, damit er nur die Ecke streift */
-.pvStage:has(:global(.gc--post)) > .pvTag,.pvStage:has(:global(.gc--square)) > .pvTag{top:6px;--tw:100px}
+.pvStage:has(:global(.gc--post)) > .pvTag,.pvStage:has(:global(.gc--square)) > .pvTag{top:6px;--tw:124px}
 @media (max-width:600px){
   /* Handy: kompakter Anhänger nur mit Betrag, liegt auf der Kartenecke */
   .pvStage > .pvTag,.pvStage:has(:global(.gc--post)) > .pvTag,.pvStage:has(:global(.gc--square)) > .pvTag{--tw:74px;top:8px;left:4px}

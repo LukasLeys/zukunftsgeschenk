@@ -430,7 +430,7 @@ export function RedeemFlow({ initialCode = "" }: { initialCode?: string }) {
             </div>
           </div>
           <div className={s.cardStage}>
-            <HangTag className={s.doneTag} top={`Für ${card.childName}`} big="Eingelöst" line={amount} />
+            <HangTag className={s.doneTag} top={`Für ${card.childName}`} big={amount} line="Eingelöst" />
             {cardView}
           </div>
         </section>
