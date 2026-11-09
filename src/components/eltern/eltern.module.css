@@ -189,6 +189,10 @@
   .qrBlock,.directQr{grid-template-columns:minmax(0,1fr);justify-items:start}
   .qr,.pFlush{margin-top:0!important}
 .directQr .qr{width:min(280px,100%)}
+  /* Am Handy zuerst die Angaben zum Kopieren, der QR-Code danach */
+  .pendingFlow{display:flex;flex-direction:column}
+  .pendingFlow > .qrBlock{order:1;margin-top:32px}
+  .pendingFlow > .directNote{order:2}
   .manual > div{grid-template-columns:minmax(0,1fr);gap:8px}
   .manual .copyWrap{align-items:flex-start}
   .copyManual{text-align:left;max-width:none}

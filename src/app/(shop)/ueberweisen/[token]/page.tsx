@@ -49,7 +49,7 @@ export default async function UeberweisenPage({ params }: { params: Promise<{ to
   ];
 
   const pending = (
-    <>
+    <div className={s.pendingFlow}>
       <h1 className={s.h1} tabIndex={-1}>
         Jetzt {amountText} an {recipient} überweisen
       </h1>
@@ -78,14 +78,14 @@ export default async function UeberweisenPage({ params }: { params: Promise<{ to
             </li>
           </ol>
           <p className={s.mobileHint}>
-            Du liest das gerade am Handy? Dann öffne diese Seite am Computer oder Tablet und scanne von dort. Oder du überweist
-            mit den Angaben unten.
+            Den QR-Code scannst du mit dem Handy, wenn diese Seite am Computer oder Tablet offen ist. Am Handy nimmst du die Angaben
+            zum Kopieren.
           </p>
         </div>
       </div>
 
       <h2 className={`${s.h3} ${s.manualHead}`}>
-        Lieber von Hand überweisen
+        Die Angaben zum Überweisen
       </h2>
       <dl className={s.manual}>
         {rows.map((r) => (
@@ -106,7 +106,7 @@ export default async function UeberweisenPage({ params }: { params: Promise<{ to
           sie hier meldest.
         </span>
       </p>
-    </>
+    </div>
   );
 
   const thanks = (
