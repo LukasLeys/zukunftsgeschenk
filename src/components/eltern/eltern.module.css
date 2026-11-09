@@ -25,6 +25,7 @@
 /* ---------- Code ---------- */
 .codeForm{margin-top:28px;max-width:560px}
 .codeRow{display:flex;flex-wrap:wrap;gap:12px}
+.codeForm .codeHint{margin:-2px 0 12px}
 .code{flex:1 1 240px;max-width:340px;font-size:24px!important;font-weight:750;letter-spacing:.08em;text-transform:uppercase;font-variant-numeric:tabular-nums}
 .code::placeholder{color:#8a7a8b;letter-spacing:.08em}
 

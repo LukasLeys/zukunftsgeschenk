@@ -193,7 +193,7 @@ export function RedeemFlow({ initialCode = "" }: { initialCode?: string }) {
       </ol>
 
       {step === "code" ? (
-        <section className={`paper ${s.sheet}`} aria-labelledby="r-h">
+        <section className={`paper ${s.sheet} ${s.narrow}`} aria-labelledby="r-h">
           <h1 id="r-h" ref={heading} tabIndex={-1} className={s.h1}>
             Karte einlösen
           </h1>
@@ -212,6 +212,9 @@ export function RedeemFlow({ initialCode = "" }: { initialCode?: string }) {
             <label className="lab" htmlFor="r-code">
               Einlösecode
             </label>
+            <p className={`hint ${s.codeHint}`} id="r-code-hint">
+              Zum Beispiel ZG-7K4P-29XM. Groß- oder Kleinschreibung und Leerzeichen sind egal.
+            </p>
             <div className={s.codeRow}>
               <input
                 id="r-code"
@@ -232,9 +235,6 @@ export function RedeemFlow({ initialCode = "" }: { initialCode?: string }) {
                 {checking ? null : <Icon name="arrow" />}
               </button>
             </div>
-            <p className="hint" id="r-code-hint">
-              Zum Beispiel ZG-7K4P-29XM. Groß- oder Kleinschreibung und Leerzeichen sind egal.
-            </p>
             <p className="err" id="r-code-err" role="alert">
               {codeErr ?? ""}
             </p>
