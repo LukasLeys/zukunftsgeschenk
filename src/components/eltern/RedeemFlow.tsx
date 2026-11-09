@@ -468,7 +468,7 @@ function Reassure() {
         <span>Wir speichern eure IBAN verschlüsselt und geben sie nur an die schenkende Person weiter.</span>
       </li>
       <li>
-        <Icon name="forever" />
+        <Icon name="clock" />
         <span>90 Tage nach dem Einlösen löschen wir die IBAN.</span>
       </li>
       <li>
