@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import { FORMATS, motifById, xmasActive } from "@/lib/catalog";
 import type { CartItem } from "@/lib/cart-types";
 import { Icon } from "../Icon";
-import { paperSwatch } from "../GiftCard";
+import { GiftCard } from "../GiftCard";
 import { eur, eurCents } from "../format";
 import { useCart } from "./useCart";
 
@@ -106,7 +106,18 @@ export function CartDrawer() {
             <ul className="cart-list">
               {items.map((i, k) => (
                 <li key={`${i.motif}-${k}`}>
-                  <span className="mini" style={paperSwatch(i.paper)} aria-hidden="true" />
+                  <span className="mini" aria-hidden="true">
+                    <GiftCard
+                      motif={i.motif}
+                      paper={i.paper}
+                      amount={i.amount}
+                      childName={i.childName}
+                      sender={i.sender}
+                      size="sm"
+                      decorative
+                      style={{ "--k": motifById(i.motif)?.shape === "post" ? 0.3 : 0.34 } as CSSProperties}
+                    />
+                  </span>
                   <div>
                     <b>{motifById(i.motif)?.name ?? i.motif}</b>
                     <span>{formatLine(i)}</span>
