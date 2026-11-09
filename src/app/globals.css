@@ -375,6 +375,12 @@ thead th{background:var(--gelb-l);font-weight:800;font-size:16px;position:sticky
 tbody tr:last-child td{background:var(--gelb-ll);font-weight:800}
 .panel[hidden]{display:none}
 @media (max-width:900px){.calc-grid{grid-template-columns:minmax(0,1fr)}}
+/* Am Handy läuft das Ergebnis unten mit, solange man in den Eingaben ist */
+.calc-peek{display:none}
+@media (max-width:900px){
+  .calc-peek{display:flex;justify-content:space-between;align-items:center;gap:12px;position:sticky;bottom:12px;z-index:5;margin:0;padding:10px 22px;border-radius:999px;background:var(--tinte);color:#fff;font-weight:700;font-size:18px;box-shadow:0 12px 24px -12px rgba(42,31,45,.7)}
+  .calc-peek b{font-family:var(--display);font-weight:800;font-size:24px;color:var(--gelb);font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
+}
 @media (max-width:600px){.tabs{display:grid;grid-template-columns:1fr 1fr;width:100%}.tab{padding:8px 10px;font-size:17px;line-height:1.2}}
 .tab-x{display:inline}
 @media (max-width:440px){

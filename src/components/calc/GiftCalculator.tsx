@@ -93,6 +93,10 @@ export function GiftCalculator({ id = "g", defaultAmount = 100, designHref = "/k
               auch vorsichtig.
             </p>
           </fieldset>
+          <p className="calc-peek" aria-hidden="true">
+            <span>Mit 18 rund</span>
+            <b>{eur(value)}</b>
+          </p>
         </form>
 
         <div className="result">

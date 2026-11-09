@@ -142,6 +142,10 @@ export function DepotCalculator({ id = "d", defaultBirthYear = 2027, defaultMont
               ))}
             </div>
           </div>
+          <p className="calc-peek" aria-hidden="true">
+            <span>Depotwert mit 18</span>
+            <b>{eur(end.value)}</b>
+          </p>
         </form>
         <div>
           <div className="result" aria-live="polite">
