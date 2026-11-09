@@ -25,7 +25,7 @@ export function MoneyFlow({ cardPrice, giftAmount }: { cardPrice: string; giftAm
             </div>
           </li>
           <li className={s.arrow}>
-            <span className={s.arrowLabel}>Kartenpreis, z. B. {cardPrice}</span>
+            <span className={s.arrowLabel}>Kartenpreis, z.&nbsp;B. {cardPrice}</span>
             <span className={s.arrowLine} aria-hidden="true" />
           </li>
           <li className={`${s.node} ${s.nodeUs}`}>
@@ -33,8 +33,8 @@ export function MoneyFlow({ cardPrice, giftAmount }: { cardPrice: string; giftAm
               <Icon name="env" />
             </span>
             <div>
-              <b>Zukunftsgeschenk</b>
-              <span>gestaltet, druckt und verschickt die Karte</span>
+              <b>Wir</b>
+              <span>gestalten, drucken und verschicken die Karte</span>
             </div>
           </li>
           <li className={s.laneEnd}>Hier endet der Weg. Das Geschenkgeld kommt bei uns nie an.</li>
@@ -57,7 +57,7 @@ export function MoneyFlow({ cardPrice, giftAmount }: { cardPrice: string; giftAm
             </div>
           </li>
           <li className={`${s.arrow} ${s.arrowGift}`}>
-            <span className={s.arrowLabel}>Geschenkbetrag, z. B. {giftAmount}, per Überweisung</span>
+            <span className={s.arrowLabel}>Geschenkbetrag, z.&nbsp;B. {giftAmount}, per Überweisung</span>
             <span className={s.arrowLine} aria-hidden="true" />
           </li>
           <li className={s.node}>
