@@ -33,7 +33,7 @@ export interface AmountPickerProps {
   className?: string;
 }
 
-/** Betragswahl: Chips 50/100/250/500 € plus „Eigener“ Betrag (10 bis 5.000 €) mit Fehlermeldung. */
+/** Betragswahl: Chips 50/100/250/500 € plus „Wunschbetrag“ (10 bis 5.000 €) mit Fehlermeldung. */
 export function AmountPicker({
   value,
   onChange,
@@ -76,7 +76,7 @@ export function AmountPicker({
   return (
     <fieldset className={["fs", className].filter(Boolean).join(" ")}>
       <legend>{legend}</legend>
-      <div className="chips">
+      <div className="chips chips--amt">
         {presets.map((p) => (
           <label className="chip" key={p}>
             <input
@@ -93,7 +93,7 @@ export function AmountPicker({
             <span>{eur(p)}</span>
           </label>
         ))}
-        <label className="chip">
+        <label className="chip chip--custom">
           <input
             type="radio"
             name={`${id}-choice`}
@@ -107,12 +107,12 @@ export function AmountPicker({
               requestAnimationFrame(() => input.current?.focus());
             }}
           />
-          <span>Eigener</span>
+          <span>Wunschbetrag</span>
         </label>
       </div>
       <div className="custom" hidden={!custom}>
         <label className="sr" htmlFor={`${id}-custom`}>
-          Eigener Betrag in Euro
+          Wunschbetrag in Euro
         </label>
         <input
           ref={input}

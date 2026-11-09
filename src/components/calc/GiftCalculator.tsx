@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useId, useMemo, useState } from "react";
+import { useId, useMemo, useState, type CSSProperties } from "react";
 import { DEFAULT_RATE, giftModel } from "@/lib/calc";
 import { AmountPicker } from "../AmountPicker";
 import { Icon } from "../Icon";
@@ -16,11 +16,15 @@ export interface GiftCalculatorProps {
   designHref?: string;
 }
 
+/** Vorschläge unter dem Rendite-Regler. */
 const RATES = [
   { v: 0.03, label: "3 %" },
   { v: 0.05, label: "5 %" },
   { v: DEFAULT_RATE, label: "6,7 %" },
 ];
+const RATE_MIN = 1;
+const RATE_MAX = 10;
+const pct = (r: number) => `${(r * 100).toLocaleString("de-AT", { maximumFractionDigits: 1 })}\u00a0%`;
 
 /** Geschenk-Rechner: Was wird aus einem Geschenk bis zum 18. Geburtstag? (Modell, keine Garantie) */
 export function GiftCalculator({ id = "g", defaultAmount = 100, designHref = "/karten/sterne" }: GiftCalculatorProps) {
@@ -78,21 +82,37 @@ export function GiftCalculator({ id = "g", defaultAmount = 100, designHref = "/k
               </label>
             </div>
           </fieldset>
-          <fieldset className="fs">
-            <legend>Angenommene Rendite pro Jahr</legend>
-            <div className="seg">
+          <div className="fs">
+            <div className="rowlab">
+              <label className="lab" htmlFor={`${id}-rate`}>
+                Angenommene Rendite
+              </label>
+              <output htmlFor={`${id}-rate`}>{pct(rate)}</output>
+            </div>
+            <input
+              className="range"
+              type="range"
+              id={`${id}-rate`}
+              min={RATE_MIN}
+              max={RATE_MAX}
+              step={0.1}
+              value={Math.round(rate * 1000) / 10}
+              aria-valuetext={pct(rate)}
+              style={{ "--p": `${((rate * 100 - RATE_MIN) / (RATE_MAX - RATE_MIN)) * 100}%` } as CSSProperties}
+              onChange={(e) => setRate(Math.round(Number(e.target.value) * 10) / 1000)}
+            />
+            <div className="rate-sugg" role="group" aria-label="Vorschläge für die Rendite">
               {RATES.map((r) => (
-                <label key={r.v}>
-                  <input type="radio" name={`${id}-rate`} checked={rate === r.v} onChange={() => setRate(r.v)} />
-                  <span>{r.label}</span>
-                </label>
+                <button key={r.v} type="button" aria-pressed={Math.abs(rate - r.v) < 0.0001} onClick={() => setRate(r.v)}>
+                  {r.label}
+                </button>
               ))}
             </div>
             <p className="hint">
               6,7 % ist dieselbe Modellannahme wie im Depot-Rechner. Niemand kann die Rendite vorhersagen. Rechne ruhig
               auch vorsichtig.
             </p>
-          </fieldset>
+          </div>
           <p className="calc-peek" aria-hidden="true">
             <span>Mit 18 rund</span>
             <b>{eur(value)}</b>
