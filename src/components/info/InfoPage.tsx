@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Icon } from "@/components/Icon";
+import { TocMobile } from "./TocMobile";
 import s from "./info.module.css";
 
 export interface TagProps {
@@ -67,21 +68,7 @@ function Toc({ items }: { items: TocItem[] }) {
           ))}
         </ol>
       </nav>
-      <details className={s.tocMobile}>
-        <summary>
-          Auf dieser Seite ({items.length} Abschnitte)
-          <Icon name="down" />
-        </summary>
-        <nav aria-label="Auf dieser Seite">
-          <ol>
-            {items.map((it) => (
-              <li key={it.id}>
-                <a href={`#${it.id}`}>{it.label}</a>
-              </li>
-            ))}
-          </ol>
-        </nav>
-      </details>
+      <TocMobile items={items} />
     </>
   );
 }
@@ -103,7 +90,7 @@ export function InfoBody({
       {before ? <div className="wrap">{before}</div> : null}
       <div className={`wrap ${toc ? s.layout : `${s.layout} ${s.layoutWide}`}`}>
         {toc ? (
-          <div>
+          <div className={s.tocWrap}>
             <Toc items={toc} />
           </div>
         ) : null}
