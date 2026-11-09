@@ -63,15 +63,15 @@
 .section + .section{margin-top:56px;padding-top:44px;border-top:1px solid var(--linie)}
 .section h2{font-size:clamp(1.9rem,1.3rem + 1.8vw,2.7rem);line-height:1.08;margin-bottom:16px}
 .section h3{font-size:clamp(22px,1vw + 15px,26px);line-height:1.2;margin:30px 0 10px}
-.section p{max-width:68ch}
+.section p{max-width:34em}
 .section p + p{margin-top:14px}
 .section p + ul,.section ul + p,.section p + ol,.section ol + p,.section p + .note,.section .note + p,.section ul + .note{margin-top:16px}
-.list{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:10px;max-width:68ch}
+.list{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:10px;max-width:34em}
 .list li{position:relative;padding-left:30px}
 .list li::before{content:"";position:absolute;left:4px;top:.55em;width:12px;height:12px;border-radius:50%;background:var(--gelb);box-shadow:0 0 0 2px var(--tinte)}
-.olist{margin:14px 0 0;padding-left:1.4em;display:grid;gap:10px;max-width:68ch}
+.olist{margin:14px 0 0;padding-left:1.4em;display:grid;gap:10px;max-width:34em}
 .olist li::marker{font-weight:800;color:var(--pink-d)}
-.note{background:var(--gelb-ll);border:1px solid #f1e2b8;border-radius:14px;padding:16px 20px;max-width:68ch;display:flex;gap:14px;align-items:flex-start}
+.note{background:var(--gelb-ll);border:1px solid #f1e2b8;border-radius:14px;padding:16px 20px;max-width:38em;display:flex;gap:14px;align-items:flex-start}
 .note svg{width:26px;height:26px;flex:none;color:var(--pink-d);margin-top:2px}
 .note p{margin:0}
 .noteRosa{background:var(--rosa);border-color:var(--linie)}
@@ -81,10 +81,10 @@
 .ctaBox p{max-width:56ch}
 .ctaBtns{display:flex;flex-wrap:wrap;gap:12px}
 @media (max-width:760px){.ctaBox{grid-template-columns:minmax(0,1fr)}}
-.stand{font-size:17px;line-height:1.5;color:var(--tinte-2);margin-top:28px;max-width:72ch}
+.stand{font-size:17px;line-height:1.5;color:var(--tinte-2);margin-top:28px;max-width:36em}
 
 /* Quellen */
-.sources{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:4px;max-width:72ch}
+.sources{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:4px;max-width:36em}
 .sources li{padding:12px 0;border-bottom:1px solid var(--linie)}
 .sources a{font-weight:700;overflow-wrap:anywhere}
 .sources span{display:block;font-size:17px;color:var(--tinte-2);margin-top:2px}
@@ -153,7 +153,7 @@
 .stepWho{display:inline-block;font-size:15.5px;font-weight:800;letter-spacing:.02em;padding:3px 12px;border-radius:999px;background:var(--gelb-l);color:var(--tinte);margin-bottom:6px}
 .stepParent .stepWho{background:var(--rosa-2)}
 .step h3{margin:0 0 8px;font-size:clamp(23px,1vw + 16px,28px)}
-.step p{max-width:64ch}
+.step p{max-width:34em}
 .step .list{margin-top:10px}
 @media (max-width:600px){
   .steps::before{left:24px}
