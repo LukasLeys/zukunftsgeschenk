@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useId, useMemo, useState, type CSSProperties } from "react";
+import { useEffect, useId, useMemo, useState, type CSSProperties } from "react";
 import { DEFAULT_RATE, giftModel } from "@/lib/calc";
 import { AmountPicker } from "../AmountPicker";
 import { Icon } from "../Icon";
@@ -184,6 +184,32 @@ export function GiftCalculator({ id = "g", defaultAmount = 100, designHref = "/k
 function GiftChart({ perYear, value }: { perYear: { year: number; given: number; value: number }[]; value: number }) {
   const [ref, W0] = useWidth<HTMLDivElement>();
   const pid = useId().replace(/[^a-zA-Z0-9_-]/g, "");
+  // Bewegung: Säulen wachsen beim ersten Erscheinen, danach wandert das Geschenkpapier langsam nach oben.
+  // Ohne JavaScript oder mit „Bewegung reduzieren“ steht das Diagramm sofort fertig da.
+  const [phase, setPhase] = useState<"still" | "wait" | "grow">("still");
+  const [drift, setDrift] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    setDrift(true);
+    setPhase("wait");
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0]?.isIntersecting) return;
+        io.disconnect();
+        setPhase("grow");
+        timer = setTimeout(() => setPhase("still"), 1400);
+      },
+      { threshold: 0.35 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      if (timer) clearTimeout(timer);
+    };
+  }, [ref]);
   const s = perYear.slice(1);
   const W = Math.max(260, W0);
   const H = 220, ml = 56, mr = 8, mt = 26, mb = 30;
@@ -205,12 +231,15 @@ function GiftChart({ perYear, value }: { perYear: { year: number; given: number;
 
   return (
     <div ref={ref} role="img" aria-label={`Säulendiagramm: Wert des Geschenks am Ende jedes Jahres, maßstabsgetreu. Zum 18. Geburtstag rund ${eur(value)}.`}>
-      <svg className="chart" viewBox={`0 0 ${W} ${H}`} width={W} height={H} aria-hidden="true">
+      <svg className={`chart chart--${phase}`} viewBox={`0 0 ${W} ${H}`} width={W} height={H} aria-hidden="true">
         <defs>
           <pattern id={`wp${pid}`} width="16" height="16" patternUnits="userSpaceOnUse">
             <rect width="16" height="16" fill="#d81b6a" />
             <circle cx="4" cy="4" r="1.5" fill="#ffd23f" />
             <circle cx="12" cy="12" r="1.1" fill="#ffd23f" />
+            {drift ? (
+              <animateTransform attributeName="patternTransform" type="translate" from="0 0" to="0 -16" dur="2.4s" repeatCount="indefinite" />
+            ) : null}
           </pattern>
         </defs>
         {ticks(max, step).map((v) => (
@@ -226,13 +255,13 @@ function GiftChart({ perYear, value }: { perYear: { year: number; given: number;
           const yp = y(Math.min(d.given, d.value));
           const yv = y(d.value);
           return (
-            <g key={d.year}>
+            <g key={d.year} className="bar" style={{ "--i": i } as CSSProperties}>
               <rect x={x.toFixed(1)} y={yp.toFixed(1)} width={bw.toFixed(1)} height={(mt + ph - yp).toFixed(1)} fill="#2a1f2d" />
               <rect x={x.toFixed(1)} y={yv.toFixed(1)} width={bw.toFixed(1)} height={Math.max(0, yp - yv).toFixed(1)} fill={`url(#wp${pid})`} />
             </g>
           );
         })}
-        <text x={Math.min(lx, W - mr)} y={y(last.value) - 8} textAnchor="end" style={{ fontWeight: 800, fill: "#2a1f2d" }}>
+        <text className="val" x={Math.min(lx, W - mr)} y={y(last.value) - 8} textAnchor="end" style={{ fontWeight: 800, fill: "#2a1f2d" }}>
           ≈ {eur(value)}
         </text>
         <text x={ml + band / 2} y={H - 8} textAnchor="start">

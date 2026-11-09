@@ -348,6 +348,15 @@ select.field{appearance:none;-webkit-appearance:none;padding-right:48px;backgrou
 .chart-wrap{margin-top:18px}
 .chart-title{font-weight:800;font-size:19px;margin-bottom:6px;font-family:var(--display)}
 .chart{width:100%;display:block;overflow:visible}
+/* Säulen wachsen beim ersten Erscheinen von unten, nacheinander */
+.chart .bar{transform-box:fill-box;transform-origin:50% 100%}
+.chart--wait .bar{transform:scaleY(0)}
+.chart--grow .bar{animation:barGrow .5s cubic-bezier(.2,.7,.3,1) both;animation-delay:calc(var(--i,0) * 28ms)}
+@keyframes barGrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.chart--wait .val{opacity:0}
+.chart--grow .val{animation:valIn .35s ease-out .75s both}
+@keyframes valIn{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.chart--wait .bar{transform:none}.chart--grow .bar,.chart--grow .val{animation:none}.chart--wait .val{opacity:1}}
 .chart text{font-family:var(--sans);font-size:14px;fill:var(--tinte-2);font-variant-numeric:tabular-nums}
 .legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:var(--fs-small);margin-top:6px}
 .legend i{display:inline-block;width:16px;height:16px;border-radius:4px;margin-right:8px;vertical-align:-2px}
