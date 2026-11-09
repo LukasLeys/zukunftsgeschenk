@@ -121,7 +121,8 @@
 }
 /* Anhänger mit Live-Betrag in der Vorschau: hängt vom oberen Rand der Bühne, neben der Karte */
 .pvStage > .pvTag{top:26px;left:12px;--tw:132px;--th:200px;--tr:-7deg}
-.pvTag :global(.hangtag-top){font-size:17px;letter-spacing:.02em}
+/* Name darf umbrechen, damit „Dein Geschenk“ und lange Namen ganz zu lesen sind */
+.pvTag :global(.hangtag-top){font-size:14px;letter-spacing:.04em;line-height:1.15;white-space:normal;text-overflow:clip;overflow-wrap:anywhere}
 .pvTag :global(.hangtag-thread){background:rgba(91,74,92,.55)}
 .pvTag :global(.hangtag-big){font-size:31px}
 .pvTag :global(.hangtag-big.long){font-size:22px}
