@@ -17,7 +17,8 @@ export function OccasionChips({ value, onChange, legend = "Anlass" }: { value: O
     <fieldset className="fs">
       <legend>{legend}</legend>
       <div className="chips">
-        {OCCASIONS.map((o) => (
+        {/* „Aktien & Geld“ ist eine Motivgruppe im Shop, kein Anlass. Bestehende Seiten behalten den Wert. */}
+        {OCCASIONS.filter((o) => o.id !== "zukunft" || value === "zukunft").map((o) => (
           <label className="chip" key={o.id}>
             <input type="radio" name="occasion" value={o.id} checked={value === o.id} onChange={() => onChange(o.id)} />
             <span>{o.label}</span>
