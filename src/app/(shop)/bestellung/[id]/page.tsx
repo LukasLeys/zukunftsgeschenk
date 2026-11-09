@@ -244,9 +244,20 @@ export default async function OrderPage({
                     </div>
                     {paid ? (
                       <div className={s.ocActions}>
-                        <a className="btn btn--sm" href={`/api/karten/${c.code}/pdf`}>
-                          Karte als PDF <Icon name="arrow" />
-                        </a>
+                        {c.payToken && (c.status === "redeemed" || qrOnCard(c)) ? (
+                          <>
+                            <Link className="btn btn--sm" href={`/ueberweisen/${c.payToken}`}>
+                              Jetzt {eur(c.amountCents / 100)} überweisen <Icon name="arrow" />
+                            </Link>
+                            <a className="sec-link" href={`/api/karten/${c.code}/pdf`}>
+                              Karte als PDF <Icon name="arrow" />
+                            </a>
+                          </>
+                        ) : (
+                          <a className="btn btn--sm" href={`/api/karten/${c.code}/pdf`}>
+                            Karte als PDF <Icon name="arrow" />
+                          </a>
+                        )}
                         {c.format === "mail" ? (
                           <Link className="sec-link" href={`/karte/${c.code}`}>
                             So sieht die Karte für die Empfänger aus <Icon name="arrow" />
