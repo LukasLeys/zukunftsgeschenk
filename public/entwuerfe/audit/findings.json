@@ -1,0 +1,472 @@
+[
+ {
+  "gruppe": "Shop und Kasse",
+  "id": "zustellart-format",
+  "titel": "Zustellart nennt das falsche Kartenformat",
+  "seite": "/karten/[motiv]",
+  "ansicht": "beide",
+  "schwere": "P1",
+  "problem": "Beim Börsenstier steht in der Vorschau „Quadrat“, die Druckoption darunter verspricht aber eine „Klappkarte A6 mit Kuvert“. So weiß niemand, welche Karte mit der Post kommt.",
+  "vorschlag": "Die Druckoption nennt das Format des gewählten Motivs, zum Beispiel „Quadrat mit Kuvert, per Post in Österreich“.",
+  "bilder": [
+   {
+    "ansicht": "Desktop",
+    "vorher": "bilder/zustellart-format-0-vorher.webp",
+    "nachher": "bilder/zustellart-format-0-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Shop und Kasse",
+  "id": "ueberweisen-knopf",
+  "titel": "Überweisen ist nur ein kleiner Textlink",
+  "seite": "/bestellung",
+  "ansicht": "Desktop und Handy",
+  "schwere": "P1",
+  "problem": "Sobald die Eltern eine Karte eingelöst haben, bleibt für den Käufer nur noch ein Schritt: das Geld überweisen. Dafür gibt es aber nur einen kleinen Link im Text, der große Knopf heißt weiter „Karte als PDF“.",
+  "vorschlag": "Bei eingelösten Karten wird „Jetzt 250 € überweisen“ zum pinken Hauptknopf. „Karte als PDF“ wird ein ruhiger Textlink daneben.",
+  "bilder": [
+   {
+    "ansicht": "Desktop",
+    "vorher": "bilder/ueberweisen-knopf-0-vorher.webp",
+    "nachher": "bilder/ueberweisen-knopf-0-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Shop und Kasse",
+  "id": "warenkorb-vorschau",
+  "titel": "Warenkorb zeigt leere Kartenbilder",
+  "seite": "Warenkorb",
+  "ansicht": "beide",
+  "schwere": "P2",
+  "problem": "Im Warenkorb sieht man nur einen farbigen Rahmen mit weißer Fläche. Ohne Motiv, Betrag und Namen sehen zwei Karten fast gleich aus, und die Kasse zeigt dann plötzlich echte Karten.",
+  "vorschlag": "Der Warenkorb zeigt dieselbe kleine Kartenvorschau wie die Kasse, mit Motiv, Betrag und Namen.",
+  "bilder": [
+   {
+    "ansicht": "Desktop",
+    "vorher": "bilder/warenkorb-vorschau-0-vorher.webp",
+    "nachher": "bilder/warenkorb-vorschau-0-nachher.webp"
+   },
+   {
+    "ansicht": "Handy",
+    "vorher": "bilder/warenkorb-vorschau-1-vorher.webp",
+    "nachher": "bilder/warenkorb-vorschau-1-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Shop und Kasse",
+  "id": "gold-kontrast",
+  "titel": "Gold-Hinweis zur Weihnachtsaktion schwer lesbar",
+  "seite": "/karten/[motiv]",
+  "ansicht": "Desktop",
+  "schwere": "P2",
+  "problem": "Der goldene Satz „Weihnachtsaktion: Goldkuvert gratis“ hat auf Weiß zu wenig Kontrast (4:1). Für ältere Augen ist das schwer lesbar und liegt unter dem Barrierefreiheits-Standard.",
+  "vorschlag": "Ein dunkleres Gold nur für Text. Der Kontrast steigt auf 6:1, der goldene Eindruck bleibt.",
+  "bilder": [
+   {
+    "ansicht": "Desktop",
+    "vorher": "bilder/gold-kontrast-0-vorher.webp",
+    "nachher": "bilder/gold-kontrast-0-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Shop und Kasse",
+  "id": "anhaenger-text",
+  "titel": "Anhänger in der Vorschau schneidet den Namen ab",
+  "seite": "/karten/[motiv]",
+  "ansicht": "Desktop",
+  "schwere": "P2",
+  "problem": "Der gelbe Anhänger an der Kartenvorschau zeigt „FÜR MAXI…“. Das ist die auffälligste Stelle der Produktseite, und ein abgeschnittenes Wort wirkt wie ein Fehler.",
+  "vorschlag": "Die Schrift im Anhänger wird etwas kleiner und darf umbrechen. So passen „Dein Geschenk“ und übliche Namen vollständig hinein.",
+  "bilder": [
+   {
+    "ansicht": "Desktop",
+    "vorher": "bilder/anhaenger-text-0-vorher.webp",
+    "nachher": "bilder/anhaenger-text-0-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Shop und Kasse",
+  "id": "kacheltitel-handy",
+  "titel": "Lange Kartennamen laufen am Handy aus der Kachel",
+  "seite": "/karten",
+  "ansicht": "Handy",
+  "schwere": "P2",
+  "problem": "In der zweispaltigen Ansicht am Handy passen lange Namen nicht. Sie werden am Rand abgeschnitten, etwa „Christbaumkuge“ oder „Geburtstagskron“.",
+  "vorschlag": "Lange Namen werden sauber getrennt, etwa „Christ-baumkugel“, und die Schrift ist am Handy etwas kleiner.",
+  "bilder": [
+   {
+    "ansicht": "Handy",
+    "vorher": "bilder/kacheltitel-handy-0-vorher.webp",
+    "nachher": "bilder/kacheltitel-handy-0-nachher.webp"
+   },
+   {
+    "ansicht": "Handy",
+    "vorher": "bilder/kacheltitel-handy-1-vorher.webp",
+    "nachher": "bilder/kacheltitel-handy-1-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Shop und Kasse",
+  "id": "eigener-betrag",
+  "titel": "„Eigener“ rutscht allein in die zweite Zeile",
+  "seite": "/karten/[motiv] und Rechner",
+  "ansicht": "Desktop",
+  "schwere": "P2",
+  "problem": "Bei den Beträgen steht „Eigener“ allein unter den vier Beträgen. Die Reihe wirkt kaputt, obwohl nur ein einziger Pixel fehlt.",
+  "vorschlag": "Die Betragsknöpfe werden ein wenig schmäler, wie oben auf der Startseite. Dann passen alle fünf in eine Zeile.",
+  "bilder": [
+   {
+    "ansicht": "Desktop",
+    "vorher": "bilder/eigener-betrag-0-vorher.webp",
+    "nachher": "bilder/eigener-betrag-0-nachher.webp"
+   },
+   {
+    "ansicht": "Desktop",
+    "vorher": "bilder/eigener-betrag-1-vorher.webp",
+    "nachher": "bilder/eigener-betrag-1-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Shop und Kasse",
+  "id": "kasse-abstaende",
+  "titel": "Kasse: Beschriftungen kleben am Feld darüber",
+  "seite": "/kasse",
+  "ansicht": "beide",
+  "schwere": "P2",
+  "problem": "In der Lieferadresse ist der Abstand zum nächsten Feld genauso klein wie zum eigenen Feld. „Straße und Hausnummer“ gehört scheinbar ebenso zum Namensfeld darüber.",
+  "vorschlag": "Mehr Luft zwischen den Feldgruppen, damit jede Beschriftung klar bei ihrem Feld steht.",
+  "bilder": [
+   {
+    "ansicht": "Desktop",
+    "vorher": "bilder/kasse-abstaende-0-vorher.webp",
+    "nachher": "bilder/kasse-abstaende-0-nachher.webp"
+   },
+   {
+    "ansicht": "Handy",
+    "vorher": "bilder/kasse-abstaende-1-vorher.webp",
+    "nachher": "bilder/kasse-abstaende-1-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Shop und Kasse",
+  "id": "handy-kaufleiste",
+  "titel": "Am Handy ist „In den Warenkorb“ drei Bildschirme entfernt",
+  "seite": "/karten/[motiv]",
+  "ansicht": "Handy",
+  "schwere": "P2",
+  "problem": "Am Handy kommen Preis und „In den Warenkorb“ erst nach dem ganzen Formular. Beim Ausfüllen sieht man weder den Preis noch den Knopf.",
+  "vorschlag": "Unten am Bildschirm läuft eine schmale Leiste mit Preis und „In den Warenkorb“ mit. Sie verschwindet, sobald die normale Preisbox sichtbar ist.",
+  "bilder": [
+   {
+    "ansicht": "Handy",
+    "vorher": "bilder/handy-kaufleiste-0-vorher.webp",
+    "nachher": "bilder/handy-kaufleiste-0-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Für Eltern und Rechner",
+  "id": "fuer-handy-qr",
+  "titel": "Wunschseite am Handy: Der QR-Code allein hilft nicht",
+  "seite": "/fuer/[name]",
+  "ansicht": "Handy",
+  "schwere": "P1",
+  "problem": "Den Link zur Wunschseite bekommen Oma und Opa meist per Nachricht aufs Handy. Der Weg „Direkt überweisen“ besteht dort nur aus einem QR-Code, den man mit demselben Handy nicht scannen kann.",
+  "vorschlag": "Unter dem Code steht am Handy ein kurzer Hinweis, dazu „Link kopieren“ zum Öffnen am Computer und „QR-Code als Bild speichern“. Die IBAN bleibt weiter verborgen.",
+  "bilder": [
+   {
+    "ansicht": "Handy",
+    "vorher": "bilder/fuer-handy-qr-0-vorher.webp",
+    "nachher": "bilder/fuer-handy-qr-0-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Für Eltern und Rechner",
+  "id": "rechner-ergebnis-handy",
+  "titel": "Rechner am Handy: Ergebnis beim Einstellen nicht sichtbar",
+  "seite": "/rechner",
+  "ansicht": "Handy",
+  "schwere": "P2",
+  "problem": "Am Handy stehen alle Eingaben über dem Ergebnis. Wer einen Betrag antippt, sieht nicht, was sich ändert, denn das Ergebnis steht weit darunter.",
+  "vorschlag": "Unten läuft eine kleine Ergebnisleiste mit, zum Beispiel „Mit 18 rund 301 €“. Sie hält am Ende der Eingaben an.",
+  "bilder": [
+   {
+    "ansicht": "Handy",
+    "vorher": "bilder/rechner-ergebnis-handy-0-vorher.webp",
+    "nachher": "bilder/rechner-ergebnis-handy-0-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Für Eltern und Rechner",
+  "id": "rechner-tabelle",
+  "titel": "Beispieltabelle am Handy rechts abgeschnitten",
+  "seite": "/rechner",
+  "ansicht": "Handy",
+  "schwere": "P2",
+  "problem": "In der Beispieltabelle fehlt am Handy die rechte Kante. Man liest „Jedes Ja“ und „eingezahlt 900“ ohne Eurozeichen, und nichts zeigt, dass man wischen kann.",
+  "vorschlag": "Der graue Zusatz „eingezahlt …“ darf umbrechen. Dann passt die ganze Tabelle in die Breite, ohne zu wischen.",
+  "bilder": [
+   {
+    "ansicht": "Handy",
+    "vorher": "bilder/rechner-tabelle-0-vorher.webp",
+    "nachher": "bilder/rechner-tabelle-0-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Für Eltern und Rechner",
+  "id": "ueberweisen-handy",
+  "titel": "Überweisungsseite am Handy: Angaben erst nach dem QR-Code",
+  "seite": "/ueberweisen",
+  "ansicht": "Handy",
+  "schwere": "P2",
+  "problem": "Am Handy füllt zuerst ein großer QR-Code den Bildschirm, den man dort nicht scannen kann. Die Angaben zum Abtippen kommen erst viel weiter unten.",
+  "vorschlag": "Am Handy stehen die Überweisungsangaben mit den Kopieren-Knöpfen gleich unter der Einleitung, der QR-Code danach. Am Desktop bleibt alles wie bisher.",
+  "bilder": [
+   {
+    "ansicht": "Handy",
+    "vorher": "bilder/ueberweisen-handy-0-vorher.webp",
+    "nachher": "bilder/ueberweisen-handy-0-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Für Eltern und Rechner",
+  "id": "rechner-begriff",
+  "titel": "Rechner sagt „Gutschein“, der Shop sagt „Karte“",
+  "seite": "/rechner und Startseite",
+  "ansicht": "beide",
+  "schwere": "P2",
+  "problem": "Überall im Shop heißt das Produkt Karte, der Rechner spricht von Gutschein. Ein Gutschein klingt nach Guthaben, das bei uns liegt, und genau das stimmt hier nicht.",
+  "vorschlag": "Im Rechner heißt es „Geschenk“ für den Betrag und „Karte“ für das Produkt, etwa „Was wird aus deinem Geschenk bis 18?“ und „Karte gestalten“. Wenn ihr lieber „Gutschein“ wollt, lehnt einfach ab.",
+  "bilder": [
+   {
+    "ansicht": "Desktop",
+    "vorher": "bilder/rechner-begriff-0-vorher.webp",
+    "nachher": "bilder/rechner-begriff-0-nachher.webp"
+   },
+   {
+    "ansicht": "Desktop",
+    "vorher": "bilder/rechner-begriff-1-vorher.webp",
+    "nachher": "bilder/rechner-begriff-1-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Für Eltern und Rechner",
+  "id": "einloesen-icon",
+  "titel": "Unendlich-Zeichen neben „wir löschen nach 90 Tagen“",
+  "seite": "/einloesen",
+  "ansicht": "beide",
+  "schwere": "P3",
+  "problem": "Neben dem Satz „90 Tage nach dem Einlösen löschen wir die IBAN“ steht ein Unendlich-Zeichen. Das Bild sagt „für immer“, der Text sagt „wird gelöscht“.",
+  "vorschlag": "Ein Uhrsymbol, das zur Löschfrist passt.",
+  "bilder": [
+   {
+    "ansicht": "Desktop",
+    "vorher": "bilder/einloesen-icon-0-vorher.webp",
+    "nachher": "bilder/einloesen-icon-0-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Für Eltern und Rechner",
+  "id": "einloesen-schritt1",
+  "titel": "Einlösen: Beispiel steht getrennt vom Feld",
+  "seite": "/einloesen",
+  "ansicht": "beide",
+  "schwere": "P3",
+  "problem": "Am Handy steht das Beispiel „ZG-7K4P-29XM“ erst unter dem Knopf, getrennt vom Eingabefeld. Am Desktop nutzt der Inhalt nur die linke Hälfte des breiten Blatts.",
+  "vorschlag": "Das Beispiel steht direkt unter der Beschriftung, über dem Feld. Das Blatt ist so schmal wie im nächsten Schritt.",
+  "bilder": [
+   {
+    "ansicht": "Desktop",
+    "vorher": "bilder/einloesen-schritt1-0-vorher.webp",
+    "nachher": "bilder/einloesen-schritt1-0-nachher.webp"
+   },
+   {
+    "ansicht": "Handy",
+    "vorher": "bilder/einloesen-schritt1-1-vorher.webp",
+    "nachher": "bilder/einloesen-schritt1-1-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Für Eltern und Rechner",
+  "id": "wunschseite-anlass",
+  "titel": "„Aktien & Geld“ ist kein Anlass",
+  "seite": "/wunschseite",
+  "ansicht": "Handy",
+  "schwere": "P3",
+  "problem": "Bei „Anlass“ steht neben Weihnachten und Taufe auch „Aktien & Geld“. Das ist eine Motivgruppe im Shop. Wählen Eltern es, steht es auf dem Anhänger ihrer Wunschseite und klingt nach Anlageberatung.",
+  "vorschlag": "„Aktien & Geld“ wird auf der Wunschseite nicht mehr als Anlass angeboten. Im Kartenshop bleibt es als Motivgruppe.",
+  "bilder": [
+   {
+    "ansicht": "Handy",
+    "vorher": "bilder/wunschseite-anlass-0-vorher.webp",
+    "nachher": "bilder/wunschseite-anlass-0-nachher.webp"
+   },
+   {
+    "ansicht": "Handy",
+    "vorher": "bilder/wunschseite-anlass-1-vorher.webp",
+    "nachher": "bilder/wunschseite-anlass-1-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Info und Rechtliches",
+  "id": "toc-sticky",
+  "titel": "Inhaltsverzeichnis bleibt beim Scrollen nicht stehen",
+  "seite": "/zukunftsdepot, /agb und weitere",
+  "ansicht": "Desktop",
+  "schwere": "P1",
+  "problem": "Das Inhaltsverzeichnis links soll beim Lesen mitlaufen. Es verschwindet aber nach dem ersten Bildschirm. Auf langen Seiten bleibt links nur eine leere Spalte.",
+  "vorschlag": "Das Verzeichnis bleibt beim Scrollen unter der Kopfzeile stehen. Bei langen Verzeichnissen scrollt es in sich.",
+  "bilder": [
+   {
+    "ansicht": "Desktop",
+    "vorher": "bilder/toc-sticky-0-vorher.webp",
+    "nachher": "bilder/toc-sticky-0-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Info und Rechtliches",
+  "id": "hero-lead",
+  "titel": "Einleitung klebt an der Hauptüberschrift",
+  "seite": "alle Info- und Rechtsseiten",
+  "ansicht": "beide",
+  "schwere": "P2",
+  "problem": "Im Kopf aller Info- und Rechtsseiten beginnt der Einleitungstext ohne Abstand direkt unter der großen Überschrift. Beides wirkt wie ein gedrängter Block.",
+  "vorschlag": "Ein klarer Abstand zwischen Überschrift und Einleitung, so wie er im Design vorgesehen ist.",
+  "bilder": [
+   {
+    "ansicht": "Desktop",
+    "vorher": "bilder/hero-lead-0-vorher.webp",
+    "nachher": "bilder/hero-lead-0-nachher.webp"
+   },
+   {
+    "ansicht": "Handy",
+    "vorher": "bilder/hero-lead-1-vorher.webp",
+    "nachher": "bilder/hero-lead-1-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Info und Rechtliches",
+  "id": "zeilenlaenge",
+  "titel": "Zu lange Textzeilen auf den Lese-Seiten",
+  "seite": "alle Info- und Rechtsseiten, FAQ",
+  "ansicht": "Desktop",
+  "schwere": "P2",
+  "problem": "Am Desktop laufen Textzeilen über rund 95 Zeichen. Das Auge verliert beim Zeilenwechsel leicht die Stelle, gerade bei langen Rechtstexten und für ältere Leser.",
+  "vorschlag": "Absätze und Listen werden auf etwa 75 Zeichen pro Zeile begrenzt. Tabellen und Grafiken bleiben breit.",
+  "bilder": [
+   {
+    "ansicht": "Desktop",
+    "vorher": "bilder/zeilenlaenge-0-vorher.webp",
+    "nachher": "bilder/zeilenlaenge-0-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Info und Rechtliches",
+  "id": "geldfluss",
+  "titel": "Geldfluss-Grafik: Beschriftungen ragen in die Kästen",
+  "seite": "/so-funktionierts",
+  "ansicht": "Desktop",
+  "schwere": "P2",
+  "problem": "In der wichtigsten Erklärgrafik stoßen die Pfeil-Beschriftungen an die Kästen, und „Zukunftsge-schenk“ wird getrennt. Die Grafik wirkt gequetscht.",
+  "vorschlag": "Die Pfeilspalten bekommen mehr Platz. Der mittlere Kasten heißt „Wir“, weil der Markenname auch mit mehr Platz nicht ohne Trennung passt.",
+  "bilder": [
+   {
+    "ansicht": "Desktop",
+    "vorher": "bilder/geldfluss-0-vorher.webp",
+    "nachher": "bilder/geldfluss-0-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Info und Rechtliches",
+  "id": "faq-chips-handy",
+  "titel": "FAQ am Handy: Themenfilter verdrängen die Fragen",
+  "seite": "/faq",
+  "ansicht": "Handy",
+  "schwere": "P2",
+  "problem": "Am Handy belegen die sechs Themenknöpfe vier Zeilen. Die erste Frage beginnt erst unter dem ersten Bildschirm.",
+  "vorschlag": "Die Themenknöpfe stehen in einer Zeile, die man seitlich wischen kann. So rückt die erste Frage nach oben.",
+  "bilder": [
+   {
+    "ansicht": "Handy",
+    "vorher": "bilder/faq-chips-handy-0-vorher.webp",
+    "nachher": "bilder/faq-chips-handy-0-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Info und Rechtliches",
+  "id": "inhalt-handy",
+  "titel": "Lange Rechtsseiten am Handy ohne Rückweg zum Inhalt",
+  "seite": "/agb, /datenschutz und weitere",
+  "ansicht": "Handy",
+  "schwere": "P3",
+  "problem": "AGB und Datenschutz sind am Handy über 10.000 Pixel lang. Das Inhaltsverzeichnis gibt es nur ganz oben. Wer einen anderen Paragraphen sucht, muss weit zurück.",
+  "vorschlag": "Die zugeklappte Leiste „Auf dieser Seite“ bleibt am Handy unter der Kopfzeile stehen. Antippen öffnet die Liste, nach dem Sprung klappt sie wieder zu.",
+  "bilder": [
+   {
+    "ansicht": "Handy",
+    "vorher": "bilder/inhalt-handy-0-vorher.webp",
+    "nachher": "bilder/inhalt-handy-0-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Info und Rechtliches",
+  "id": "footer",
+  "titel": "Fußzeile: Links ungeordnet, FAQ fehlt",
+  "seite": "alle Seiten",
+  "ansicht": "beide",
+  "schwere": "P3",
+  "problem": "Rechtliche Links und Service-Links laufen in einer Reihe durcheinander. FAQ und „So funktioniert's“ fehlen, obwohl man genau danach in der Fußzeile sucht.",
+  "vorschlag": "Zwei kleine Gruppen: „Hilfe“ und „Rechtliches“, je als Liste. Das Kleingedruckte darunter wird schmäler gesetzt, der Hinweistext bleibt unverändert.",
+  "bilder": [
+   {
+    "ansicht": "Desktop",
+    "vorher": "bilder/footer-0-vorher.webp",
+    "nachher": "bilder/footer-0-nachher.webp"
+   },
+   {
+    "ansicht": "Handy",
+    "vorher": "bilder/footer-1-vorher.webp",
+    "nachher": "bilder/footer-1-nachher.webp"
+   }
+  ]
+ },
+ {
+  "gruppe": "Info und Rechtliches",
+  "id": "doppelte-linie",
+  "titel": "Doppelte Trennlinien nach Tabellen",
+  "seite": "/impressum, /datenschutz, /zukunftsdepot",
+  "ansicht": "beide",
+  "schwere": "P3",
+  "problem": "Endet ein Abschnitt mit einer Tabelle, folgt auf deren letzte Linie gleich die Trennlinie des nächsten Abschnitts. Zwei Linien hintereinander wirken wie ein Fehler.",
+  "vorschlag": "Am Abschnittsende entfällt die unterste Tabellenlinie. Dann trennt nur noch die Abschnittslinie.",
+  "bilder": [
+   {
+    "ansicht": "Desktop",
+    "vorher": "bilder/doppelte-linie-0-vorher.webp",
+    "nachher": "bilder/doppelte-linie-0-nachher.webp"
+   }
+  ]
+ }
+]
