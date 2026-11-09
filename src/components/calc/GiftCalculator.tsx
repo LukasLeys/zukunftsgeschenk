@@ -67,7 +67,7 @@ export function GiftCalculator({ id = "g", defaultAmount = 100, designHref = "/k
           </div>
           <fieldset className="fs">
             <legend>Wie oft schenkst du?</legend>
-            <div className="seg">
+            <div className="seg seg--stack">
               <label>
                 <input type="radio" name={`${id}-mode`} checked={!yearly} onChange={() => setYearly(false)} />
                 <span>Einmal</span>
@@ -139,7 +139,11 @@ export function GiftCalculator({ id = "g", defaultAmount = 100, designHref = "/k
               </span>
             </div>
           </div>
-          <Link className="btn" href={`${designHref}?betrag=${amount}`} style={{ marginTop: 20 }}>
+          <p className="result-note">
+            <Icon name="direct" />
+            Der Gutschein ist dein Geschenk an die Eltern. Das Geld liegt nie bei uns.
+          </p>
+          <Link className="btn" href={`${designHref}?betrag=${amount}`} style={{ marginTop: 16 }}>
             Diesen Gutschein gestalten <Icon name="arrow" />
           </Link>
         </div>

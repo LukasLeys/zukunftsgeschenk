@@ -83,7 +83,7 @@ export default function Home() {
         <div className="wrap">
           <div className="sec-head">
             <h2 className="h2" id="calc-h">
-              Was wird aus eurem Gutschein bis 18?
+              Was wird aus deinem Gutschein bis 18?
             </h2>
             <p className="muted">
               Rechne nach, wie ein Gutschein bis zum 18. Geburtstag wachsen kann oder wie sich das ganze Depot entwickelt.

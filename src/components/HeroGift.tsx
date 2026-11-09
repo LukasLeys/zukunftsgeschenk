@@ -49,7 +49,7 @@ export function HeroGift({ fromPrice, promo }: HeroGiftProps) {
           </h1>
           <p className="lead">
             Die Geschenkkarte fürs Zukunftsdepot. Du schenkst den Eltern Geld mit einer schönen Karte, sie zahlen es
-            voraussichtlich ab Juli 2027 ins Depot des Kindes ein. <b>Das Geld geht direkt an die Eltern, nie über uns.</b>
+            voraussichtlich ab Juli 2027 ins Depot des Kindes ein.
           </p>
           <AmountPicker
             id="hero-amt"
@@ -59,40 +59,37 @@ export function HeroGift({ fromPrice, promo }: HeroGiftProps) {
             showErrors={showErrors}
           />
           <input type="hidden" name="betrag" value={amount} />
-          <div className="hero-name">
+          <div className="hero-go">
             <label className="lab" htmlFor="hero-name">
               Vorname des Kindes <span className="muted">(optional)</span>
             </label>
-            <input
-              className="field"
-              id="hero-name"
-              name="name"
-              type="text"
-              maxLength={24}
-              autoComplete="off"
-              placeholder="z. B. Lena"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <div className="buy-row">
-            <button className="btn" type="submit">
-              Karte gestalten <Icon name="arrow" />
-            </button>
-            <span className="from-price">
-              Karte ab <b>{fromPrice}</b>
-            </span>
+            <div className="hero-go-row">
+              <input
+                className="field"
+                id="hero-name"
+                name="name"
+                type="text"
+                maxLength={24}
+                autoComplete="off"
+                placeholder="z. B. Lena"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <button className="btn" type="submit">
+                Karte gestalten <Icon name="arrow" />
+              </button>
+            </div>
           </div>
           <p className="buy-note">
-            Bei uns zahlst du nur die Karte. Der Betrag ist <b>dein Geschenk an die Eltern</b>. Du überweist ihn per
-            Bank-QR-Code direkt.
+            Bei uns zahlst du nur die Karte, ab <b>{fromPrice}</b>. Den Betrag überweist du per Bank-QR-Code{" "}
+            <b>direkt an die Eltern, nie über uns.</b>
           </p>
           {promo ? (
             <Link className="promo-link" href="#weihnachten">
               <span className="pl-seal">
                 <Icon name="gift" />
               </span>
-              Bis 17. Dezember: Goldkuvert gratis zu jeder gedruckten Karte
+              Bis 17. Dezember Goldkuvert gratis zur gedruckten Karte
             </Link>
           ) : null}
         </form>

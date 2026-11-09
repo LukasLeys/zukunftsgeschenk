@@ -34,12 +34,14 @@ export function CalcTabs({ initial = "gift" }: CalcTabsProps) {
           id="tab-g"
           type="button"
           aria-controls="panel-g"
+          aria-label="Gutschein-Rechner"
           aria-selected={tab === "gift"}
           tabIndex={tab === "gift" ? 0 : -1}
           onClick={() => setTab("gift")}
           onKeyDown={onKey}
         >
-          Gutschein-Rechner
+          Gutschein
+          <span className="tab-x">-Rechner</span>
         </button>
         <button
           ref={refs.depot}
@@ -48,12 +50,14 @@ export function CalcTabs({ initial = "gift" }: CalcTabsProps) {
           id="tab-d"
           type="button"
           aria-controls="panel-d"
+          aria-label="Depot-Rechner"
           aria-selected={tab === "depot"}
           tabIndex={tab === "depot" ? 0 : -1}
           onClick={() => setTab("depot")}
           onKeyDown={onKey}
         >
-          Depot-Rechner
+          Depot
+          <span className="tab-x">-Rechner</span>
         </button>
       </div>
       <div className="panel" role="tabpanel" id="panel-g" aria-labelledby="tab-g" hidden={tab !== "gift"}>

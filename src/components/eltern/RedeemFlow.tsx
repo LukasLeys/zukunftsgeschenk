@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { GiftCard } from "@/components/GiftCard";
+import { HangTag } from "@/components/HangTag";
 import { Icon } from "@/components/Icon";
 import { eur } from "@/components/format";
 import type { Paper } from "@/lib/catalog";
@@ -428,7 +429,10 @@ export function RedeemFlow({ initialCode = "" }: { initialCode?: string }) {
               </div>
             </div>
           </div>
-          <div className={s.cardStage}>{cardView}</div>
+          <div className={s.cardStage}>
+            <HangTag className={s.doneTag} top={`Für ${card.childName}`} big="Eingelöst" line={amount} />
+            {cardView}
+          </div>
         </section>
       ) : null}
     </div>

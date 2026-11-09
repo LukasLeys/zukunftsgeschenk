@@ -7,6 +7,7 @@ import { GiftCard, PAPER_LABEL, SHAPE_LABEL, paperSwatch, type CardEnvelope } fr
 import { AmountPicker } from "@/components/AmountPicker";
 import { Icon, type IconName } from "@/components/Icon";
 import { useCart } from "@/components/cart/useCart";
+import { HangTag } from "@/components/HangTag";
 import { eur, eurCents } from "@/components/format";
 import { IbanField, ibanError } from "@/components/eltern/IbanField";
 import { normalizeIban } from "@/lib/iban";
@@ -388,6 +389,7 @@ export function Configurator({ motifId, initial, promo, wishSlug }: Configurator
             </button>
           </div>
           <div className={`pv-stage ${s.pvStage}`}>
+            <HangTag className={s.pvTag} top={childName.trim() ? `Für ${childName.trim()}` : "Dein Geschenk"} big={eur(amount)} />
             <GiftCard
               motif={m.id}
               paper={paper}
