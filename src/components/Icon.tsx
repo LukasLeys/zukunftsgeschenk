@@ -3,7 +3,7 @@ import type { SVGProps } from "react";
 
 export type IconName =
   | "arrow" | "info" | "bag" | "menu" | "down" | "plus" | "check" | "x" | "qr" | "gift" | "mail" | "env"
-  | "seal" | "direct" | "forever" | "truck" | "lock" | "bow" | "scroll";
+  | "seal" | "direct" | "forever" | "truck" | "lock" | "bow" | "scroll" | "clock";
 
 const S = { fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" } as const;
 
@@ -34,6 +34,7 @@ const PATHS: Record<IconName, React.ReactNode> = {
   direct: <g {...S}><path d="M3 12h11M10 8l4 4-4 4" /><path d="M15 6.5l3.5-2.5L22 6.5V19h-7z" /></g>,
   forever: <path d="M7.5 8.5c-2 0-3.5 1.6-3.5 3.5s1.5 3.5 3.5 3.5c3.5 0 5.5-7 9-7 2 0 3.5 1.6 3.5 3.5s-1.5 3.5-3.5 3.5c-3.5 0-5.5-7-9-7z" {...S} />,
   truck: <g {...S}><path d="M2 6h12v10H2zM14 9h4.5l3.5 3.5V16h-8" /><circle cx="6.5" cy="17.5" r="1.8" /><circle cx="17.5" cy="17.5" r="1.8" /></g>,
+  clock: <g {...S}><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></g>,
   lock: <g {...S}><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></g>,
   bow: <g {...S}><path d="M12 11C9.5 6 5 4 3.5 5.5S4 12 12 12zM12 11c2.5-5 7-7 8.5-5.5S20 12 12 12z" /><path d="M11 12.5l-3.5 7.5 2.5-.6 1 2 2-8.5M13 12.5l3.5 7.5-2.5-.6-1 2" /></g>,
   scroll: <path d="M12 4v15M6 13l6 6 6-6" {...S} strokeWidth={2.2} />,
