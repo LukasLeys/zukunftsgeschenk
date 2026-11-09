@@ -67,10 +67,33 @@ export function Configurator({ motifId, initial, promo, wishSlug }: Configurator
   const [parentName, setParentName] = useState("");
   const [parentIban, setParentIban] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [buyAhead, setBuyAhead] = useState(true);
   const formRef = useRef<HTMLFormElement>(null);
+  const buyRef = useRef<HTMLDivElement>(null);
 
   // Frühester Wunschtermin: jetzt (erst im Browser setzen, sonst weicht der Server ab)
   useEffect(() => setMinAt(dateToViennaLocal(new Date())), []);
+
+  // Kaufleiste am Handy: nur solange die Preisbox mit dem Knopf noch weiter unten liegt
+  useEffect(() => {
+    let frame = 0;
+    const check = () => {
+      frame = 0;
+      const el = buyRef.current;
+      if (el) setBuyAhead(el.getBoundingClientRect().top > window.innerHeight);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(check);
+    };
+    check();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
 
   const onAmountError = useCallback((e: string | null) => setAmountErr(e), []);
 
@@ -417,7 +440,7 @@ export function Configurator({ motifId, initial, promo, wishSlug }: Configurator
           </p>
         </div>
 
-        <div className={s.buy}>
+        <div className={s.buy} ref={buyRef}>
           <div className="sumbox">
             <div className="sumrow">
               <span>Kartenpreis, {fmt.short}</span>
@@ -443,6 +466,17 @@ export function Configurator({ motifId, initial, promo, wishSlug }: Configurator
             In den Warenkorb <Icon name="bag" />
           </button>
         </div>
+      </div>
+
+      {/* Nur am Handy: Preis und Knopf bleiben beim Ausfüllen unten sichtbar */}
+      <div className={s.mBar} hidden={!buyAhead}>
+        <span className={s.mBarPrice}>
+          <small>Kartenpreis</small>
+          <b className="num">{eurCents(fmt.priceCents)}</b>
+        </span>
+        <button className="btn btn--sm" type="submit" tabIndex={-1} aria-hidden="true">
+          In den Warenkorb <Icon name="bag" />
+        </button>
       </div>
     </form>
   );
