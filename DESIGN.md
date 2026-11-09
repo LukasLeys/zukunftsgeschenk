@@ -21,6 +21,7 @@ colors:
   faserweiss: "#fcf4ee"
   gold: "#c9a24a"
   gold-tief: "#9c7a2c"
+  gold-text: "#7a5d18"
 typography:
   display:
     fontFamily: "Bricolage Grotesque, Figtree, system-ui, sans-serif"
@@ -186,7 +187,7 @@ Eine Papierwelt aus kräftigem Geschenkpink und Sonnengelb, getragen von Weiß, 
 - **Gelbhauch** (#fffaeb): Abschnittsgrund für Rechner und Zukunftsdepot, Ergebnisflächen, gewählte Zustellart.
 
 ### Tertiary
-- **Gold** (#c9a24a) und **Gold tief** (#9c7a2c): ausschließlich Goldkuvert und Aktionshinweise dazu. Als Fläche immer als Goldfolien-Verlauf, nie auf Text.
+- **Gold** (#c9a24a) und **Gold tief** (#9c7a2c): ausschließlich Goldkuvert und Aktionshinweise dazu. Als Fläche immer als Goldfolien-Verlauf. Text in Gold auf Weiß nutzt **Gold Text** (#7a5d18, Kontrast 6:1).
 
 ### Neutral
 - **Tinte** (#2a1f2d): gesamte Schrift, gewählte Chips, Tabs und Segmente, Ink-Button, Fußzeilenpapier.
