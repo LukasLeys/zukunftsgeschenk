@@ -297,7 +297,7 @@ export function Configurator({ motifId, initial, promo, wishSlug }: Configurator
                 <b>{f.label}</b>
                 <span className="zprice">{eurCents(f.priceCents)}</span>
                 <small>
-                  {f.detail}
+                  {f.id === "print" ? `${SHAPE_LABEL[m.shape]} mit Kuvert, per Post in Österreich, Versand inklusive.` : f.detail}
                   {f.id === "print" && promo ? " Bis 17. Dezember gratis im Goldkuvert." : ""}
                 </small>
               </label>
