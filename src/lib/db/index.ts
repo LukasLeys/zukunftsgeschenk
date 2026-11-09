@@ -43,7 +43,8 @@ async function create() {
   }
   const { PGlite } = await import("@electric-sql/pglite");
   const { drizzle } = await import("drizzle-orm/pglite");
-  const dir = process.env.PGLITE_DIR ?? ".data/pglite";
+  // Auf Vercel ohne DATABASE_URL: flüchtige Demo-Datenbank in /tmp (Daten gehen bei jedem Kaltstart verloren).
+  const dir = process.env.PGLITE_DIR ?? (process.env.VERCEL ? "/tmp/pglite" : ".data/pglite");
   const client = dir === "memory" ? new PGlite() : new PGlite(dir);
   const db = drizzle(client, { schema });
   await client.exec(BOOT_SQL);
