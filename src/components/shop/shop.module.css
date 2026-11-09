@@ -178,8 +178,8 @@
 .ckTotals{margin-top:0}
 .payRow{font-weight:800;font-size:21px;border-top:2px solid var(--tinte);padding-top:10px;margin-top:4px}
 .legendBig{font-family:var(--display);font-weight:800!important;font-size:clamp(24px,1vw + 18px,29px)!important;margin-bottom:14px!important;letter-spacing:-.02em}
-.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 16px}
-.addr{display:grid;grid-template-columns:minmax(0,.42fr) minmax(0,1fr);gap:4px 16px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 16px}
+.addr{display:grid;grid-template-columns:minmax(0,.42fr) minmax(0,1fr);gap:22px 16px}
 .full{grid-column:1 / -1}
 .zip{max-width:140px;font-variant-numeric:tabular-nums}
 .country{font-size:18px;margin-top:4px}
