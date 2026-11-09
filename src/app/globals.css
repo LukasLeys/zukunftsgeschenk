@@ -627,7 +627,7 @@ tbody tr:last-child td{background:var(--gelb-ll);font-weight:800}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary svg{width:28px;height:28px;flex:none;color:var(--pink);transition:transform .3s var(--ease)}
 .faq details[open] summary svg{transform:rotate(45deg)}
-.faq .a{padding:0 0 22px;font-size:18.5px;line-height:1.6;max-width:72ch}
+.faq .a{padding:0 0 22px;font-size:18.5px;line-height:1.6;max-width:36em}
 
 /* ---------- Fußzeile ---------- */
 .foot{color:#efe7ef;padding-bottom:40px}
