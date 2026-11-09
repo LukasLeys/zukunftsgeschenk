@@ -35,6 +35,7 @@ Siehe `.env.example`. Für den Betrieb nötig:
 | `ADMIN_PASSWORD` | Passwort für `/admin` |
 | `CRON_SECRET` | schützt `/api/cron` (Mailversand zum Wunschtermin, Löschfristen) |
 | `SITE_URL` | öffentliche Adresse des Shops |
+| `ALLOW_INDEXING` | `1` erlaubt Suchmaschinen. Ohne den Wert steht auf allen Seiten noindex. Vorschaubilder für WhatsApp und Co. funktionieren in beiden Fällen. |
 | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | Zahlung; Webhook auf `/api/stripe/webhook` |
 | `RESEND_API_KEY`, `MAIL_FROM` | E-Mail-Versand |
 

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Figtree } from "next/font/google";
 import "./globals.css";
+import { SITE_URL } from "@/lib/env";
 
 const display = Bricolage_Grotesque({
   subsets: ["latin", "latin-ext"],
@@ -24,6 +25,16 @@ export const metadata: Metadata = {
   description:
     "Schenk ein Stück Zukunft: gestaltete Geschenkkarten, mit denen Familie und Freunde Geld fürs Zukunftsdepot eines Kindes schenken. Das Geld geht per Bank-QR-Code direkt an die Eltern, nie über uns. Privates Angebot, kein offizielles Angebot der Republik Österreich.",
   applicationName: "Zukunftsgeschenk",
+  metadataBase: new URL(SITE_URL),
+  openGraph: {
+    type: "website",
+    locale: "de_AT",
+    siteName: "Zukunftsgeschenk",
+    // Titel und Beschreibung kommen je Seite aus title und description.
+  },
+  twitter: { card: "summary_large_image" },
+  // Bis zum offiziellen Start nicht in Suchmaschinen. Zum Start ALLOW_INDEXING=1 setzen.
+  robots: process.env.ALLOW_INDEXING === "1" ? undefined : { index: false, follow: false },
   formatDetection: { telephone: false },
 };
 
