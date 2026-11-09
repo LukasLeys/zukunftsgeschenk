@@ -200,6 +200,8 @@
 .dl div{display:grid;grid-template-columns:minmax(150px,.42fr) minmax(0,1fr);gap:4px 20px;padding:12px 0;border-bottom:1px solid var(--linie)}
 .dl dt{font-weight:750}
 .dl dd{margin:0}
+/* Endet ein Abschnitt mit einer Tabelle, trennt nur die Abschnittslinie. */
+.section > .dl:last-child > div:last-child,.section > .facts:last-child > div:last-child{border-bottom:0}
 @media (max-width:600px){.dl div{grid-template-columns:minmax(0,1fr)}}
 .form{margin-top:18px;border:2px dashed var(--linie-2);border-radius:14px;padding:22px 24px;background:var(--rosa-3);max-width:72ch}
 .form p + p{margin-top:12px}
