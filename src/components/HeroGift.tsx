@@ -89,7 +89,9 @@ export function HeroGift({ fromPrice, promo }: HeroGiftProps) {
               <span className="pl-seal">
                 <Icon name="gift" />
               </span>
-              Bis 17. Dezember Goldkuvert gratis zur gedruckten Karte
+              <span className="pl-txt">
+                <b>Bis 17. Dezember gratis:</b> Goldkuvert zur gedruckten Karte
+              </span>
             </Link>
           ) : null}
         </form>
