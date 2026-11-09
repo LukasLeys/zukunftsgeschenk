@@ -634,13 +634,15 @@ tbody tr:last-child td{background:var(--gelb-ll);font-weight:800}
 .foot::after{background-color:var(--tinte);background-image:var(--pat-nacht);background-size:128px 128px}
 .foot .wrap{padding-top:62px}
 .foot .brand{color:#fff;margin:0}
-.foot-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;margin-top:24px}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;margin-top:24px;align-items:start}
 .legal{background:var(--tinte);border:2px solid var(--gelb);border-radius:14px;padding:20px 22px;font-size:18px;line-height:1.55;color:#fff}
 .legal b{color:var(--gelb)}
-.foot nav{display:flex;flex-wrap:wrap;gap:6px 22px;align-content:flex-start}
+.foot nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 32px;align-content:start}
+.foot nav ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.foot-h{font-family:var(--display);font-weight:800;font-size:18px;color:var(--gelb);margin-bottom:4px}
 .foot nav a{color:#fff;font-weight:650;font-size:18px;min-height:44px;display:inline-flex;align-items:center}
 .foot a{--ring:var(--gelb)}
-.foot .tiny{color:#d9cfd9;margin-top:26px;max-width:100ch}
+.foot .tiny{color:#d9cfd9;margin-top:26px;max-width:44em}
 @media (max-width:800px){.foot-grid{grid-template-columns:minmax(0,1fr)}}
 
 /* ---------- Warenkorb-Schublade ---------- */
