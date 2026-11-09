@@ -108,12 +108,19 @@
 .msgRow :global(.hint){flex:1 1 260px}
 .msgRow :global(.counter){margin-top:8px}
 .dt{max-width:320px}
+/* Kaufleiste am Handy, klebt beim Ausfüllen am unteren Rand */
+.mBar{display:none}
+.mBarPrice{display:grid;line-height:1.15}
+.mBarPrice small{font-size:15px;color:var(--tinte-2)}
+.mBarPrice b{font-size:21px;font-weight:800}
 @media (max-width:960px){
   .cfg{grid-template-columns:minmax(0,1fr);gap:24px}
   .side{display:contents}
   .pv{order:-1}
   .buy{order:2}
   .pvStage{min-height:400px}
+  .mBar{order:3;position:sticky;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 10px 10px 18px;background:#fff;border:1px solid var(--linie);border-radius:14px;box-shadow:var(--sh-soft)}
+  .mBar[hidden]{display:none}
 }
 @media (max-width:600px){
   .pvStage{min-height:360px;--k:.8}
