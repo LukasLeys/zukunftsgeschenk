@@ -59,6 +59,7 @@
   --faser:#fcf4ee;
   --gold:#c9a24a;
   --gold-d:#9c7a2c;
+  --gold-dd:#7a5d18; /* Goldton für Text auf Weiß, Kontrast 6:1 */
   /* Goldfolie: matter Grund mit zwei weichen Glanzbahnen (nur auf Flächen, nie auf Text) */
   --foil:linear-gradient(118deg,#a98232 0%,#c9a24a 12%,#ebd28c 22%,#fff3c9 27%,#e2c374 33%,#bf9840 46%,#b08a38 55%,#d6b664 66%,#f6e6ae 72%,#d1ae58 79%,#b48c36 90%,#9c7a2c 100%);
   --foil-2:linear-gradient(162deg,#b8913c 0%,#dcbd6a 18%,#f8eab6 30%,#d4b05c 42%,#b48c36 60%,#e2c676 78%,#a98232 100%);
@@ -523,7 +524,7 @@ tbody tr:last-child td{background:var(--gelb-ll);font-weight:800}
 .sumbox{margin-top:16px;border-radius:14px;border:1px solid var(--linie);background:#fff;padding:16px 18px;display:grid;gap:6px}
 .sumrow{display:flex;justify-content:space-between;gap:16px;font-size:18.5px}
 .sumrow b{white-space:nowrap}
-.sumrow.promo{color:var(--gold-d);font-weight:700;font-size:17px}
+.sumrow.promo{color:var(--gold-dd);font-weight:700;font-size:17px}
 .sumrow.promo[hidden]{display:none}
 .sumrow.gift{color:var(--tinte-2);font-size:17px;border-top:1px dashed var(--linie-2);padding-top:8px;margin-top:4px}
 @media (max-width:960px){
