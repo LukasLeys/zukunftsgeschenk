@@ -24,14 +24,22 @@ const btn = (href: string, label: string) =>
 
 export function orderConfirmation(order: Order, cards: Card[]) {
   const url = `${SITE_URL}/bestellung/${order.id}?t=${order.accessToken}`;
+  const qrNow = (c: Card) => Boolean(c.ibanEnc && c.payToken && c.status === "issued");
   const rows = cards
-    .map((c) => `<li style="margin:0 0 8px"><b>${esc(motifById(c.motif)?.name ?? c.motif)}</b> für ${esc(c.childName)} – Geschenkbetrag ${eur(c.amountCents)}, ${esc(formatById(c.format)?.short ?? c.format)} (${eur(c.priceCents)})</li>`)
+    .map((c) => `<li style="margin:0 0 8px"><b>${esc(motifById(c.motif)?.name ?? c.motif)}</b> für ${esc(c.childName)}. Geschenkbetrag ${eur(c.amountCents)}, ${esc(formatById(c.format)?.short ?? c.format)} (${eur(c.priceCents)})${
+      qrNow(c) ? `<br>Bank-QR-Code ist auf der Karte. <a href="${SITE_URL}/ueberweisen/${c.payToken}" style="color:#b3124f">Jetzt ${eur(c.amountCents)} überweisen</a>` : ""
+    }</li>`)
     .join("");
+  const waiting = cards.some((c) => !qrNow(c));
+  const consent = order.digitalConsent
+    ? `<p style="font-size:14px;color:#5b4a5c">Ihr habt zugestimmt, dass wir die digitale Karte sofort erstellen und zum gewählten Termin versenden. Damit ist euer Rücktrittsrecht für E-Mail-Karten erloschen (§ 18 Abs. 1 Z 11 FAGG).</p>`
+    : "";
   const html = layout("Danke für eure Bestellung!", `<p>Hallo ${esc(order.buyerName)},</p>
 <p>eure Karten sind bestellt. Bezahlt habt ihr nur die Karten: <b>${eur(order.totalCents)}</b> (inkl. 20 % USt.). Den Geschenkbetrag überweist ihr später direkt an die Eltern.</p>
 <ul style="padding-left:20px">${rows}</ul>${btn(url, "Bestellung ansehen und Karten laden")}
-<p style="font-size:14px;color:#5b4a5c">Rechnungsnummer ${esc(order.invoiceNumber ?? "–")}. Sobald die Eltern eine Karte einlösen, bekommt ihr den Bank-QR-Code zum Überweisen per E-Mail.</p>`);
-  return { subject: `Eure Bestellung ${order.invoiceNumber ?? ""} bei Zukunftsgeschenk`.trim(), html, text: `Danke für eure Bestellung. Karten ansehen: ${url}` };
+<p style="font-size:14px;color:#5b4a5c">Rechnungsnummer ${esc(order.invoiceNumber ?? "folgt")}.${waiting ? " Sobald die Eltern eine Karte einlösen, bekommt ihr den Bank-QR-Code zum Überweisen per E-Mail." : ""}</p>${consent}`);
+  const textConsent = order.digitalConsent ? " Ihr habt zugestimmt, dass wir die digitale Karte sofort erstellen und zum gewählten Termin versenden. Damit ist euer Rücktrittsrecht für E-Mail-Karten erloschen (§ 18 Abs. 1 Z 11 FAGG)." : "";
+  return { subject: `Eure Bestellung ${order.invoiceNumber ?? ""} bei Zukunftsgeschenk`.trim(), html, text: `Danke für eure Bestellung. Karten ansehen: ${url}${textConsent}` };
 }
 
 export function cardDelivery(card: Card) {
@@ -39,8 +47,10 @@ export function cardDelivery(card: Card) {
   const html = layout(`Ein Zukunftsgeschenk für ${card.childName}`, `<p>${esc(card.sender)} schenkt ${esc(card.childName)} <b>${eur(card.amountCents)}</b> fürs Zukunftsdepot.</p>
 ${card.message ? `<p style="border-left:3px solid #ffd23f;padding-left:12px;font-style:italic">${esc(card.message)}</p>` : ""}
 ${btn(url, "Karte öffnen")}
-<p style="font-size:15px">Liebe Eltern: Mit dem Code <b>${esc(card.code)}</b> löst ihr die Karte unter <a href="${SITE_URL}/einloesen" style="color:#b3124f">zukunftsgeschenk.at/einloesen</a> ein und gebt eure IBAN an. Das Geld kommt dann direkt von den Schenkenden auf euer Konto. Die Karte ist unbefristet einlösbar.</p>`);
-  return { subject: `${card.sender} schenkt ${card.childName} ein Stück Zukunft`, html, text: `Karte öffnen: ${url} – Einlösecode ${card.code}` };
+${card.ibanEnc
+  ? `<p style="font-size:15px">Liebe Eltern, eure Bankverbindung ist bei dieser Karte schon hinterlegt. Ihr müsst nichts einlösen. Das Geld kommt direkt von den Schenkenden auf euer Konto.</p>`
+  : `<p style="font-size:15px">Liebe Eltern, mit dem Code <b>${esc(card.code)}</b> löst ihr die Karte unter <a href="${SITE_URL}/einloesen" style="color:#b3124f">zukunftsgeschenk.at/einloesen</a> ein und gebt eure IBAN an. Das Geld kommt dann direkt von den Schenkenden auf euer Konto. Die Karte ist unbefristet einlösbar.</p>`}`);
+  return { subject: `${card.sender} schenkt ${card.childName} ein Stück Zukunft`, html, text: `Karte öffnen: ${url}. Einlösecode: ${card.code}` };
 }
 
 export function redeemedToGiver(card: Card, buyerName: string) {
@@ -54,9 +64,9 @@ ${btn(url, "Bank-QR-Code öffnen")}
 }
 
 export function redeemedToParent(card: Card) {
-  const html = layout("Eingelöst – danke!", `<p>Hallo ${esc(card.parentName ?? "")},</p>
+  const html = layout("Eingelöst. Danke!", `<p>Hallo ${esc(card.parentName ?? "")},</p>
 <p>ihr habt die Karte <b>${esc(card.code)}</b> für ${esc(card.childName)} eingelöst. ${esc(card.sender)} bekommt jetzt den Bank-QR-Code und überweist ${eur(card.amountCents)} direkt auf euer Konto.</p>
-<p>Ab dem Start des Zukunftsdepots (geplant 1. Juli 2027) könnt ihr den Betrag einzahlen. Bis 5.000 € pro Kind und Jahr sind möglich.</p>
+<p>Sobald das Zukunftsdepot startet, voraussichtlich ab Juli 2027, könnt ihr den Betrag einzahlen. Bis 5.000 € pro Kind und Jahr sind möglich.</p>
 <p style="font-size:14px;color:#5b4a5c">Eure IBAN speichern wir verschlüsselt und löschen sie 90 Tage nach der Einlösung.</p>`);
   return { subject: `Karte für ${card.childName} eingelöst`, html, text: `Karte ${card.code} eingelöst.` };
 }
@@ -76,6 +86,7 @@ export function wishPageCreated(slug: string, childName: string, editToken: stri
   const url = `${SITE_URL}/fuer/${slug}`;
   const html = layout(`Die Wunschseite für ${childName} ist online`, `<p>Teilt diesen Link mit der Familie:</p><p style="font-size:20px;font-weight:700"><a href="${url}" style="color:#b3124f">${url}</a></p>
 <p>Wer über eure Wunschseite eine Karte kauft, bekommt euren Bank-QR-Code direkt mit. Ihr müsst nichts mehr einlösen.</p>
+<p>Die Seite wird nach 12 Monaten automatisch gelöscht. Ihr könnt sie jederzeit vorher löschen.</p>
 ${btn(`${url}/bearbeiten?t=${editToken}`, "Wunschseite bearbeiten")}`);
-  return { subject: `Wunschseite für ${childName}`, html, text: url };
+  return { subject: `Wunschseite für ${childName}`, html, text: `${url} Die Seite wird nach 12 Monaten automatisch gelöscht. Ihr könnt sie jederzeit vorher löschen.` };
 }

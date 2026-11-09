@@ -8,7 +8,7 @@ import { eur, fmtNumber } from "./format";
 export function amountError(v: number, min = MIN_AMOUNT_EUR, max = MAX_AMOUNT_EUR): string | null {
   if (!Number.isFinite(v)) return "Bitte gib einen Betrag in Euro ein.";
   if (v < min) return `Bitte mindestens ${eur(min)} eingeben.`;
-  if (v > max) return `Höchstens ${eur(max)} – mehr dürfen die Eltern pro Kind und Jahr nicht ins Depot einzahlen.`;
+  if (v > max) return `Höchstens ${eur(max)}. Mehr dürfen die Eltern pro Kind und Jahr nicht ins Depot einzahlen.`;
   if (Math.round(v) !== v) return "Bitte einen ganzen Euro-Betrag eingeben.";
   return null;
 }

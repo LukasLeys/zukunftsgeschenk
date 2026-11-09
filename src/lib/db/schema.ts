@@ -12,6 +12,8 @@ export const orders = pgTable("orders", {
   invoiceNumber: text("invoice_number"),
   shipping: jsonb("shipping").$type<ShippingAddress | null>(),
   paidAt: timestamp("paid_at", { withTimezone: true }),
+  // Zustimmung zur sofortigen Erstellung digitaler Karten (§ 18 Abs. 1 Z 11 FAGG). null = keine E-Mail-Karte in der Bestellung.
+  digitalConsent: boolean("digital_consent"),
 });
 
 export const cards = pgTable("cards", {

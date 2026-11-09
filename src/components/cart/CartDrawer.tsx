@@ -101,7 +101,7 @@ export function CartDrawer() {
             </p>
           ) : null}
           {empty ? (
-            <p className="empty">Noch leer. Such dir eine Karte aus und gestalte sie – das dauert nur ein paar Minuten.</p>
+            <p className="empty">Noch leer. Such dir eine Karte aus und gestalte sie. Das dauert nur ein paar Minuten.</p>
           ) : (
             <ul className="cart-list">
               {items.map((i, k) => (
@@ -137,7 +137,7 @@ export function CartDrawer() {
             <span>{eurCents(total)}</span>
           </div>
           <p className="tiny">
-            Der Geschenkbetrag ist nicht im Preis – den überweist ihr direkt an die Eltern. Preise vorläufig.
+            Der Geschenkbetrag ist nicht im Preis. Den überweist ihr direkt an die Eltern. Preise vorläufig.
           </p>
           {empty ? (
             <button className="btn" type="button" disabled>

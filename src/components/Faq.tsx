@@ -13,7 +13,7 @@ export interface FaqProps {
   className?: string;
 }
 
-/** Fragenliste mit details/summary – funktioniert ohne JavaScript. Steht in einem `.faq`-Abschnitt. */
+/** Fragenliste mit details/summary, funktioniert ohne JavaScript. Steht in einem `.faq`-Abschnitt. */
 export function Faq({ items, openIndex, className }: FaqProps) {
   return (
     <div className={["faq-list", className].filter(Boolean).join(" ")}>
@@ -32,7 +32,7 @@ export function Faq({ items, openIndex, className }: FaqProps) {
 
 /** Fragen und Antworten aus dem freigegebenen Entwurf (Fakten Stand Nov. 2026). */
 export const FAQ_ITEMS: FaqItem[] = [
-  { q: "Warum darf Oma nicht selbst einzahlen?", a: "Der Gesetzesentwurf sieht vor, dass nur die Eltern als gesetzliche Vertreter einzahlen. Deshalb schenkst du das Geld den Eltern – mit einer Karte, die man wirklich in die Hand nehmen kann." },
+  { q: "Warum darf Oma nicht selbst einzahlen?", a: "Der Gesetzesentwurf sieht vor, dass nur die Eltern als gesetzliche Vertreter einzahlen. Deshalb schenkst du das Geld den Eltern, mit einer Karte, die man wirklich in die Hand nehmen kann." },
   { q: "Geht das Geld über euch?", a: "Nein. Bei uns bezahlst du nur die Karte. Den Geschenkbetrag überweist du per Bank-QR-Code direkt an die Eltern. Wir sehen und halten dieses Geld nie." },
   { q: "Was, wenn das Depot erst im Juli 2027 startet?", a: "Das ist kein Problem. Das Geld liegt bis dahin bei den Eltern, und sie zahlen es ein, sobald das Depot eröffnet ist. Auf der Karte steht nichts, was einen Termin verspricht." },
   { q: "Wie lange gilt die Karte?", a: "Unbefristet. Die Eltern können den Code auf der Karte jederzeit einlösen." },

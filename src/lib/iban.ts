@@ -1,6 +1,7 @@
 // IBAN-Prüfung (ISO 13616, Modulo 97) und EPC-QR-Payload (EPC069-12, Version 002, UTF-8).
 
-const IBAN_LENGTHS: Record<string, number> = { AT: 20, DE: 22, CH: 21, LI: 21, IT: 27, SI: 19, HU: 28, CZ: 24, SK: 24, NL: 18, BE: 16, LU: 20, FR: 27, ES: 24 };
+/** Länge der IBAN je Ländercode (für die Prüfung hier und die Eingabehilfe im Formular). */
+export const IBAN_LENGTHS: Record<string, number> = { AT: 20, DE: 22, CH: 21, LI: 21, IT: 27, SI: 19, HU: 28, CZ: 24, SK: 24, NL: 18, BE: 16, LU: 20, FR: 27, ES: 24 };
 
 export function normalizeIban(raw: string): string {
   return raw.replace(/\s+/g, "").toUpperCase();

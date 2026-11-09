@@ -25,22 +25,22 @@ const STEPS = [
   { h: "Verschenken", p: "Per E-Mail zum Wunschtermin oder gedruckt im Kuvert per Post." },
   { h: "Eltern lösen ein", p: "Sie geben den Code von der Karte ein und tragen ihre IBAN ein." },
   { h: "Du überweist direkt", p: "Du bekommst einen Bank-QR-Code per E-Mail und überweist direkt an die Eltern." },
-  { h: "Ab ins Depot", p: "Die Eltern zahlen ab Juli 2027 ins Zukunftsdepot ein." },
+  { h: "Ab ins Depot", p: "Die Eltern zahlen voraussichtlich ab Juli 2027 ins Zukunftsdepot ein." },
 ];
 
 const FACTS: { dt: string; dd: ReactNode }[] = [
   { dt: "Was", dd: "Ein Wertpapierdepot mit Verrechnungskonto auf den Namen des Kindes, gesperrt bis zum 18. Geburtstag. Alternativ ein Bundesschatz-Zukunftskonto. Pro Kind ein Depot." },
-  { dt: "Start", dd: "Geplant ab 1. Juli 2027; eine Verschiebung bis 1. Dezember 2027 ist möglich." },
+  { dt: "Start", dd: "Voraussichtlich ab Juli 2027. Laut Entwurf ist der 1. Juli 2027 geplant, eine Verschiebung bis 1. Dezember 2027 ist möglich." },
   {
     dt: "Startbonus",
-    dd: "500 € einmalig vom Staat für Kinder, die 2027 oder 2028 geboren werden (Wohnsitz in Österreich, Staatsbürgerschaft oder gleichgestellter Aufenthaltstitel). Er wird zurückgefordert, wenn das Kind nicht 15 Jahre bis zur Volljährigkeit in Österreich lebt. Eröffnen die Eltern bis zum 3. Geburtstag kein Depot, legt der Bund den Bonus vorübergehend im Bundesschatz an – der Anspruch geht nicht verloren.",
+    dd: "500 € einmalig vom Staat für Kinder, die 2027 oder 2028 geboren werden (Wohnsitz in Österreich, Staatsbürgerschaft oder gleichgestellter Aufenthaltstitel). Er wird zurückgefordert, wenn das Kind nicht 15 Jahre bis zur Volljährigkeit in Österreich lebt. Eröffnen die Eltern bis zum 3. Geburtstag kein Depot, legt der Bund den Bonus vorübergehend im Bundesschatz an. Der Anspruch geht nicht verloren.",
   },
   {
     dt: "Einzahlen",
     dd: (
       <>
         Bis 5.000 € pro Kind und Jahr, der Bonus zählt nicht mit. Laut Entwurf <b>nur durch die Eltern</b>. Großeltern,
-        Paten und Freunde schenken also den Eltern – genau dafür gibt es Zukunftsgeschenk.
+        Paten und Freunde schenken also den Eltern. Dafür gibt es Zukunftsgeschenk.
       </>
     ),
   },
@@ -86,7 +86,7 @@ export default function Home() {
               Was wird aus eurem Gutschein bis 18?
             </h2>
             <p className="muted">
-              Rechne nach, wie ein Gutschein bis zum 18. Geburtstag wachsen kann – oder wie sich das ganze Depot entwickelt.
+              Rechne nach, wie ein Gutschein bis zum 18. Geburtstag wachsen kann oder wie sich das ganze Depot entwickelt.
             </p>
           </div>
           <CalcTabs />

@@ -20,4 +20,8 @@ export interface CartItem {
   deliveryAt?: string;
   /** Wenn die Karte über eine Wunschseite gekauft wird. */
   wishSlug?: string;
+  /** Variante „IBAN bekannt“: Kontoinhaber:in so, wie das Konto lautet (2 bis 70 Zeichen). Nur zusammen mit parentIban. */
+  parentName?: string;
+  /** Variante „IBAN bekannt“: IBAN der Eltern. Dann kommt der Bank-QR-Code gleich auf die Karte. */
+  parentIban?: string;
 }

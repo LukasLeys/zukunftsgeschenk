@@ -36,7 +36,7 @@ export function GiftCalculator({ id = "g", defaultAmount = 100, designHref = "/k
     const out: { y: number; label: string }[] = [];
     for (let y = thisYear + 2; y >= thisYear - 16; y--) {
       const age = thisYear - y;
-      out.push({ y, label: y > thisYear ? `${y} – Geburt erwartet` : age === 0 ? `${y} – heuer geboren` : `${y} – ${age} ${age === 1 ? "Jahr" : "Jahre"} alt` });
+      out.push({ y, label: y > thisYear ? `${y}: Geburt erwartet` : age === 0 ? `${y}: heuer geboren` : `${y}: ${age} ${age === 1 ? "Jahr" : "Jahre"} alt` });
     }
     return out;
   }, [thisYear]);
@@ -89,7 +89,7 @@ export function GiftCalculator({ id = "g", defaultAmount = 100, designHref = "/k
               ))}
             </div>
             <p className="hint">
-              6,7 % ist dieselbe Modellannahme wie im Depot-Rechner. Niemand kann die Rendite vorhersagen – rechne ruhig
+              6,7 % ist dieselbe Modellannahme wie im Depot-Rechner. Niemand kann die Rendite vorhersagen. Rechne ruhig
               auch vorsichtig.
             </p>
           </fieldset>
@@ -146,7 +146,7 @@ export function GiftCalculator({ id = "g", defaultAmount = 100, designHref = "/k
       </div>
       <p className="foot-note">
         Unverbindliches Rechenbeispiel auf Grundlage des Gesetzesentwurfs (Stand Nov. 2026). Keine Renditegarantie, Werte
-        können schwanken. Ohne Kosten und Inflation gerechnet. Das Geld kann frühestens ab Juli 2027 ins Depot; gerechnet
+        können schwanken. Ohne Kosten und Inflation gerechnet. Das Geld kann voraussichtlich ab Juli 2027 ins Depot; gerechnet
         wird ab 2027 bis zum 18. Geburtstag. Mehr als 5.000 € pro Kind und Jahr dürfen die Eltern nicht einzahlen.
       </p>
     </>
@@ -164,7 +164,7 @@ function GiftChart({ perYear, value }: { perYear: { year: number; given: number;
   if (!s.length) {
     return (
       <div ref={ref}>
-        <p className="hint">Das Kind ist 2027 schon 18 – das Geschenk kann nicht mehr ins Depot.</p>
+        <p className="hint">Das Kind ist 2027 schon 18. Das Geschenk kann nicht mehr ins Depot.</p>
       </div>
     );
   }

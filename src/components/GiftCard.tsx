@@ -1,5 +1,5 @@
 // DIE Geschenkkarte aus dem Entwurf als React-Komponente.
-// Server-tauglich: keine Hooks, kein „use client“ – funktioniert in Server- und Client-Komponenten.
+// Server-tauglich: keine Hooks, kein „use client“, funktioniert in Server- und Client-Komponenten.
 import type { CSSProperties, ReactNode } from "react";
 import { motifById, type Emblem, type Paper, type Shape } from "@/lib/catalog";
 import { eur } from "./format";
@@ -251,7 +251,7 @@ export function GiftCard({
                     Einlösecode <b>{code}</b>
                   </>
                 ) : (
-                  "Den Einlösecode drucken wir nach dem Kauf ein."
+                  "Den Einlösecode bekommt ihr nach dem Kauf."
                 )}
               </p>
             </div>

@@ -69,7 +69,7 @@ export async function cardPdf(card: Card, opts: { redeemUrl: string; epcPayload?
   p2.drawRectangle({ x: 0, y: 0, width: W, height: H, color: C.weiss });
   p2.drawRectangle({ x: 0, y: H - mm(6), width: W, height: mm(6), color: paper });
   let y = H - mm(18);
-  for (const l of wrap(card.message || "Für deine Zukunft – damit du später einmal frei wählen kannst.", reg, 11, mm(78)).slice(0, 7)) {
+  for (const l of wrap(card.message || "Für deine Zukunft. Damit du später einmal frei wählen kannst.", reg, 11, mm(78)).slice(0, 7)) {
     p2.drawText(l, { x: mm(12), y, size: 11, font: reg, color: ink === C.weiss ? C.tinte : C.tinte });
     y -= 15;
   }
@@ -77,7 +77,7 @@ export async function cardPdf(card: Card, opts: { redeemUrl: string; epcPayload?
   p2.drawText("Für die Eltern: So kommt das Geld an", { x: mm(12), y: mm(32), size: 9, font: bold, color: C.pink });
   const steps = opts.epcPayload
     ? ["Der Bank-QR-Code rechts ist schon ausgefüllt.", "Die Schenkenden überweisen damit direkt an euch."]
-    : ["Code auf zukunftsgeschenk.at/einloesen eingeben,", "IBAN angeben – die Schenkenden überweisen direkt an euch."];
+    : ["Code auf zukunftsgeschenk.at/einloesen eingeben,", "IBAN angeben. Die Schenkenden überweisen direkt an euch."];
   steps.forEach((s, i) => p2.drawText(s, { x: mm(12), y: mm(26) - i * 11, size: 8.5, font: reg, color: C.tinte }));
   p2.drawText(`Einlösecode ${card.code} · unbefristet einlösbar`, { x: mm(12), y: mm(10), size: 8.5, font: bold, color: C.tinte });
   drawQr(p2, opts.epcPayload ?? opts.redeemUrl, W - mm(46), mm(30), mm(34));

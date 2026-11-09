@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS orders (
   id text PRIMARY KEY, created_at timestamptz NOT NULL DEFAULT now(), status text NOT NULL DEFAULT 'pending',
   buyer_name text NOT NULL, buyer_email text NOT NULL, total_cents integer NOT NULL, access_token text NOT NULL,
   stripe_session_id text, invoice_number text, shipping jsonb, paid_at timestamptz);
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS digital_consent boolean;
 CREATE TABLE IF NOT EXISTS cards (
   id text PRIMARY KEY, order_id text NOT NULL, code text NOT NULL UNIQUE, motif text NOT NULL, paper text NOT NULL,
   format text NOT NULL, price_cents integer NOT NULL, amount_cents integer NOT NULL, child_name text NOT NULL,

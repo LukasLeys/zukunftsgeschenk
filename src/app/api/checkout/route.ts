@@ -12,7 +12,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const res = await createOrder(body);
-    if (!res) throw new Error("Bestellung konnte nicht angelegt werden");
+    if (!res) throw new Error("createOrder lieferte keine Bestellung");
     const { order, cards } = res;
     const done = `${SITE_URL}/bestellung/${order.id}?t=${order.accessToken}`;
     const s = stripe();
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
           unit_amount: c.priceCents,
           tax_behavior: "inclusive",
           product_data: {
-            name: `Geschenkkarte „${motifById(c.motif)?.name ?? c.motif}“ – ${formatById(c.format)?.short}`,
+            name: `Geschenkkarte „${motifById(c.motif)?.name ?? c.motif}“, ${formatById(c.format)?.short}`,
             description: `Für ${c.childName}. Der Geschenkbetrag ist nicht enthalten und geht direkt an die Eltern.`,
           },
         },

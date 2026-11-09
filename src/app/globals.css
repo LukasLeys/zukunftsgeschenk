@@ -1,6 +1,6 @@
 /* =====================================================================
-   Zukunftsgeschenk – Design-System (portiert aus dem freigegebenen
-   Entwurf r5-1-auspacken.html, Runde 5 „Geschenkpapier – Auspacken“)
+   Zukunftsgeschenk: Design-System (portiert aus dem freigegebenen
+   Entwurf r5-1-auspacken.html, Runde 5 „Geschenkpapier, Auspacken“)
 
    KLASSEN-INDEX
    Tokens ........ :root  --pink --pink-d --pink-dd --gelb --gelb-d --gelb-l --gelb-ll
@@ -693,7 +693,7 @@ a.btn:hover{text-decoration:none}
 .torn--gelb::after{background:var(--gelb-ll)}
 .torn--weiss::after{background:#fff}
 
-/* Geschenkkarte: Größen (Basisbreite je Form) – mit --k skalierbar */
+/* Geschenkkarte: Größen (Basisbreite je Form), mit --k skalierbar */
 .paper-gold{--paper-c:var(--gold);--paper-p:var(--pat-gold)}
 .gc-size-sm.gc-wrap--a6{--bw:168px}.gc-size-sm.gc-wrap--post{--bw:252px}.gc-size-sm.gc-wrap--square{--bw:196px}.gc-size-sm.gc-wrap--tag{--bw:138px}
 .gc-size-md.gc-wrap--a6{--bw:250px}.gc-size-md.gc-wrap--post{--bw:360px}.gc-size-md.gc-wrap--square{--bw:280px}.gc-size-md.gc-wrap--tag{--bw:200px}

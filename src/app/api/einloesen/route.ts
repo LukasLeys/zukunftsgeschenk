@@ -9,7 +9,7 @@ export async function GET(req: Request) {
   if (!c) return NextResponse.json({ error: "Diesen Code kennen wir nicht. Bitte prüft die Schreibweise, z. B. ZG-7K4P-29XM." }, { status: 404 });
   return NextResponse.json({
     code: c.code, status: c.status, childName: c.childName, sender: c.sender, amountCents: c.amountCents,
-    motif: c.motif, paper: c.paper, message: c.message, ibanKnown: Boolean(c.ibanEnc) && c.status === "issued",
+    motif: c.motif, paper: c.paper, message: c.message, ibanKnown: Boolean(c.ibanEnc) && c.status === "issued", viaWish: Boolean(c.wishSlug),
   });
 }
 

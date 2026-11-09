@@ -48,8 +48,8 @@ export function HeroGift({ fromPrice, promo }: HeroGiftProps) {
             Schenk ein Stück <span className="hl">Zukunft.</span>
           </h1>
           <p className="lead">
-            Die Geschenkkarte fürs Zukunftsdepot. Du schenkst den Eltern Geld mit einer schönen Karte, sie zahlen es ab
-            Juli 2027 ins Depot des Kindes ein. <b>Das Geld geht direkt an die Eltern, nie über uns.</b>
+            Die Geschenkkarte fürs Zukunftsdepot. Du schenkst den Eltern Geld mit einer schönen Karte, sie zahlen es
+            voraussichtlich ab Juli 2027 ins Depot des Kindes ein. <b>Das Geld geht direkt an die Eltern, nie über uns.</b>
           </p>
           <AmountPicker
             id="hero-amt"
@@ -84,7 +84,7 @@ export function HeroGift({ fromPrice, promo }: HeroGiftProps) {
             </span>
           </div>
           <p className="buy-note">
-            Bei uns zahlst du nur die Karte. Der Betrag ist <b>dein Geschenk an die Eltern</b> – du überweist ihn per
+            Bei uns zahlst du nur die Karte. Der Betrag ist <b>dein Geschenk an die Eltern</b>. Du überweist ihn per
             Bank-QR-Code direkt.
           </p>
           {promo ? (

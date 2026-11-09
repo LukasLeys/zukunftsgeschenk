@@ -36,7 +36,7 @@ export function Countdown({ deadline = XMAS_DEADLINE, overText = "Die Aktion ist
 
   const over = p === "over";
   const v = p && p !== "over" ? p : null;
-  const show = (n: number | undefined, pad: boolean) => (n === undefined ? "–" : pad ? String(n).padStart(2, "0") : String(n));
+  const show = (n: number | undefined, pad: boolean) => (n === undefined ? "0" : pad ? String(n).padStart(2, "0") : String(n));
   const label = v ? `Noch ${v.d} Tage, ${v.h} Stunden und ${v.m} Minuten` : undefined;
 
   return (

@@ -6,7 +6,7 @@ import { db, schema } from "../src/lib/db";
 describe("Ablauf Kauf → Einlösen → Überweisen", () => {
   it("funktioniert von Anfang bis Ende", async () => {
     const r = await createOrder({
-      buyerName: "Gerti Muster", buyerEmail: "oma@example.at", acceptTerms: true,
+      buyerName: "Gerti Muster", buyerEmail: "oma@example.at", acceptTerms: true, digitalConsent: true,
       shipping: { name: "Gerti Muster", street: "Hauptstraße 1", zip: "1010", city: "Wien", country: "AT" },
       items: [
         { motif: "sterne", paper: "pink", format: "print", amount: 100, childName: "Lena", message: "Frohe Weihnachten", sender: "Oma Gerti" },
@@ -40,7 +40,7 @@ describe("Ablauf Kauf → Einlösen → Überweisen", () => {
 
   it("Wunschseite liefert die IBAN direkt auf die Karte", async () => {
     const w = await createWishPage({ childName: "Jakob", parentName: "Max Huber", parentEmail: "max@example.at", message: "Danke!", occasion: "geburt", iban: "AT611904300234573201", consent: true });
-    const r = await createOrder({ buyerName: "Opa Franz", buyerEmail: "opa@example.at", acceptTerms: true, shipping: null,
+    const r = await createOrder({ buyerName: "Opa Franz", buyerEmail: "opa@example.at", acceptTerms: true, digitalConsent: true, shipping: null,
       items: [{ motif: "mobile", paper: "rosa", format: "mail", amount: 250, childName: "Jakob", message: "", sender: "Opa Franz", wishSlug: w.slug }] });
     const c = (await getOrder(r!.order.id))!.cards[0];
     expect(cardEpc(c)).toContain("EUR250.00");

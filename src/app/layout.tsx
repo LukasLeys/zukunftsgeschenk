@@ -1,9 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Figtree } from "next/font/google";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { LegalBar } from "@/components/LegalBar";
-import { CartProvider } from "@/components/cart/CartProvider";
 import "./globals.css";
 
 const display = Bricolage_Grotesque({
@@ -22,7 +18,7 @@ const sans = Figtree({
 
 export const metadata: Metadata = {
   title: {
-    default: "Zukunftsgeschenk – die Geschenkkarte fürs Zukunftsdepot",
+    default: "Zukunftsgeschenk: die Geschenkkarte fürs Zukunftsdepot",
     template: "%s · Zukunftsgeschenk",
   },
   description:
@@ -46,19 +42,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         <script dangerouslySetInnerHTML={{ __html: WRAP_SCRIPT }} />
       </head>
-      <body>
-        <CartProvider>
-          <a className="skip" href="#main">
-            Zum Inhalt springen
-          </a>
-          <LegalBar />
-          <Header />
-          <main id="main" tabIndex={-1}>
-            {children}
-          </main>
-          <Footer />
-        </CartProvider>
-      </body>
+      {/* Nur Grundgerüst. Shop-Rahmen in app/(shop)/layout.tsx, Admin-Rahmen in app/admin/layout.tsx. */}
+      <body>{children}</body>
     </html>
   );
 }
