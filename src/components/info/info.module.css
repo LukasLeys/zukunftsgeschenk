@@ -35,9 +35,9 @@
 
 /* ---------- Inhalt mit Inhaltsverzeichnis ---------- */
 .body{background:#fff;padding-block:56px 96px}
-.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:clamp(32px,4vw,64px);align-items:start}
+.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:clamp(32px,4vw,64px)}
 .layoutWide{grid-template-columns:minmax(0,1fr)}
-.toc{position:sticky;top:110px;font-size:17.5px;line-height:1.35}
+.toc{position:sticky;top:110px;max-height:calc(100vh - 130px);overflow-y:auto;overscroll-behavior:contain;font-size:17.5px;line-height:1.35}
 .tocTitle{font-family:var(--display);font-weight:800;font-size:20px;margin-bottom:10px}
 .toc ol{list-style:none;margin:0;padding:12px;display:grid;gap:2px;background:var(--rosa-3);border:1px solid var(--linie);border-radius:14px}
 .toc a{display:flex;align-items:center;gap:10px;min-height:44px;padding:6px 12px;border-radius:10px;color:var(--tinte);text-decoration:none;font-weight:600}
