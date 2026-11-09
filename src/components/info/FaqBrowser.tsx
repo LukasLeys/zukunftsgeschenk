@@ -61,7 +61,7 @@ export function FaqBrowser({ groups }: { groups: FaqGroup[] }) {
             />
           </div>
         </form>
-        <div className="filters" role="group" aria-label="Nach Thema filtern" style={{ margin: 0 }}>
+        <div className={`filters ${s.faqFilters}`} role="group" aria-label="Nach Thema filtern">
           <button type="button" aria-pressed={topic === "alle"} onClick={() => setTopic("alle")}>
             Alle Themen
           </button>
