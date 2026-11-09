@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Zukunftsgeschenk
 
-## Getting Started
+Online-Shop für Geschenkkarten fürs österreichische Zukunftsdepot. Schenkende kaufen eine gestaltete Karte, das Geschenkgeld überweisen sie per Bank-QR-Code direkt an die Eltern. Der Shop nimmt nie Geschenkgeld an.
 
-First, run the development server:
+## Funktionen
+
+- Kartenshop mit 11 Motiven, Konfigurator mit Live-Vorschau, Warenkorb, Kasse (Stripe Checkout, ohne Schlüssel Demo-Zahlung)
+- Zustellung als PDF per E-Mail (sofort oder zum Wunschtermin), gedruckt mit Kuvert oder Premium mit Goldkuvert
+- Einlösen für Eltern (Code und IBAN), Überweisungsseite mit EPC-QR-Code für Schenkende, Variante „IBAN bekannt“
+- Wunschseite für Eltern mit Link für die Familie
+- Gutschein-Rechner und Depot-Rechner, Infoseiten, FAQ, Vorlagen für Impressum, AGB, Datenschutz und Widerruf
+- Admin unter `/admin`: Übersicht, Bestellungen, Karten, Druckaufträge mit CSV, Postausgang
+
+## Lokal starten
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ohne `DATABASE_URL` nutzt der Shop eine lokale PGlite-Datenbank unter `.data/pglite`. Ohne Stripe- und Resend-Schlüssel laufen Zahlung und E-Mail im Demo-Modus. Admin lokal: Benutzer `admin`, Passwort `admin`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npx vitest run
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Umgebungsvariablen
 
-## Learn More
+Siehe `.env.example`. Für den Betrieb nötig:
 
-To learn more about Next.js, take a look at the following resources:
+| Variable | Zweck |
+|---|---|
+| `DATABASE_URL` | Postgres in der EU, z. B. Neon über Vercel |
+| `IBAN_ENCRYPTION_KEY` | 32 Byte base64 (`openssl rand -base64 32`), nie mehr ändern |
+| `ADMIN_PASSWORD` | Passwort für `/admin` |
+| `CRON_SECRET` | schützt `/api/cron` (Mailversand zum Wunschtermin, Löschfristen) |
+| `SITE_URL` | öffentliche Adresse des Shops |
+| `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | Zahlung; Webhook auf `/api/stripe/webhook` |
+| `RESEND_API_KEY`, `MAIL_FROM` | E-Mail-Versand |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Vercel, Region Frankfurt (`vercel.json`), Cron alle 15 Minuten auf `/api/cron`.
 
-## Deploy on Vercel
+## Vor dem Start
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Rechtstexte enthalten markierte Platzhalter und müssen von einer Kanzlei geprüft werden. Fakten zum Zukunftsdepot beruhen auf dem Ministerialentwurf 157/ME (Stand November 2026).
