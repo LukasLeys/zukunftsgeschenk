@@ -92,7 +92,7 @@ export default async function WishPublicPage({
               <span className="tag-ring" />
               <p className="tag-for">Für {w.childName}</p>
               <p className="tag-line">Fürs Zukunftsdepot</p>
-              <p className={s.tagOcc}>{occasionLabel(occ)}</p>
+              {occ !== "zukunft" ? <p className={s.tagOcc}>{occasionLabel(occ)}</p> : null}
               <div className="tag-foot" />
             </div>
           </div>
