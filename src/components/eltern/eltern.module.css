@@ -147,6 +147,12 @@
 .pFlush{margin-top:0!important}
 .directQr .qr{width:clamp(240px,20vw,260px)}
 .qrLoading{opacity:.35;transition:opacity .2s}
+/* Am Handy: Hinweis, Link kopieren und QR-Code als Bild speichern */
+.directPhone{display:none}
+@media (max-width:900px),(hover:none) and (pointer:coarse){
+  .directPhone{display:grid;gap:14px;justify-items:start;padding-top:20px;border-top:1px dashed var(--linie-2)}
+  .directPhone .shareRow{width:100%}
+}
 
 .share{margin-bottom:28px;padding:clamp(20px,2.6vw,30px);background:#fff;border-radius:16px;border:2px solid var(--tinte);box-shadow:var(--sh-soft);display:grid;gap:14px}
 .share h2{font-size:clamp(1.5rem,1.2rem + 1vw,2rem)}
