@@ -8,7 +8,7 @@ import { CtaBox, InfoBody, List, Note, PageIntro, Section, infoStyles as s } fro
 import { DEFAULT_RATE, depotModel, giftModel } from "@/lib/calc";
 
 export const metadata: Metadata = {
-  title: "Rechner: Was wird aus deinem Gutschein bis 18?",
+  title: "Rechner: Was wird aus deinem Geschenk bis 18?",
   description:
     "Unverbindliche Modellrechnung fürs Zukunftsdepot: Wie kann ein Geschenk oder ein Sparplan bis zum 18. Geburtstag wachsen? Mit 6,7 % angenommener Rendite, ohne Kosten und Inflation. Keine Garantie.",
 };
@@ -33,8 +33,8 @@ export default async function RechnerPage({ searchParams }: { searchParams: SP }
   return (
     <>
       <PageIntro
-        title="Was wird aus deinem Gutschein bis 18?"
-        lead="Zwei Rechner zum Ausprobieren. Der Gutschein-Rechner zeigt, wie ein einzelnes Geschenk wachsen kann. Der Depot-Rechner zeigt das ganze Zukunftsdepot mit einem monatlichen Sparplan der Eltern."
+        title="Was wird aus deinem Geschenk bis 18?"
+        lead="Zwei Rechner zum Ausprobieren. Der Geschenk-Rechner zeigt, wie ein einzelnes Geschenk wachsen kann. Der Depot-Rechner zeigt das ganze Zukunftsdepot mit einem monatlichen Sparplan der Eltern."
         tag={{ top: "Modell mit", big: "6,7 %", line: "angenommener Rendite, ohne Garantie" }}
         meta={
           <>
@@ -69,7 +69,7 @@ export default async function RechnerPage({ searchParams }: { searchParams: SP }
           <List>
             <li>
               <b>6,7 % Rendite pro Jahr.</b> Diesen Wert verwenden auch öffentlich diskutierte Modellrechnungen zum
-              Zukunftsdepot. Es ist eine Annahme über einen langen Zeitraum und keine Zusage. Im Gutschein-Rechner kannst du
+              Zukunftsdepot. Es ist eine Annahme über einen langen Zeitraum und keine Zusage. Im Geschenk-Rechner kannst du
               auch mit 3 % oder 5 % rechnen.
             </li>
             <li>

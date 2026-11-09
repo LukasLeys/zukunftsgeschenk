@@ -34,13 +34,13 @@ export function CalcTabs({ initial = "gift" }: CalcTabsProps) {
           id="tab-g"
           type="button"
           aria-controls="panel-g"
-          aria-label="Gutschein-Rechner"
+          aria-label="Geschenk-Rechner"
           aria-selected={tab === "gift"}
           tabIndex={tab === "gift" ? 0 : -1}
           onClick={() => setTab("gift")}
           onKeyDown={onKey}
         >
-          Gutschein
+          Geschenk
           <span className="tab-x">-Rechner</span>
         </button>
         <button

@@ -22,7 +22,7 @@ const RATES = [
   { v: DEFAULT_RATE, label: "6,7 %" },
 ];
 
-/** Gutschein-Rechner: Was wird aus einem Geschenk bis zum 18. Geburtstag? (Modell, keine Garantie) */
+/** Geschenk-Rechner: Was wird aus einem Geschenk bis zum 18. Geburtstag? (Modell, keine Garantie) */
 export function GiftCalculator({ id = "g", defaultAmount = 100, designHref = "/karten/sterne" }: GiftCalculatorProps) {
   const thisYear = new Date().getFullYear();
   const [amount, setAmount] = useState(defaultAmount);
@@ -47,7 +47,7 @@ export function GiftCalculator({ id = "g", defaultAmount = 100, designHref = "/k
         <form className="inputs" noValidate onSubmit={(e) => e.preventDefault()}>
           <AmountPicker
             id={`${id}-amt`}
-            legend="Gutscheinbetrag"
+            legend="Geschenkbetrag"
             value={amount}
             onChange={setAmount}
             min={1}
@@ -108,7 +108,7 @@ export function GiftCalculator({ id = "g", defaultAmount = 100, designHref = "/k
               </>
             ) : (
               <>
-                Dein Gutschein über <b>{eur(amount)}</b> kann bis zum 18. Geburtstag auf rund <b>{eur(value)}</b> wachsen.
+                Dein Geschenk über <b>{eur(amount)}</b> kann bis zum 18. Geburtstag auf rund <b>{eur(value)}</b> wachsen.
               </>
             )}
           </p>
@@ -145,10 +145,10 @@ export function GiftCalculator({ id = "g", defaultAmount = 100, designHref = "/k
           </div>
           <p className="result-note">
             <Icon name="direct" />
-            Der Gutschein ist dein Geschenk an die Eltern. Das Geld liegt nie bei uns.
+            Der Betrag ist dein Geschenk an die Eltern. Das Geld liegt nie bei uns.
           </p>
           <Link className="btn" href={`${designHref}?betrag=${amount}`} style={{ marginTop: 16 }}>
-            Diesen Gutschein gestalten <Icon name="arrow" />
+            Karte gestalten <Icon name="arrow" />
           </Link>
         </div>
       </div>
