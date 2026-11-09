@@ -14,6 +14,9 @@ export const occasionLabel = (id: string) => OCCASIONS.find((o) => o.id === id)?
 /** Anlass im Satz: „Karten zur Taufe“. */
 export const OCCASION_PHRASE: Record<string, string> = {
   weihnachten: "zu Weihnachten",
+  zukunft: "rund um Aktien und Geld",
+  ostern: "zu Ostern",
+  schule: "für die Schule",
   geburt: "zur Geburt",
   taufe: "zur Taufe",
   geburtstag: "zum Geburtstag",
@@ -22,9 +25,9 @@ export const OCCASION_PHRASE: Record<string, string> = {
   neutral: "für jeden Anlass",
 };
 
-export function MotifTile({ motif: m, feature = false, level = 3, query = "" }: { motif: Motif; feature?: boolean; level?: 2 | 3; query?: string }) {
+export function MotifTile({ motif: m, feature = false, level = 3, query = "" }: { motif: Motif; feature?: boolean; level?: 2 | 3 | 4; query?: string }) {
   const sc = showcaseFor(m.id);
-  const H = level === 2 ? "h2" : "h3";
+  const H = level === 2 ? "h2" : level === 4 ? "h4" : "h3";
   const href = `/karten/${m.id}`;
   const withQuery = (extra?: string) => `${href}?${[extra, query].filter(Boolean).join("&")}`.replace(/\?$/, "");
   return (

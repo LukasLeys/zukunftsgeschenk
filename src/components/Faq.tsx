@@ -41,7 +41,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   { q: "Was, wenn die Eltern noch kein Depot haben?", a: "Sie lösen die Karte trotzdem ein und bekommen dein Geschenk. Das Depot können sie ab dem Start eröffnen; vorher ist ein kurzes Erstgespräch zur Finanzbildung vorgesehen. Wird bis zum 3. Geburtstag kein Depot eröffnet, legt der Bund den Startbonus vorübergehend im Bundesschatz an." },
   { q: "Wem gehört das Geld?", a: "Das Depot läuft auf den Namen des Kindes. Bis zum 18. Geburtstag verwalten es die Eltern, danach verfügt das Kind selbst darüber." },
   { q: "Kostet das Depot etwas?", a: "Laut Entwurf bieten Banken das Zukunftsdepot ohne Depotgebühren an. Die Fonds selbst haben laufende Kosten von höchstens 1 % pro Jahr." },
-  { q: "Gibt es Karten zur Erstkommunion und Firmung?", a: "Ja. Im Shop findest du eigene Motive für Erstkommunion und Firmung, dazu Weihnachten, Geburt, Taufe, Geburtstag und Karten ganz ohne Anlass." },
+  { q: "Gibt es Karten zur Erstkommunion und Firmung?", a: "Ja. Im Shop findest du eigene Motive für Erstkommunion und Firmung, dazu Weihnachten, Ostern, Geburt, Taufe, Geburtstag, Schule, Aktien und Geld und Karten ganz ohne Anlass." },
 ];
 
 export default Faq;

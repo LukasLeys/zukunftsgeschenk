@@ -52,3 +52,24 @@ describe("IBAN und EPC", () => {
     expect(normalizeCode("zg 7k4p 29xm")).toBe("ZG-7K4P-29XM");
   });
 });
+
+describe("Kartenkatalog", () => {
+  it("hat 50 Motive mit eindeutigen IDs und gültigem Anlass", async () => {
+    const { MOTIFS, OCCASION_IDS } = await import("@/lib/catalog");
+    expect(MOTIFS).toHaveLength(50);
+    expect(new Set(MOTIFS.map((m) => m.id)).size).toBe(MOTIFS.length);
+    for (const m of MOTIFS) expect(OCCASION_IDS).toContain(m.occasion);
+    for (const o of OCCASION_IDS) expect(MOTIFS.some((m) => m.occasion === o)).toBe(true);
+    expect(MOTIFS.filter((m) => m.occasion === "zukunft")).toHaveLength(10);
+  });
+
+  it("jedes Motiv hat ein eigenes Emblem, Schaufensterdaten und lesbare Innenfläche", async () => {
+    const { MOTIFS } = await import("@/lib/catalog");
+    const { SHOWCASE } = await import("@/components/showcase");
+    expect(new Set(MOTIFS.map((m) => m.emblem)).size).toBe(MOTIFS.length);
+    for (const m of MOTIFS) {
+      expect(SHOWCASE[m.id], m.id).toBeDefined();
+      if (m.panel && m.panel !== "white") expect(m.papers, m.id).not.toContain(m.panel);
+    }
+  });
+});

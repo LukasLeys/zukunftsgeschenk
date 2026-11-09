@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import Link from "next/link";
-import { FORMATS, OCCASIONS, motifById, xmasActive } from "@/lib/catalog";
+import { FORMATS, MOTIFS, OCCASIONS, motifById, xmasActive } from "@/lib/catalog";
 import { HeroGift } from "@/components/HeroGift";
 import { GiftCard, PAPER_LABEL, SHAPE_LABEL, paperSwatch } from "@/components/GiftCard";
 import { Icon } from "@/components/Icon";
@@ -14,7 +14,7 @@ import { eurCents } from "@/components/format";
 // Weihnachtsaktion und Countdown-Text hängen vom Datum ab: stündlich neu erzeugen.
 export const revalidate = 3600;
 
-const TEASER = ["gold", "sterne", "mobile", "kerze", "kuchen"] as const;
+const TEASER = ["gold", "sterne", "kurve", "mobile", "kuchen"] as const;
 
 const occasionLabel = (id: string) => OCCASIONS.find((o) => o.id === id)?.label ?? "";
 const price = (id: string) => FORMATS.find((f) => f.id === id)!.priceCents;
@@ -101,8 +101,8 @@ export default function Home() {
               Such dir dein Papier aus.
             </h2>
             <p className="muted">
-              Elf Motive als Klappkarte, Postkarte, Quadrat, Anhänger oder im Goldkuvert. Jedes in mehreren Papierfarben,
-              mit Name, Betrag und deinen Worten.
+              {MOTIFS.length} Motive als Klappkarte, Postkarte, Quadrat, Anhänger oder im Goldkuvert. Jedes in mehreren
+              Papierfarben, mit Name, Betrag und deinen Worten.
             </p>
           </div>
           <div className="shopgrid">
@@ -153,7 +153,7 @@ export default function Home() {
             <Link className="btn btn--ghost" href="/karten">
               Alle Karten ansehen <Icon name="arrow" />
             </Link>
-            <span className="muted small">Weihnachten, Geburt, Taufe, Geburtstag, Erstkommunion, Firmung und einfach so.</span>
+            <span className="muted small">Weihnachten, Aktien und Geld, Geburt, Taufe, Geburtstag, Ostern, Erstkommunion, Firmung, Schule und einfach so.</span>
           </div>
           <div className="shop-note">
             <div>

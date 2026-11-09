@@ -15,13 +15,16 @@ export const dynamic = "force-dynamic";
 
 /** Hauptmotiv je Anlass plus zwei passende Vorschläge. */
 const MOTIFS_FOR: Record<Occasion, [string, string, string]> = {
-  weihnachten: ["sterne", "gold", "baum"],
-  geburt: ["mobile", "mond", "pfeil"],
-  taufe: ["kerze", "mond", "taube"],
-  geburtstag: ["kuchen", "konfetti", "pfeil"],
-  kommunion: ["kelch", "kerze", "taube"],
-  firmung: ["taube", "kelch", "pfeil"],
-  neutral: ["pfeil", "konfetti", "sterne"],
+  weihnachten: ["sterne", "gold", "kugel"],
+  zukunft: ["kurve", "weltkugel", "schneeball"],
+  geburt: ["mobile", "mond", "strampler"],
+  taufe: ["kerze", "regenbogen", "muschel"],
+  geburtstag: ["kuchen", "luftballons", "krone"],
+  ostern: ["osterei", "osterhase", "osternest"],
+  kommunion: ["kelch", "fisch", "trauben"],
+  firmung: ["taube", "flamme", "kompass"],
+  schule: ["schultuete", "schultasche", "zeugnis"],
+  neutral: ["pfeil", "kurve", "kleeblatt"],
 };
 
 const occasionOf = (o: string): Occasion => (o in MOTIFS_FOR ? (o as Occasion) : "neutral");

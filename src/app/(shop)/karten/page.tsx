@@ -21,7 +21,7 @@ export async function generateMetadata({ searchParams }: { searchParams: Search 
   if (!occ)
     return {
       title: "Alle Karten",
-      description: `Elf Geschenkkarten fürs Zukunftsdepot: Weihnachten, Geburt, Taufe, Geburtstag, Erstkommunion, Firmung und einfach so. Per E-Mail oder gedruckt, ab ${FROM_PRICE}. Das Geschenkgeld geht direkt an die Eltern.`,
+      description: `${MOTIFS.length} Geschenkkarten fürs Zukunftsdepot: Weihnachten, Aktien und Geld, Geburt, Taufe, Geburtstag, Ostern, Erstkommunion, Firmung, Schule und einfach so. Per E-Mail oder gedruckt, ab ${FROM_PRICE}. Das Geschenkgeld geht direkt an die Eltern.`,
       alternates: { canonical: base },
     };
   return {
@@ -30,6 +30,12 @@ export async function generateMetadata({ searchParams }: { searchParams: Search 
     alternates: { canonical: `${base}?anlass=${occ}` },
   };
 }
+
+/** Kurzer Hinweis unter einzelnen Anlässen. */
+const GROUP_NOTE: Partial<Record<Occasion, string>> = {
+  zukunft:
+    "Für alle, die beim Schenken an Aktien, Zinseszins und den 18er denken. Was die Eltern im Zukunftsdepot damit machen, entscheiden sie selbst.",
+};
 
 const ZICON: Record<string, IconName> = { mail: "mail", print: "env", premium: "seal" };
 
@@ -48,14 +54,14 @@ export default async function KartenPage({ searchParams }: { searchParams: Searc
               Such dir eine Karte aus.
             </h1>
             <p className="lead">
-              Elf Motive, jedes in mehreren Papierfarben. Du trägst Betrag, Namen und deine Worte ein. Bei uns zahlst du nur
-              die Karte, das Geschenkgeld überweist du direkt an die Eltern.
+              {MOTIFS.length} Motive für zehn Anlässe, jedes in mehreren Papierfarben. Du trägst Betrag, Namen und deine Worte
+              ein. Bei uns zahlst du nur die Karte, das Geschenkgeld überweist du direkt an die Eltern.
             </p>
           </div>
           <div className={s.fan} aria-hidden="true">
             <GiftCard motif="mobile" paper="rosa" amount={500} childName="Emma" sender="Von Oma und Opa" size="sm" decorative />
             <GiftCard motif="sterne" paper="pink" amount={100} childName="Lena" sender="Von Oma Gerti" size="sm" decorative />
-            <GiftCard motif="kuchen" paper="gelb" amount={250} childName="Leon" sender="Von Tante Susi" size="sm" decorative />
+            <GiftCard motif="muenzen" paper="gelb" amount={250} childName="Leon" sender="Von Tante Susi" size="sm" decorative />
           </div>
         </div>
       </section>
@@ -83,11 +89,38 @@ export default async function KartenPage({ searchParams }: { searchParams: Searc
               ? `${list.length === 1 ? "Eine Karte" : `${list.length} Karten`} ${OCCASION_PHRASE[occ]}`
               : `Alle ${list.length} Karten`}
           </h2>
-          <div className={occ ? "shopgrid filtered" : "shopgrid"}>
-            {list.map((m, i) => (
-              <MotifTile key={m.id} motif={m} feature={!occ && i === 0} />
-            ))}
-          </div>
+          {occ ? (
+            <>
+              {GROUP_NOTE[occ] ? <p className={s.groupNote}>{GROUP_NOTE[occ]}</p> : null}
+              <div className="shopgrid filtered dense">
+                {list.map((m) => (
+                  <MotifTile key={m.id} motif={m} />
+                ))}
+              </div>
+            </>
+          ) : (
+            OCCASIONS.map((o) => {
+              const group = MOTIFS.filter((m) => m.occasion === o.id);
+              return (
+                <section key={o.id} className={s.group} aria-labelledby={`g-${o.id}`}>
+                  <div className={s.groupHead}>
+                    <h3 id={`g-${o.id}`} className={s.groupH}>
+                      {o.label} <span className={s.n}>{group.length}</span>
+                    </h3>
+                    <Link href={`/karten?anlass=${o.id}`} scroll={false} className={s.groupLink}>
+                      Nur diese zeigen
+                    </Link>
+                  </div>
+                  {GROUP_NOTE[o.id] ? <p className={s.groupNote}>{GROUP_NOTE[o.id]}</p> : null}
+                  <div className="shopgrid filtered dense">
+                    {group.map((m) => (
+                      <MotifTile key={m.id} motif={m} level={4} />
+                    ))}
+                  </div>
+                </section>
+              );
+            })
+          )}
           {occ ? (
             <p className={s.moreLine}>
               Nicht das Richtige dabei? Die Karten für <Link href="/karten?anlass=neutral">einfach so</Link> passen zu jedem

@@ -12,7 +12,7 @@ z.setErrorMap((issue, ctx) => {
   return { message: ctx.defaultError };
 });
 import { db, schema } from "./db";
-import { FORMATS, MAX_AMOUNT_EUR, MIN_AMOUNT_EUR, MOTIFS, xmasActive } from "./catalog";
+import { FORMATS, MAX_AMOUNT_EUR, MIN_AMOUNT_EUR, MOTIFS, OCCASION_IDS, xmasActive } from "./catalog";
 import { newId, newRedeemCode, newToken, normalizeCode, slugify } from "./codes";
 import { encrypt, decrypt } from "./crypto";
 import { isValidIban, normalizeIban, epcPayload } from "./iban";
@@ -208,7 +208,7 @@ export const wishSchema = z.object({
   parentName: z.string().trim().min(2).max(70),
   parentEmail: z.string().trim().email(),
   message: z.string().trim().max(400).default(""),
-  occasion: z.enum(["weihnachten", "geburt", "taufe", "geburtstag", "kommunion", "firmung", "neutral"]),
+  occasion: z.enum(OCCASION_IDS),
   iban: z.string().refine(isValidIban, "Diese IBAN ist nicht gültig. Bitte prüft die Eingabe."),
   consent: z.literal(true),
 });

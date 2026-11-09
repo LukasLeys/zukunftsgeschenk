@@ -401,6 +401,7 @@ tbody tr:last-child td{background:var(--gelb-ll);font-weight:800}
 .gc--post .gc-panel{flex-direction:row;justify-content:flex-start;text-align:left;gap:5cqw;padding:5cqh 6cqw}
 .panel-tinte .gc-panel{background:var(--tinte);color:#fff;--e1:var(--gelb);--e2:var(--pink);--amt:var(--gelb)}
 .panel-pink .gc-panel{background:var(--pink);color:#fff;--e1:#fff;--e2:var(--gelb);--amt:#fff}
+.panel-gelb .gc-panel{background:var(--gelb);color:var(--tinte);--e1:var(--pink);--e2:#fff;--amt:var(--tinte)}
 .gc-emb{display:block;width:24cqmin;height:24cqmin;flex:none}
 .gc--post .gc-emb{width:40cqh;height:40cqh}
 .gc-emb svg{width:100%;height:100%;display:block;overflow:visible}
@@ -458,7 +459,7 @@ tbody tr:last-child td{background:var(--gelb-ll);font-weight:800}
 .st-rosa{--st:var(--rosa)}.st-gelb{--st:#ffe78f}.st-weiss{--st:var(--rosa-3)}.st-tinte{--st:#3a2c3d}.st-creme{--st:var(--gelb-ll)}
 .stage .gc-line{display:none}
 .iinfo{padding:16px 20px 20px;display:flex;flex-direction:column;gap:4px;flex:1}
-.iinfo h3{font-size:25px}
+.iinfo :is(h3,h4){font-size:25px}
 .meta{font-size:17px;color:var(--tinte-2)}
 .price{font-weight:750;font-size:18px}
 .dots{display:flex;gap:6px;align-items:center;margin-top:6px}
@@ -470,14 +471,18 @@ tbody tr:last-child td{background:var(--gelb-ll);font-weight:800}
 .shop-note{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:flex-start;margin-top:28px;padding:18px 22px;background:var(--rosa);border-radius:14px;font-size:17.5px;line-height:1.5}
 .shop-note svg{width:26px;height:26px;color:var(--pink-d);flex:none}
 .shop-note > div{display:flex;gap:12px;flex:1 1 360px}
-@media (max-width:1000px){.shopgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.item,.shopgrid.filtered .item{grid-column:span 1}.item.feature{grid-column:span 2}}
+/* Dichtes Raster für die volle Kartenübersicht: vier Karten pro Reihe */
+.shopgrid.dense{grid-template-columns:repeat(8,minmax(0,1fr));gap:20px}
+@media (min-width:1181px){.shopgrid.dense .stage{height:264px;--k:.86}.shopgrid.dense .stage:has(.gc--post){--k:.8}.shopgrid.dense .iinfo :is(h3,h4){font-size:22px}}
+@media (max-width:1180px){.shopgrid.dense{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media (max-width:1000px){.shopgrid,.shopgrid.dense{grid-template-columns:repeat(2,minmax(0,1fr))}.item,.shopgrid.filtered .item{grid-column:span 1}.item.feature{grid-column:span 2}}
 @media (max-width:600px){
   .shopgrid{gap:12px}
   .stage{height:210px;--k:.7}
   .stage:has(.gc--post){--k:.6}
   .item.feature .stage{height:250px}
   .iinfo{padding:12px 12px 14px}
-  .iinfo h3{font-size:20px}
+  .iinfo :is(h3,h4){font-size:20px}
   .meta,.price{font-size:var(--fs-small)}
   .iinfo .btn{width:100%;padding-inline:10px;font-size:17px}
   .iinfo .btn svg{display:none}
@@ -718,12 +723,12 @@ a.btn:hover{text-decoration:none}
 
 /* Kartenauswahl-Teaser */
 .item{position:relative}
-.item h3 a{color:inherit;text-decoration:none}
-.item h3 a::after{content:"";position:absolute;inset:0;z-index:1;border-radius:14px}
-.item h3 a:focus-visible{outline:none}
-.item:has(h3 a:focus-visible){outline:3px solid var(--pink);outline-offset:3px}
+.item :is(h3,h4) a{color:inherit;text-decoration:none}
+.item :is(h3,h4) a::after{content:"";position:absolute;inset:0;z-index:1;border-radius:14px}
+.item :is(h3,h4) a:focus-visible{outline:none}
+.item:has(:is(h3,h4) a:focus-visible){outline:3px solid var(--pink);outline-offset:3px}
 .item .btn{position:relative;z-index:2}
-.item:hover h3{color:var(--pink-d)}
+.item:hover :is(h3,h4){color:var(--pink-d)}
 .swatches{display:flex;gap:8px;align-items:center;margin-top:8px;list-style:none;padding:0}
 .swatches li{width:24px;height:24px;border-radius:50%;background:var(--dc) var(--dp) 0 0/30px 30px;box-shadow:0 0 0 1px rgba(42,31,45,.25)}
 

@@ -294,7 +294,7 @@ Satt, rund und groß genug für jeden Daumen.
 Gelbes Faserpapier mit abgeschrägten oberen Ecken, gestanzter Lochöse mit weißem Ring, Faden darüber, unten ein Streifen pinkes Geschenkpapier. Inhalt: Empfängername in Tag Label, Betrag in Amount, Anlass in Bricolage 700. Im Hero hängt er an der Masche und fällt beim Auspacken; auf Bedienseiten hängt er ruhig als Dekoration (leicht gedreht, -7°).
 
 ### Geschenkkarte (Signature)
-Das Produkt. Formate A6, Postkarte, Quadrat und Anhänger, skaliert über eine Basisbreite. Papier in Pink, Gelb, Rosa, Tinte oder Gold, jeweils mit Rapport und Faser, darauf ein weißes Feld mit Emblem, Name, Betrag, Anlass und Absender in Kursiv. Steht leicht gedreht (-3°), optional mit Kuvert dahinter.
+Das Produkt. Formate A6, Postkarte, Quadrat und Anhänger, skaliert über eine Basisbreite. Papier in Pink, Gelb, Rosa, Tinte oder Gold, jeweils mit Rapport und Faser, darauf ein Feld mit Emblem (weiß, Tinte, Pink oder Gelb je Motiv; Embleme in src/components/emblems.tsx), Name, Betrag, Anlass und Absender in Kursiv. Steht leicht gedreht (-3°), optional mit Kuvert dahinter.
 
 ### Auspacken (Signature)
 Nur mit JavaScript und ohne reduzierte Bewegung: Papier bedeckt den ersten Bildschirm vollflächig, beim Scrollen gleitet das Band auseinander, die Masche löst sich, das Papier reißt an der Zackenkante auf. Ohne Bewegung bleibt ein Papierstreifen mit Band oben stehen.

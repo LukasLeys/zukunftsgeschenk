@@ -4,7 +4,7 @@ Online-Shop für Geschenkkarten fürs österreichische Zukunftsdepot. Schenkende
 
 ## Funktionen
 
-- Kartenshop mit 11 Motiven, Konfigurator mit Live-Vorschau, Warenkorb, Kasse (Stripe Checkout, ohne Schlüssel Demo-Zahlung)
+- Kartenshop mit 50 Motiven für zehn Anlässe (darunter 10 zu Aktien und Geld), Konfigurator mit Live-Vorschau, Warenkorb, Kasse (Stripe Checkout, ohne Schlüssel Demo-Zahlung)
 - Zustellung als PDF per E-Mail (sofort oder zum Wunschtermin), gedruckt mit Kuvert oder Premium mit Goldkuvert
 - Einlösen für Eltern (Code und IBAN), Überweisungsseite mit EPC-QR-Code für Schenkende, Variante „IBAN bekannt“
 - Wunschseite für Eltern mit Link für die Familie

@@ -4,13 +4,13 @@ import { z } from "zod";
 import { db, schema } from "@/lib/db";
 import { safeEqual } from "@/lib/crypto";
 import { errorResponse } from "@/lib/http";
+import { OCCASION_IDS } from "@/lib/catalog";
 
-const OCC = ["weihnachten", "geburt", "taufe", "geburtstag", "kommunion", "firmung", "neutral"] as const;
 
 const patchSchema = z.object({
   t: z.string().min(10).optional(),
   message: z.string().trim().max(400, "Die Nachricht darf höchstens 400 Zeichen lang sein.").optional(),
-  occasion: z.enum(OCC, { errorMap: () => ({ message: "Bitte wählt einen Anlass." }) }).optional(),
+  occasion: z.enum(OCCASION_IDS, { errorMap: () => ({ message: "Bitte wählt einen Anlass." }) }).optional(),
 });
 
 const NOT_FOUND = { error: "Diese Wunschseite gibt es nicht, oder der Link zum Bearbeiten stimmt nicht." };
