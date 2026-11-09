@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AmountPicker } from "@/components/AmountPicker";
 import { eur } from "@/components/format";
+import { CopyButton } from "./CopyButton";
 import s from "./eltern.module.css";
 
 /** Direkt überweisen ohne Karte: Betrag und Absender wählen, Bank-QR-Code wird live erzeugt. */
@@ -12,6 +13,11 @@ export function WishDirect({ slug, childName, parentName }: { slug: string; chil
   const [from, setFrom] = useState("");
   const [src, setSrc] = useState(() => `/api/wunschseite/${encodeURIComponent(slug)}/qr?betrag=100&von=`);
   const [loading, setLoading] = useState(false);
+  const [pageUrl, setPageUrl] = useState(`/fuer/${slug}`);
+
+  useEffect(() => {
+    setPageUrl(`${window.location.origin}/fuer/${slug}`);
+  }, [slug]);
 
   // Absender verzögert übernehmen, damit nicht bei jedem Tastendruck ein neuer QR-Code geladen wird
   useEffect(() => {
@@ -68,6 +74,22 @@ export function WishDirect({ slug, childName, parentName }: { slug: string; chil
           </p>
           {amountErr ? <p className="err">Bitte zuerst einen gültigen Betrag wählen.</p> : null}
         </div>
+      </div>
+      <div className={s.directPhone}>
+        <p className={`${s.p} ${s.pFlush}`}>
+          <b>Du bist am Handy?</b> Mit demselben Handy kannst du den Code nicht scannen. Öffne diese Seite am Computer oder Tablet
+          und scanne den Code von dort.
+        </p>
+        <div className={s.shareRow}>
+          <span className={s.shareUrl} id="wd-link">
+            {pageUrl}
+          </span>
+          <CopyButton value={pageUrl} targetId="wd-link" label="Link" text="Link kopieren" />
+        </div>
+        <p className={`${s.p} ${s.pFlush}`}>Manche Banking-Apps können den Code aus einem Bild lesen.</p>
+        <a className="btn btn--ghost" href={`${src}&format=png`} download={`zukunftsgeschenk-${slug}.png`}>
+          QR-Code als Bild speichern
+        </a>
       </div>
     </div>
   );

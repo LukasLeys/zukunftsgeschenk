@@ -8,7 +8,7 @@ import s from "./eltern.module.css";
  * Kopiert `value` in die Zwischenablage. Ohne Clipboard-API (oder bei Fehler) wird der Text im Ziel-Element
  * markiert, damit man ihn selbst kopieren kann.
  */
-export function CopyButton({ value, targetId, label }: { value: string; targetId?: string; label: string }) {
+export function CopyButton({ value, targetId, label, text = "Kopieren" }: { value: string; targetId?: string; label: string; text?: string }) {
   const [state, setState] = useState<"idle" | "ok" | "manual">("idle");
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
   useEffect(() => () => clearTimeout(timer.current), []);
@@ -54,7 +54,7 @@ export function CopyButton({ value, targetId, label }: { value: string; targetId
             </g>
           </svg>
         )}
-        <span>{state === "ok" ? "Kopiert" : "Kopieren"}</span>
+        <span>{state === "ok" ? "Kopiert" : text}</span>
       </button>
       <span className="sr" aria-live="polite">
         {state === "ok" ? `${label} kopiert` : state === "manual" ? `${label} ist markiert. Jetzt mit Strg und C kopieren.` : ""}
