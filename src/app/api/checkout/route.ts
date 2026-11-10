@@ -6,10 +6,12 @@ import { motifById, formatById } from "@/lib/catalog";
 import { db, schema } from "@/lib/db";
 import { eq } from "drizzle-orm";
 import { errorResponse } from "@/lib/http";
+import { LIMITS, rateLimit } from "@/lib/ratelimit";
 
 /** Legt die Bestellung an. Mit Stripe-Schlüssel: Weiterleitung zu Stripe Checkout. Ohne: Demo-Zahlung. */
 export async function POST(req: Request) {
   try {
+    rateLimit(req, LIMITS.checkout);
     const body = await req.json();
     const res = await createOrder(body);
     if (!res) throw new Error("createOrder lieferte keine Bestellung");
