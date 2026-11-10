@@ -10,6 +10,7 @@ const LINKS = [
   { href: "/admin/karten", label: "Karten" },
   { href: "/admin/druck", label: "Druck", count: "print" as const },
   { href: "/admin/postausgang", label: "Postausgang", count: "mail" as const },
+  { href: "/admin/start", label: "Startbereitschaft" },
 ];
 
 /** Schlanke Admin-Navigation mit Zählern für offene Arbeit. */

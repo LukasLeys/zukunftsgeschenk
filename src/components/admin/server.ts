@@ -56,7 +56,7 @@ export const CARD_STATUS: Record<string, { label: string; tone: Tone }> = {
   transferred: { label: "überwiesen", tone: "ok" },
 };
 
-export type Tone = "ok" | "warn" | "off" | "plain" | "accent";
+export type Tone = "ok" | "warn" | "bad" | "off" | "plain" | "accent";
 
 export const PAPER_NAME: Record<string, string> = { pink: "Pink", gelb: "Gelb", rosa: "Rosa", tinte: "Tinte", gold: "Gold" };
 export const motifName = (id: string) => motifById(id)?.name ?? id;

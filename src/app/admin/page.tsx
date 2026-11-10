@@ -5,6 +5,7 @@ import { PageHead, SectionHead } from "@/components/admin/ui";
 import { cardFlow, outboxStats, printJobs, recentActivity, totals } from "@/components/admin/queries";
 import { daysSince, fmtDateTime, fmtShort, pct, startOfToday, vatOf } from "@/components/admin/server";
 import { eurCents } from "@/components/format";
+import { readinessSummary } from "@/components/admin/readiness";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Übersicht" };
@@ -14,6 +15,7 @@ export default async function AdminOverview() {
   const [t, all, flow, jobs, mail, feed] = await Promise.all([totals(today), totals(), cardFlow(today), printJobs(), outboxStats(), recentActivity(14)]);
   const oldest = jobs[0]?.order.paidAt ?? null;
   const premium = jobs.filter((j) => j.format === "premium").length;
+  const ready = readinessSummary();
 
   const row = (label: string, a: ReactNode, b: ReactNode, cls?: string) => (
     <tr className={cls}>
@@ -72,6 +74,26 @@ export default async function AdminOverview() {
         </section>
 
         <div className={s.side}>
+          <section aria-labelledby="sb">
+            <SectionHead title={<span id="sb">Startbereitschaft</span>}>
+              <Link className={`${s.btn} ${s.btnSm}`} href="/admin/start">Prüfen</Link>
+            </SectionHead>
+            <div className={s.panel}>
+              <div className={s.stat}>
+                <span>
+                  Punkte erledigt
+                  <span className={s.meta}>
+                    {ready.bad ? `${ready.bad} fehlen noch für den Start.` : "Nichts blockiert den Start."}
+                    {ready.warn ? ` ${ready.warn} Hinweise.` : ""}
+                  </span>
+                </span>
+                <b>
+                  {ready.ok} von {ready.total}
+                </b>
+              </div>
+            </div>
+          </section>
+
           <section aria-labelledby="dr">
             <SectionHead title={<span id="dr">Offene Druckaufträge</span>}>
               <Link className={`${s.btn} ${s.btnSm}`} href="/admin/druck">Zum Druck</Link>

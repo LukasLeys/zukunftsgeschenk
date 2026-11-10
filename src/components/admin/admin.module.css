@@ -234,6 +234,7 @@
 .badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 .ok { color: var(--a-ok); background: var(--a-ok-bg); }
 .warn { color: var(--a-warn); background: var(--a-warn-bg); }
+.bad { color: var(--pink-dd); background: var(--rosa-2); }
 .off { color: var(--a-off); background: var(--a-off-bg); text-decoration: line-through; text-decoration-thickness: 1px; }
 .plain { color: var(--tinte); background: #fff; border-color: var(--a-line-2); }
 .accent { color: #fff; background: var(--pink); }
