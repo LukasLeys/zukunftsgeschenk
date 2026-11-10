@@ -129,7 +129,7 @@ const EXTRA: (Omit<FaqEntry, "id"> & { group: FaqGroupId })[] = [
   {
     group: "datenschutz",
     q: "Verwendet ihr Cookies?",
-    a: "Wir setzen keine Werbe- oder Tracking-Cookies. Unsere Besuchsstatistik kommt ohne Cookies aus. Den Warenkorb speichert dein Browser auf deinem Gerät.",
+    a: "Nein. Wir setzen keine Cookies und keine Analysedienste ein. Den Warenkorb speichert dein Browser auf deinem Gerät.",
   },
   {
     group: "datenschutz",

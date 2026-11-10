@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Datenschutzerklärung",
   description:
-    "Wie Zukunftsgeschenk personenbezogene Daten verarbeitet: Bestellung, Einlösung mit verschlüsselter IBAN, E-Mail-Versand, Druck, Zahlung über Stripe und cookiefreie Statistik.",
+    "Wie Zukunftsgeschenk personenbezogene Daten verarbeitet: Bestellung, Einlösung mit verschlüsselter IBAN, E-Mail-Versand, Druck, Zahlung über Stripe, Hosting in Frankfurt. Keine Tracking-Cookies.",
 };
 
 const TOC = [
@@ -20,8 +20,8 @@ const TOC = [
   { id: "wunschseite", label: "Wunschseite" },
   { id: "emails", label: "E-Mails" },
   { id: "druck", label: "Druck und Versand" },
-  { id: "hosting", label: "Hosting und Server-Protokolle" },
-  { id: "statistik", label: "Cookies und Statistik" },
+  { id: "hosting", label: "Hosting und Datenbank" },
+  { id: "cookies", label: "Cookies und lokaler Speicher" },
   { id: "empfaenger", label: "Empfänger im Überblick" },
   { id: "rechte", label: "Ihre Rechte" },
   { id: "sicherheit", label: "Sicherheit und Änderungen" },
@@ -41,7 +41,7 @@ export default function DatenschutzPage() {
           <p>
             <b>Kurz gesagt:</b> Wir erheben nur, was wir für Ihre Karte brauchen. Die IBAN der Eltern speichern wir
             verschlüsselt und löschen sie 90 Tage nach der Einlösung bzw. nach dem Kauf. Wunschseiten löschen wir nach 12
-            Monaten. Wir setzen keine Werbe- oder Tracking-Cookies ein.
+            Monaten. Wir setzen keine Cookies und keine Analysedienste ein.
           </p>
         </Note>
 
@@ -61,7 +61,7 @@ export default function DatenschutzPage() {
             <li>wenn Sie eine Karte bestellen und bezahlen,</li>
             <li>wenn Eltern eine Karte einlösen oder eine Wunschseite anlegen,</li>
             <li>wenn wir E-Mails zu Bestellung, Karte und Überweisung versenden,</li>
-            <li>wenn Sie unsere Website aufrufen (technisch notwendige Daten und cookiefreie Statistik).</li>
+            <li>wenn Sie unsere Website aufrufen (nur technisch notwendige Daten).</li>
           </List>
           <p>
             Den Geschenkbetrag überweisen Schenkende direkt an die Eltern. Diese Zahlung läuft nicht über uns. Wir erhalten
@@ -89,12 +89,15 @@ export default function DatenschutzPage() {
           />
           <h3>Zahlung über Stripe</h3>
           <p>
-            Die Zahlung des Kartenpreises wickelt Stripe Payments Europe, Ltd., 1 Grand Canal Street Lower, Dublin 2, Irland,
-            ab. Ihre Zahlungsdaten (etwa Kartennummer) geben Sie direkt bei Stripe ein. Wir erhalten nur die Bestätigung der
-            Zahlung und Angaben zur Zahlungsart. Stripe verarbeitet Daten teilweise als eigener Verantwortlicher, etwa zur
-            Betrugsvorbeugung, und kann Daten an die Stripe, Inc. in den USA übermitteln.{" "}
-            <Ph>Grundlage der Übermittlung prüfen: EU-US Data Privacy Framework oder Standardvertragsklauseln</Ph>.
-            Rechtsgrundlage ist die Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO).
+            Die Zahlung des Kartenpreises wickelt Stripe Payments Europe, Limited, 1 Grand Canal Street Lower, Grand Canal
+            Dock, Dublin, D02 H210, Irland, ab. Für die Zahlung leiten wir Sie auf eine Bezahlseite von Stripe weiter. Ihre
+            Zahlungsdaten (etwa Kartennummer) geben Sie direkt bei Stripe ein. Wir übermitteln Stripe Ihre E-Mail-Adresse,
+            die Bestellpositionen und den Betrag. Wir erhalten nur die Bestätigung der Zahlung und Angaben zur Zahlungsart.
+            Stripe verarbeitet Daten teilweise als eigener Verantwortlicher, etwa zur Betrugsvorbeugung, und kann Daten an die
+            Stripe, Inc. in den USA übermitteln. Grundlage dafür ist der Angemessenheitsbeschluss der EU-Kommission zum
+            EU-US Data Privacy Framework, ergänzend Standardvertragsklauseln (Art. 45 und 46 DSGVO).{" "}
+            <Ph>Zertifizierung von Stripe im Data Privacy Framework prüfen</Ph>. Auf der Bezahlseite gilt die
+            Datenschutzerklärung von Stripe. Rechtsgrundlage ist die Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO).
           </p>
         </Section>
 
@@ -154,11 +157,19 @@ export default function DatenschutzPage() {
 
         <Section id="emails" title="E-Mails">
           <p>
-            Wir versenden Bestellbestätigungen, E-Mail-Karten, Einlöse-Benachrichtigungen, Bank-QR-Codes und Erinnerungen über
-            den E-Mail-Dienst Resend (Resend, Inc., USA) als Auftragsverarbeiter.{" "}
-            <Ph>Serverregion bei Resend (EU) und Grundlage der Übermittlung prüfen: EU-US Data Privacy Framework oder Standardvertragsklauseln</Ph>.
-            Verarbeitet werden E-Mail-Adresse, Name und der Inhalt der Nachricht. Rechtsgrundlage ist die Vertragserfüllung
-            (Art. 6 Abs. 1 lit. b DSGVO).
+            Wir versenden Bestellbestätigungen, E-Mail-Karten, Einlöse-Benachrichtigungen, Links zum Bank-QR-Code und eine Erinnerung an die Überweisung über
+            den E-Mail-Dienst Resend (Resend, Inc., 2261 Market Street #5039, San Francisco, CA 94114, USA) als
+            Auftragsverarbeiter. Verarbeitet werden E-Mail-Adresse, Name und der Inhalt der Nachricht. Eine IBAN steht in
+            unseren E-Mails nicht. Weil Resend seinen Sitz in den USA hat, können Daten in die USA übermittelt werden.
+            Grundlage sind Standardvertragsklauseln (Art. 46 DSGVO) oder, falls Resend zertifiziert ist, das EU-US Data
+            Privacy Framework (Art. 45 DSGVO).{" "}
+            <Ph>Serverregion bei Resend (EU) und Grundlage der Übermittlung prüfen</Ph>. Rechtsgrundlage ist die
+            Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO).
+          </p>
+          <p>
+            E-Mails zum Wunschtermin bewahren wir bis zum Versand in unserem Postausgang auf. Eine Kopie jeder versendeten
+            E-Mail bleibt dort, damit wir Rückfragen zur Zustellung beantworten können.{" "}
+            <Ph>Löschfrist für den Postausgang festlegen</Ph>
           </p>
           <p>Wir versenden keine Werbe-Newsletter.</p>
         </Section>
@@ -166,50 +177,68 @@ export default function DatenschutzPage() {
         <Section id="druck" title="Druck und Versand">
           <p>
             Für gedruckte Karten übermitteln wir Karteninhalt, Name und Lieferadresse an unsere Druckerei <Co k="printShop" />{" "}
-            als Auftragsverarbeiter. Die Druckerei übergibt die Karte an die Österreichische Post AG oder <Ph>Versanddienst</Ph>.
+            als Auftragsverarbeiter. Die Druckerei übergibt die Karte an die Österreichische Post AG, Rochusplatz 1, 1030
+            Wien. Die Post erhält dafür nur Name und Lieferadresse auf dem Kuvert. Wir liefern nur an Adressen in Österreich.
             Rechtsgrundlage ist die Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO).
           </p>
         </Section>
 
-        <Section id="hosting" title="Hosting und Server-Protokolle">
+        <Section id="hosting" title="Hosting und Datenbank">
           <p>
-            Unsere Website und Datenbank laufen bei <Ph>Hosting-Anbieter</Ph> und <Ph>Datenbank-Anbieter</Ph> auf Servern in
-            der Europäischen Union (geplant: Frankfurt am Main). Die Anbieter sind unsere Auftragsverarbeiter.{" "}
-            <Ph>Falls ein Anbieter seinen Sitz in den USA hat: Grundlage der Übermittlung ergänzen</Ph>
+            Unsere Website läuft bei Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, USA, als
+            Auftragsverarbeiter. Die Server, die unsere Seiten erzeugen und auf die Datenbank zugreifen, stehen in Frankfurt
+            am Main (Region fra1). Inhalte können zur schnelleren Auslieferung auch über Server von Vercel in anderen
+            Ländern ausgeliefert werden. Weil Vercel seinen Sitz in den USA hat, ist ein Zugriff aus den USA nicht
+            ausgeschlossen. Grundlage ist der Angemessenheitsbeschluss der EU-Kommission zum EU-US Data Privacy Framework,
+            ergänzend Standardvertragsklauseln (Art. 45 und 46 DSGVO).{" "}
+            <Ph>Zertifizierung von Vercel im Data Privacy Framework prüfen</Ph>
           </p>
           <p>
-            Beim Aufruf der Website werden technisch notwendige Daten verarbeitet, etwa IP-Adresse, Datum und Uhrzeit,
+            Unsere Datenbank betreibt Neon (Neon, Inc., USA) als Auftragsverarbeiter auf Servern in der EU-Region Frankfurt
+            am Main. Dort liegen Bestellungen, Karten, Wunschseiten und der Postausgang. Die IBAN ist dort nur verschlüsselt
+            gespeichert. Für einen möglichen Zugriff aus den USA gelten Standardvertragsklauseln oder das EU-US Data Privacy
+            Framework (Art. 45 und 46 DSGVO).{" "}
+            <Ph>Anschrift von Neon und Grundlage der Übermittlung prüfen</Ph>
+          </p>
+          <p>
+            Beim Aufruf der Website verarbeitet Vercel technisch notwendige Daten, etwa IP-Adresse, Datum und Uhrzeit,
             aufgerufene Seite und Browsertyp. Das dient dem sicheren Betrieb und der Fehlersuche (berechtigtes Interesse,
-            Art. 6 Abs. 1 lit. f DSGVO). Server-Protokolle löschen wir nach <Ph>Anzahl</Ph> Tagen.
+            Art. 6 Abs. 1 lit. f DSGVO). Wir speichern diese Protokolle nicht selbst in unserer Datenbank.{" "}
+            <Ph>Speicherdauer der Protokolle laut Vercel-Tarif ergänzen</Ph>
           </p>
         </Section>
 
-        <Section id="statistik" title="Cookies und Statistik">
+        <Section id="cookies" title="Cookies und lokaler Speicher">
           <p>
-            Wir setzen keine Werbe- oder Tracking-Cookies ein. Ein Cookie-Banner ist deshalb nicht nötig.
+            Wir setzen keine Cookies. Es gibt keine Werbe-, Tracking- oder Statistik-Cookies und keine Analysedienste. Ein
+            Cookie-Banner ist deshalb nicht nötig.
           </p>
           <List>
             <li>
               <b>Warenkorb:</b> Ihr Warenkorb wird im lokalen Speicher Ihres Browsers (localStorage) abgelegt und erst bei der
-              Bestellung an uns übertragen. Sie können ihn jederzeit in den Browsereinstellungen löschen. Rechtsgrundlage ist
-              § 165 Abs. 3 TKG 2021, weil die Speicherung für den von Ihnen gewünschten Dienst unbedingt erforderlich ist.
+              Bestellung an uns übertragen. Sie können ihn jederzeit in den Browsereinstellungen löschen.
             </li>
             <li>
-              <b>Statistik:</b> Wir messen die Nutzung unserer Website mit <Ph>Name des Statistikdienstes</Ph> ohne Cookies und
-              ohne Wiedererkennung über mehrere Tage. Wir sehen nur zusammengefasste Zahlen, etwa Seitenaufrufe und Herkunftsland.
-              Rechtsgrundlage ist unser berechtigtes Interesse an einer bedarfsgerechten Website (Art. 6 Abs. 1 lit. f DSGVO).
+              <b>Kasse:</b> Während Sie bei Stripe bezahlen, hält Ihr Browser den Warenkorb kurz im Sitzungsspeicher
+              (sessionStorage). Nach der Bestellung löschen wir diesen Eintrag. Er endet spätestens, wenn Sie den Tab schließen.
             </li>
           </List>
+          <p>
+            Beide Speicher sind für den von Ihnen gewünschten Dienst unbedingt erforderlich. Rechtsgrundlage ist § 165 Abs. 3
+            TKG 2021. Unsere Schriften liegen auf unserem eigenen Server. Wir laden keine Inhalte von Google oder anderen
+            Drittanbietern nach. Auf der Bezahlseite von Stripe kann Stripe eigene, für die Zahlung notwendige Cookies setzen.
+          </p>
         </Section>
 
         <Section id="empfaenger" title="Empfänger im Überblick">
           <Dl
             rows={[
-              { dt: "Stripe Payments Europe, Ltd.", dd: "Zahlungsabwicklung des Kartenpreises" },
-              { dt: "Resend, Inc.", dd: "Versand von E-Mails" },
-              { dt: <Co k="printShop" />, dd: "Druck und Versand gedruckter Karten" },
-              { dt: <Ph>Hosting-Anbieter</Ph>, dd: "Betrieb von Website und Datenbank, Serverstandort EU" },
-              { dt: <Ph>Statistikdienst</Ph>, dd: "Cookiefreie Reichweitenmessung" },
+              { dt: "Vercel Inc., USA", dd: "Hosting der Website, Serverregion Frankfurt am Main" },
+              { dt: "Neon, Inc., USA", dd: "Datenbank, Serverregion Frankfurt am Main" },
+              { dt: "Stripe Payments Europe, Limited, Irland", dd: "Zahlungsabwicklung des Kartenpreises" },
+              { dt: "Resend, Inc., USA", dd: "Versand von E-Mails" },
+              { dt: <Co k="printShop" />, dd: "Druck gedruckter Karten" },
+              { dt: "Österreichische Post AG", dd: "Zustellung gedruckter Karten, nur Name und Lieferadresse" },
               { dt: "Schenkende Person", dd: "Name und IBAN der Eltern im Bank-QR-Code" },
               { dt: "Steuerberatung, Behörden", dd: "soweit gesetzlich vorgeschrieben" },
             ]}
@@ -229,7 +258,7 @@ export default function DatenschutzPage() {
           <p>
             Schreiben Sie dazu an <Co k="privacyEmail" or="email" link="mailto" />. Wenn Sie meinen, dass wir Ihre Daten nicht
             rechtmäßig verarbeiten, können Sie sich bei der Österreichischen Datenschutzbehörde beschweren: Barichgasse
-            40 bis 42, 1030 Wien,{" "}
+            40 bis 42, 1030 Wien, E-Mail dsb@dsb.gv.at,{" "}
             <a href="https://www.dsb.gv.at/" target="_blank" rel="noopener noreferrer">
               www.dsb.gv.at
             </a>
