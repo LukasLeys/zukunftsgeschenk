@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FORMATS, MAX_AMOUNT_EUR, MIN_AMOUNT_EUR } from "@/lib/catalog";
+import { FORMATS, MAX_AMOUNT_EUR, MIN_AMOUNT_EUR, XMAS_DEADLINE } from "@/lib/catalog";
 import { eur, eurCents } from "@/components/format";
 import { InfoBody, List, Note, PageIntro, Section } from "@/components/info/InfoPage";
 import { Co, CoNameAddress, DraftBox, legalTag, Ph } from "@/components/info/Legal";
@@ -30,6 +30,7 @@ const SECTIONS = [
 ];
 
 const title = (id: string) => SECTIONS.find((s) => s.id === id)!.label;
+const xmasDate = XMAS_DEADLINE.toLocaleDateString("de-AT", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Vienna" });
 const price = (id: string) => eurCents(FORMATS.find((f) => f.id === id)!.priceCents);
 
 export default function AgbPage() {
@@ -66,8 +67,11 @@ export default function AgbPage() {
           <p>(1) Wir gestalten und verkaufen personalisierte Geschenkkarten in diesen Formen:</p>
           <List>
             <li>Karte per E-Mail als PDF, sofort oder zu einem gewählten Zeitpunkt ({price("mail")}).</li>
-            <li>Gedruckte Klappkarte mit Kuvert, Versand per Post in Österreich ({price("print")} inkl. Versand).</li>
-            <li>Premium-Karte mit Goldkuvert, Versand per Post in Österreich ({price("premium")} inkl. Versand).</li>
+            <li>Gedruckte Karte im Format des Motivs mit Kuvert, Versand per Post in Österreich ({price("print")} inkl. Versand).</li>
+            <li>
+              Premium-Karte auf Büttenpapier mit Goldkuvert und Siegel, Versand per Post in Österreich ({price("premium")}{" "}
+              inkl. Versand).
+            </li>
           </List>
           <p>
             (2) Jede Karte enthält die von Ihnen gewählten Angaben, etwa Motiv, Papierfarbe, den Namen des Kindes, einen
@@ -117,8 +121,10 @@ export default function AgbPage() {
             Vertrag kommt zustande, sobald die Zahlung bestätigt ist und wir Ihnen die Bestellbestätigung per E-Mail senden.
           </p>
           <p>
-            (3) Vertragssprache ist Deutsch. Den Vertragstext mit diesen AGB senden wir Ihnen mit der Bestellbestätigung zu.{" "}
-            <Ph>Angabe ergänzen, ob und wie lange der Vertragstext bei uns abrufbar bleibt.</Ph>
+            (3) Vertragssprache ist Deutsch. Die Bestellbestätigung mit den Angaben zu Ihrer Bestellung senden wir Ihnen per
+            E-Mail. Ihre Bestellung können Sie über den Link in dieser E-Mail jederzeit wieder aufrufen. Diese AGB und die
+            Widerrufsbelehrung können Sie auf unserer Website abrufen, speichern und ausdrucken.{" "}
+            <Ph>Prüfen, ob AGB und Widerrufsbelehrung der Bestellbestätigung beiliegen müssen (§ 7 Abs. 3 FAGG)</Ph>
           </p>
           <p>
             (4) Eingabefehler können Sie vor dem Absenden in der Bestellübersicht erkennen und korrigieren, indem Sie zurück
@@ -128,18 +134,19 @@ export default function AgbPage() {
 
         <Section id="preise" title={title("preise")}>
           <p>
-            (1) Es gelten die Preise zum Zeitpunkt der Bestellung. Alle Preise sind Endpreise in Euro.{" "}
-            <Ph>Hinweis zur Umsatzsteuer ergänzen: inkl. 20 % USt oder Kleinunternehmerregelung</Ph>. Bei gedruckten Karten
-            ist der Versand innerhalb Österreichs im Preis enthalten.
+            (1) Es gelten die Preise zum Zeitpunkt der Bestellung. Alle Preise sind Endpreise in Euro inklusive 20 %
+            Umsatzsteuer. Bei gedruckten Karten ist der Versand innerhalb Österreichs im Preis enthalten. Der Geschenkbetrag
+            ist im Preis nicht enthalten.
           </p>
           <p>
-            (2) Sie können mit Kreditkarte, Apple Pay, Google Pay oder EPS bezahlen. Die Zahlung wickelt der Zahlungsdienst
-            Stripe Payments Europe, Ltd. (Dublin, Irland) ab.
+            (2) Die Zahlung wickelt der Zahlungsdienst Stripe Payments Europe, Limited (Dublin, Irland) ab. Sie können mit
+            den Zahlungsarten bezahlen, die Ihnen auf der Bezahlseite angezeigt werden, etwa Kreditkarte, Apple Pay, Google
+            Pay oder EPS.
           </p>
           <p>(3) Der Kaufpreis ist mit der Bestellung fällig. Sie erhalten eine Rechnung per E-Mail.</p>
           <p>
-            (4) Aktionen wie das Goldkuvert zu Weihnachten gelten nur im angegebenen Zeitraum und solange sie im Shop
-            angezeigt werden.
+            (4) Aktionen gelten nur im angegebenen Zeitraum und solange sie im Shop angezeigt werden. Zu Weihnachten
+            erhalten gedruckte Karten bei Bestellung bis {xmasDate} das Goldkuvert ohne Aufpreis.
           </p>
         </Section>
 
@@ -153,7 +160,7 @@ export default function AgbPage() {
             Adressen in Österreich. Die Lieferzeit beträgt in der Regel <Co k="deliveryDays" /> Werktage ab Zahlungseingang.
           </p>
           <p>
-            (3) Für Bestellungen vor Weihnachten nennen wir im Shop einen Bestellschluss, zuletzt den 17. Dezember 2026. Wir
+            (3) Für Bestellungen vor Weihnachten nennen wir im Shop einen Bestellschluss, zuletzt den {xmasDate}. Wir
             bemühen uns, Karten bis zu diesem Termin rechtzeitig zuzustellen. Für Verzögerungen bei der Post können wir nicht
             einstehen.
           </p>
@@ -169,7 +176,8 @@ export default function AgbPage() {
           </p>
           <p>
             (2) Zum Einlösen geben die Eltern den Code auf unserer Website ein und hinterlegen ihren Namen, ihre E-Mail-Adresse
-            und ihre IBAN. Danach senden wir Ihnen den Bank-QR-Code. Jede Karte kann nur einmal eingelöst werden.
+            und ihre IBAN. Danach senden wir Ihnen per E-Mail den Link zum Bank-QR-Code. Jede Karte kann nur einmal
+            eingelöst werden.
           </p>
           <p>
             (3) Die Karte begründet keinen Anspruch gegen uns auf Auszahlung des Geschenkbetrags. Der Betrag ist ein Geschenk
@@ -178,7 +186,9 @@ export default function AgbPage() {
           <p>
             (4) Ist die Bankverbindung schon bei der Bestellung bekannt, weil die Eltern eine Wunschseite angelegt haben oder
             weil Sie Name und IBAN der Eltern selbst eintragen, steht der Bank-QR-Code direkt auf der Karte. Ein Einlösen ist
-            dann nicht nötig. Tragen Sie die Bankverbindung selbst ein, sind Sie für ihre Richtigkeit verantwortlich.
+            dann nicht nötig. Tragen Sie die Bankverbindung selbst ein, sind Sie für ihre Richtigkeit verantwortlich. Diese
+            Bankverbindung löschen wir 90 Tage nach dem Kauf. Danach können die Eltern die Karte wie jede andere Karte mit dem
+            Einlösecode einlösen.
           </p>
           <p>
             (5) Sollten wir den Betrieb des Shops einstellen, informieren wir Sie und die Eltern rechtzeitig, damit
@@ -216,7 +226,7 @@ export default function AgbPage() {
           <p>
             Es gilt die gesetzliche Gewährleistung, insbesondere nach dem Verbrauchergewährleistungsgesetz (VGG). Ist eine
             Karte fehlerhaft gedruckt, beschädigt oder nicht angekommen, melden Sie sich bitte bei <Co k="email" link="mailto" />.
-            Wir drucken und versenden die Karte dann neu.
+            Wir drucken die Karte dann neu oder senden sie erneut.
           </p>
         </Section>
 

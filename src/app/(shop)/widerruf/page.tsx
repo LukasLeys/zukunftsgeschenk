@@ -50,7 +50,8 @@ export default function WiderrufPage() {
         <Section id="recht" title="Widerrufsrecht">
           <p>
             Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen, soweit keine
-            der unten genannten Ausnahmen gilt.
+            der unten genannten Ausnahmen gilt. Das FAGG nennt dieses Recht Rücktrittsrecht. In der Kasse und in unseren AGB
+            verwenden wir diesen Begriff. Gemeint ist dasselbe Recht.
           </p>
           <p>
             Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag, an dem Sie oder ein von Ihnen benannter Dritter, der nicht
