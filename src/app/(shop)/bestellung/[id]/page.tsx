@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { timingSafeEqual } from "node:crypto";
 import { formatById, motifById, type Paper } from "@/lib/catalog";
 import { getOrder } from "@/lib/shop";
+import { syncOrderFromStripe } from "@/lib/payments";
 import { invoicePath } from "@/lib/links";
 import type { Card, Order } from "@/lib/db/schema";
 import { GiftCard, type CardEnvelope } from "@/components/GiftCard";
@@ -12,6 +13,7 @@ import { Icon } from "@/components/Icon";
 import { eur, eurCents } from "@/components/format";
 import { formatVienna } from "@/components/shop/datetime";
 import { ClearPending } from "@/components/shop/ClearPending";
+import { AutoRefresh } from "@/components/shop/AutoRefresh";
 import s from "@/components/shop/shop.module.css";
 
 export const dynamic = "force-dynamic";
@@ -34,6 +36,81 @@ const STATUS: Record<string, { label: string; tone: string }> = {
   redeemed: { label: "Eingelöst", tone: "ok" },
   transferred: { label: "Überwiesen", tone: "done" },
   bank: { label: "Bankverbindung hinterlegt", tone: "ok" },
+  blocked: { label: "Gesperrt", tone: "wait" },
+  void: { label: "Nicht gültig", tone: "wait" },
+};
+
+type PayState = "paid" | "processing" | "waiting" | "failed" | "expired" | "cancelled" | "refunded";
+
+function payState(status: string): PayState {
+  if (status === "paid" || status === "processing" || status === "failed" || status === "expired" || status === "cancelled" || status === "refunded") return status;
+  return "waiting";
+}
+
+function StateText({ state, order, selfUrl }: { state: PayState; order: Order; selfUrl: string }) {
+  switch (state) {
+    case "paid":
+      return (
+        <p className="lead">
+          Deine Bestellung ist bezahlt. Die Bestätigung mit der Rechnung haben wir an <b>{order.buyerEmail}</b> geschickt.
+          Dort findest du auch den Link zu dieser Seite.
+        </p>
+      );
+    case "processing":
+      return (
+        <>
+          <p className="lead">
+            Deine Zahlung ist unterwegs. Bei EPS-Überweisungen und manchen anderen Zahlungsarten bestätigt die Bank die
+            Zahlung erst nach einer Weile. Meist dauert das wenige Minuten, selten bis zum nächsten Bankarbeitstag.
+          </p>
+          <p className={s.giftNote} role="status">
+            <Icon name="info" />
+            <span>
+              Sobald die Zahlung bestätigt ist, bekommst du die Bestätigung mit Rechnung per E-Mail an <b>{order.buyerEmail}</b>.
+              Erst dann verschicken wir die Karten. Du musst nichts weiter tun.
+            </span>
+          </p>
+        </>
+      );
+    case "waiting":
+      return (
+        <p className="lead" role="status">
+          Wir warten noch auf die Bestätigung der Zahlung. Das dauert meist nur einen Moment. Die Bestätigung kommt
+          auch per E-Mail an <b>{order.buyerEmail}</b>. <a href={selfUrl}>Seite neu laden</a>
+        </p>
+      );
+    case "failed":
+      return (
+        <p className="lead">
+          Die Bank hat die Zahlung nicht bestätigt. Es wurde nichts abgebucht, und wir verschicken keine Karten. Wenn du
+          die Karten noch verschenken willst, <Link href="/karten">bestell sie bitte noch einmal</Link>.
+        </p>
+      );
+    case "expired":
+      return (
+        <p className="lead">
+          Die Zahlung wurde nicht abgeschlossen. Es wurde nichts abgebucht. Wenn du die Karten noch verschenken willst,{" "}
+          <Link href="/karten">bestell sie bitte noch einmal</Link>.
+        </p>
+      );
+    case "cancelled":
+      return <p className="lead">Diese Bestellung wurde storniert. Die Karten daraus sind nicht gültig.</p>;
+    case "refunded":
+      return (
+        <p className="lead">
+          Diese Bestellung wurde erstattet. Karten, die noch nicht eingelöst waren, sind gesperrt.
+        </p>
+      );
+  }
+}
+
+const HEADING: Record<Exclude<PayState, "paid">, string> = {
+  processing: "Fast geschafft.",
+  waiting: "Fast geschafft.",
+  failed: "Die Zahlung hat nicht geklappt.",
+  expired: "Die Zahlung ist nicht abgeschlossen.",
+  cancelled: "Bestellung storniert.",
+  refunded: "Bestellung erstattet.",
 };
 
 /** Bankverbindung schon beim Kauf bekannt (Wunschseite oder Variante „IBAN bekannt“): Bank-QR-Code steht auf der Karte. */
@@ -132,10 +209,14 @@ export default async function OrderPage({
   const sp = await searchParams;
   const token = one(sp.t) ?? "";
   if (!/^[a-z0-9]{6,40}$/.test(id) || !token) notFound();
-  const res = await getOrder(id);
+  let res = await getOrder(id);
   if (!res || !sameToken(token, res.order.accessToken)) notFound();
+  // Zurück von Stripe, aber der Webhook war noch nicht da: Stand direkt bei Stripe abfragen.
+  if (await syncOrderFromStripe(res.order)) res = (await getOrder(id)) ?? res;
   const { order, cards } = res;
-  const paid = order.status === "paid";
+  const state = payState(order.status);
+  const paid = state === "paid";
+  const pendingPay = state === "processing" || state === "waiting";
   const demo = one(sp.demo) === "1";
   const gifts = cards.reduce((sum, c) => sum + c.amountCents, 0) / 100;
   const paidAt = order.paidAt ?? order.createdAt;
@@ -143,7 +224,8 @@ export default async function OrderPage({
 
   return (
     <>
-      {paid ? <ClearPending /> : null}
+      {paid || state === "processing" ? <ClearPending /> : null}
+      {pendingPay ? <AutoRefresh /> : null}
       <section className={`band ${s.thanks}`} aria-labelledby="ty-h">
         <div className="wrap">
           <div className={`paper ${s.thanksCard}`}>
@@ -154,26 +236,18 @@ export default async function OrderPage({
               </p>
             ) : null}
             <h1 id="ty-h" className={s.h1}>
-              {paid ? `Danke, ${firstName(order.buyerName)}!` : "Fast geschafft."}
+              {paid ? `Danke, ${firstName(order.buyerName)}!` : HEADING[state as Exclude<PayState, "paid">]}
             </h1>
-            {paid ? (
-              <p className="lead">
-                Deine Bestellung ist bezahlt. Die Bestätigung haben wir an <b>{order.buyerEmail}</b> geschickt. Dort findest
-                du auch den Link zu dieser Seite.
-              </p>
-            ) : (
-              <p className="lead">
-                Wir warten noch auf die Bestätigung der Zahlung. Das dauert meist nur einen Moment.{" "}
-                <a href={selfUrl}>Seite neu laden</a>
-              </p>
-            )}
+            <StateText state={state} order={order} selfUrl={selfUrl} />
             <dl className={s.facts}>
               <div>
                 <dt>Rechnungsnummer</dt>
-                <dd className="num">{order.invoiceNumber ?? "folgt nach der Zahlung"}</dd>
+                <dd className="num">{order.invoiceNumber ?? (pendingPay ? "folgt nach der Zahlung" : "keine")}</dd>
               </div>
               <div>
-                <dt>Bezahlt für {cards.length === 1 ? "die Karte" : `${cards.length} Karten`}</dt>
+                <dt>
+                  {order.invoiceNumber ? "Bezahlt für" : "Preis für"} {cards.length === 1 ? "die Karte" : `${cards.length} Karten`}
+                </dt>
                 <dd className="num">{eurCents(order.totalCents)}</dd>
               </div>
               <div>
@@ -182,7 +256,7 @@ export default async function OrderPage({
               </div>
             </dl>
             {order.invoiceNumber ? (
-              <p>
+              <p style={{ marginTop: 18 }}>
                 <a className="sec-link" href={invoicePath(order)}>
                   Rechnung {order.invoiceNumber} als PDF <Icon name="arrow" />
                 </a>
@@ -207,7 +281,8 @@ export default async function OrderPage({
           <ul className={s.ocList}>
             {cards.map((c) => {
               const m = motifById(c.motif);
-              const st = qrOnCard(c) ? STATUS.bank : (STATUS[c.status] ?? STATUS.issued);
+              const valid = paid || pendingPay;
+              const st = !valid && c.status === "issued" ? STATUS.void : qrOnCard(c) ? STATUS.bank : (STATUS[c.status] ?? STATUS.issued);
               return (
                 <li key={c.id} className={s.oc}>
                   <div className={s.ocStage}>
@@ -273,8 +348,12 @@ export default async function OrderPage({
                         ) : null}
                       </div>
                     ) : null}
-                    <h4 className={s.nextH}>So geht es weiter</h4>
-                    <NextSteps card={c} order={order} />
+                    {valid ? (
+                      <>
+                        <h4 className={s.nextH}>So geht es weiter</h4>
+                        <NextSteps card={c} order={order} />
+                      </>
+                    ) : null}
                   </div>
                 </li>
               );

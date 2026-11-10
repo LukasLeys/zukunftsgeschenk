@@ -1,5 +1,7 @@
 import "server-only";
 import type Stripe from "stripe";
+import { stripe } from "./stripe";
+import type { Order } from "./db/schema";
 import { getOrder, markExpired, markPaid, markPaymentFailed, markProcessing, markRefunded, orderIdByPaymentIntent } from "./shop";
 
 const idOf = (v: string | { id: string } | null | undefined) => (typeof v === "string" ? v : (v?.id ?? null));
@@ -64,5 +66,23 @@ export async function handleStripeEvent(event: Stripe.Event, opts: { deferMail?:
     }
     default:
       return "ignoriert";
+  }
+}
+
+/**
+ * Rückkehr von Stripe: Zahlungsstand direkt bei Stripe abfragen, falls der Webhook noch nicht da war.
+ * Fehler hier sind nicht schlimm, der Webhook verbucht die Zahlung trotzdem.
+ */
+export async function syncOrderFromStripe(order: Order) {
+  const s = stripe();
+  if (!s || !order.stripeSessionId || !["pending", "processing"].includes(order.status)) return false;
+  try {
+    const session = await s.checkout.sessions.retrieve(order.stripeSessionId);
+    if (orderIdOf(session) !== order.id) return false;
+    await applyCheckoutSession(session);
+    return true;
+  } catch (e) {
+    console.warn("[stripe] Abfrage der Checkout-Sitzung fehlgeschlagen", e);
+    return false;
   }
 }
