@@ -2,7 +2,7 @@ import "server-only";
 import { lte, isNull, and, eq } from "drizzle-orm";
 import { db, schema } from "./db";
 import { newId } from "./codes";
-import { MAIL_FROM, isDemoMail } from "./env";
+import { isDemoMail, mailFrom, mailReplyTo } from "./env";
 
 export interface Mail { to: string; subject: string; html: string; text: string; sendAt?: Date }
 
@@ -26,13 +26,25 @@ async function deliver(id: string) {
   if (isDemoMail()) {
     console.info(`[mail:demo] an ${m.to}: ${m.subject}`);
   } else {
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ from: MAIL_FROM, to: [m.to], subject: m.subject, html: m.html, text: m.text }),
-    });
-    if (!res.ok) {
-      console.error("[mail] Versand fehlgeschlagen", res.status, await res.text());
+    const replyTo = mailReplyTo();
+    try {
+      const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+          // Gleiche Mail nie doppelt, auch wenn Cron und Webhook gleichzeitig zustellen.
+          "Idempotency-Key": `outbox-${m.id}`,
+        },
+        body: JSON.stringify({ from: mailFrom(), to: [m.to], subject: m.subject, html: m.html, text: m.text, ...(replyTo ? { reply_to: replyTo } : {}) }),
+      });
+      if (!res.ok) {
+        console.error("[mail] Versand fehlgeschlagen", res.status, await res.text());
+        return;
+      }
+    } catch (e) {
+      // Bleibt im Postausgang und geht mit dem nächsten Cron-Lauf raus.
+      console.error("[mail] Versand fehlgeschlagen", e);
       return;
     }
   }

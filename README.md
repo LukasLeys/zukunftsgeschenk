@@ -37,7 +37,8 @@ Siehe `.env.example`. Für den Betrieb nötig:
 | `SITE_URL` | öffentliche Adresse des Shops |
 | `ALLOW_INDEXING` | `1` erlaubt Suchmaschinen. Ohne den Wert steht auf allen Seiten noindex. Vorschaubilder für WhatsApp und Co. funktionieren in beiden Fällen. |
 | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | Zahlung; Webhook auf `/api/stripe/webhook` |
-| `RESEND_API_KEY`, `MAIL_FROM` | E-Mail-Versand |
+| `RESEND_API_KEY`, `MAIL_FROM` | E-Mail-Versand. Ohne Schlüssel bleiben Mails im Postausgang (Demo). |
+| `MAIL_REPLY_TO` | Antwortadresse der Mails. Ohne den Wert gilt `COMPANY_EMAIL`. |
 
 ## Deployment
 

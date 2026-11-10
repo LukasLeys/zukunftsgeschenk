@@ -93,7 +93,7 @@ describe("Rechnung", () => {
     expect(text).toContain("2,15 €");
     expect(text).toContain("12,90 €");
     expect(text).toContain("400 € sind nicht Teil dieser Rechnung");
-    expect(text).not.toMatch(/[–—]/);
+    expect(text).not.toMatch(new RegExp("[\u2013\u2014]"));
   });
 
   it("zeigt Platzhalter, wenn Firmendaten fehlen", async () => {
