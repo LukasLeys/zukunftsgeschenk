@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { GiftCard } from "@/components/GiftCard";
 import { WishForm } from "@/components/eltern/WishForm";
 import s from "@/components/eltern/eltern.module.css";
+import { ibanFeaturesReady, IBAN_NOT_READY } from "@/lib/crypto";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Wunschseite anlegen",
@@ -25,6 +28,11 @@ export default function WunschseitePage() {
               zwei Minuten.
             </p>
             <p className={s.p}>Die Seite wird nach 12 Monaten automatisch gelöscht. Ihr könnt sie jederzeit vorher löschen.</p>
+            {!ibanFeaturesReady() && (
+              <p className="info-line" role="status" style={{ marginBlock: 16 }}>
+                {IBAN_NOT_READY}
+              </p>
+            )}
             <WishForm />
           </div>
           <div className={`${s.cardStage} ${s.hideMobile}`} aria-hidden="true">
