@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { transferInfo } from "@/lib/shop";
+import { UserError } from "@/lib/errors";
 import { qrSvg } from "@/lib/qr";
 import { formatIban, normalizeIban } from "@/lib/iban";
 import type { Paper } from "@/lib/catalog";
@@ -22,7 +23,9 @@ export const metadata: Metadata = {
 async function load(token: string) {
   try {
     return await transferInfo(token);
-  } catch {
+  } catch (e) {
+    // Dienst noch nicht freigeschaltet (zum Beispiel ohne IBAN-Schlüssel): klare Meldung über die Fehlerseite statt 404.
+    if (e instanceof UserError && e.status === 503) throw e;
     return null;
   }
 }
