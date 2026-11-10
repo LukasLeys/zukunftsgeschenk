@@ -47,3 +47,19 @@ Vercel, Region Frankfurt (`vercel.json`), Cron alle 15 Minuten auf `/api/cron`.
 ## Vor dem Start
 
 Rechtstexte enthalten markierte Platzhalter und müssen von einer Kanzlei geprüft werden. Fakten zum Zukunftsdepot beruhen auf dem Ministerialentwurf 157/ME (Stand November 2026).
+
+## Verkaufsstart: Einstellungen in Vercel
+
+Die Admin-Seite `/admin/start` zeigt live, was noch fehlt. Werte nie ins Repository schreiben.
+
+**Betrieb (geheim):** `DATABASE_URL` (Neon), `IBAN_ENCRYPTION_KEY` (32 Bytes, Base64), `ADMIN_PASSWORD`, `CRON_SECRET`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `RESEND_API_KEY`.
+
+**Betrieb (öffentlich):** `SITE_URL`, `MAIL_FROM`, `MAIL_REPLY_TO`, `ALLOW_INDEXING=1` zum Start, `LEGAL_REVIEWED=1` nach Prüfung durch die Kanzlei.
+
+**Firmendaten (Pflicht):** `COMPANY_NAME`, `COMPANY_LEGAL_FORM`, `COMPANY_STREET`, `COMPANY_ZIP_CITY`, `COMPANY_EMAIL`, `COMPANY_MANAGER`, `COMPANY_UID`, `COMPANY_TRADE`, `COMPANY_AUTHORITY`, `COMPANY_PRINT_SHOP`, `COMPANY_DELIVERY_DAYS`, `COMPANY_LEGAL_DATE`.
+
+**Firmendaten (optional):** `COMPANY_PHONE`, `COMPANY_FN`, `COMPANY_FB_COURT`, `COMPANY_SEAT`, `COMPANY_CHAMBER`, `COMPANY_CHAMBER_GROUP`, `COMPANY_OWNERS`, `COMPANY_PRIVACY_EMAIL`, `COMPANY_DPO`.
+
+**Stripe-Dashboard:** Zahlungsarten Karten, EPS, Apple Pay und Google Pay aktivieren. Webhook auf `https://<domain>/api/stripe/webhook` mit API-Version `2025-08-27.basil` und den Ereignissen `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`, `checkout.session.expired`, `charge.refunded`.
+
+**Ende-zu-Ende-Test:** Server im Produktionsmodus starten und `E2E_BASE=http://localhost:3060 npm run test:e2e` ausführen. Der Test kauft eine Karte, lädt die Rechnung, löst ein und legt eine Wunschseite an, am Desktop und am Handy.

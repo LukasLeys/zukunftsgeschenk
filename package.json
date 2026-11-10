@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:e2e": "node tests/e2e/kauf.e2e.mjs"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.3.11",
