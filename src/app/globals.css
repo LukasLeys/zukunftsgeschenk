@@ -596,12 +596,12 @@ tbody tr:last-child td{background:var(--gelb-ll);font-weight:800}
 
 /* ---------- So funktioniert's ---------- */
 .how{padding-block:90px;background:#fff}
-.steps{list-style:none;margin:44px 0 0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:24px;position:relative;counter-reset:s}
-.steps::before{content:"";position:absolute;left:3%;right:3%;top:30px;height:22px;transform:translateY(-50%);border-radius:2px;
+.steps{list-style:none;margin:44px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px;position:relative;counter-reset:s}
+.steps::before{content:"";position:absolute;left:30px;right:calc((100% - 96px) / 5 - 30px);top:30px;height:22px;transform:translateY(-50%);border-radius:2px;
   background:linear-gradient(180deg,rgba(150,40,80,.35) 0 1px,transparent 1px calc(100% - 1px),rgba(150,40,80,.35) calc(100% - 1px)),linear-gradient(180deg,#ecc9d7,#fff 30%,#f6e3ea 55%,#fff 75%,#e6bfcf);box-shadow:0 6px 10px -6px rgba(80,0,32,.4)}
 .steps li{position:relative;padding-top:84px}
 .steps .n{position:absolute;top:0;left:0;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:28px;background:var(--gelb);color:var(--tinte);box-shadow:0 0 0 6px #fff,0 6px 12px -4px rgba(42,31,45,.35)}
-.steps li:nth-child(5) .n,.steps li:nth-child(6) .n{background:var(--pink);color:#fff}
+.steps li:nth-child(4) .n,.steps li:nth-child(5) .n{background:var(--pink);color:#fff}
 .steps h3{font-size:22px;margin-bottom:8px}
 .steps p{font-size:17.5px;line-height:1.5;color:var(--tinte-2)}
 .direct{margin-top:48px;display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;background:var(--rosa);border-radius:18px;padding:26px 30px}
@@ -613,6 +613,8 @@ tbody tr:last-child td{background:var(--gelb-ll);font-weight:800}
   .steps{grid-template-columns:minmax(0,1fr);gap:26px}
   .steps::before{left:30px;right:auto;top:20px;bottom:20px;width:20px;height:auto;transform:translateX(-50%);background:linear-gradient(90deg,rgba(150,40,80,.35) 0 1px,transparent 1px calc(100% - 1px),rgba(150,40,80,.35) calc(100% - 1px)),linear-gradient(90deg,#ecc9d7,#fff 30%,#f6e3ea 55%,#fff 75%,#e6bfcf)}
   .steps li{padding:4px 0 0 88px;min-height:60px}
+  /* Streifen endet bei der letzten Zahl */
+  .steps li:last-child::after{content:"";position:absolute;left:16px;width:28px;top:64px;bottom:-24px;background:#fff}
 }
 @media (max-width:600px){.direct{grid-template-columns:minmax(0,1fr);padding:22px}}
 

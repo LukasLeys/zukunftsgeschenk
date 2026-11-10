@@ -20,9 +20,8 @@ const occasionLabel = (id: string) => OCCASIONS.find((o) => o.id === id)?.label 
 const price = (id: string) => FORMATS.find((f) => f.id === id)!.priceCents;
 
 const STEPS = [
-  { h: "Karte aussuchen", p: "Motiv wählen, Betrag, Name des Kindes und deine Botschaft eintragen." },
-  { h: "Nur die Karte zahlen", p: `Ab ${eurCents(price("mail"))}. Das Geschenkgeld zahlst du nicht an uns.` },
-  { h: "Verschenken", p: "Per E-Mail zum Wunschtermin oder gedruckt im Kuvert per Post." },
+  { h: "Karte gestalten", p: "Motiv wählen, Betrag, Name des Kindes und deine Botschaft eintragen." },
+  { h: "Nur die Karte zahlen", p: `Ab ${eurCents(price("mail"))}. Sie kommt per E-Mail zum Wunschtermin oder gedruckt im Kuvert per Post.` },
   { h: "Eltern lösen ein", p: "Sie geben den Code von der Karte ein und tragen ihre IBAN ein." },
   { h: "Du überweist direkt", p: "Du bekommst einen Bank-QR-Code per E-Mail und überweist direkt an die Eltern." },
   { h: "Ab ins Depot", p: "Die Eltern zahlen voraussichtlich ab Juli 2027 ins Zukunftsdepot ein." },
