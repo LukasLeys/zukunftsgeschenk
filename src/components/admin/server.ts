@@ -47,13 +47,18 @@ export const vatOf = (grossCents: number) => Math.round(grossCents / 6);
 export const ORDER_STATUS: Record<string, { label: string; tone: Tone }> = {
   paid: { label: "bezahlt", tone: "ok" },
   pending: { label: "offen", tone: "warn" },
+  processing: { label: "Zahlung läuft", tone: "warn" },
+  failed: { label: "Zahlung gescheitert", tone: "off" },
+  expired: { label: "abgelaufen", tone: "off" },
   cancelled: { label: "storniert", tone: "off" },
+  refunded: { label: "erstattet", tone: "off" },
 };
 
 export const CARD_STATUS: Record<string, { label: string; tone: Tone }> = {
   issued: { label: "ausgegeben", tone: "plain" },
   redeemed: { label: "eingelöst", tone: "warn" },
   transferred: { label: "überwiesen", tone: "ok" },
+  blocked: { label: "gesperrt", tone: "off" },
 };
 
 export type Tone = "ok" | "warn" | "bad" | "off" | "plain" | "accent";

@@ -11,6 +11,8 @@ CREATE TABLE IF NOT EXISTS orders (
   buyer_name text NOT NULL, buyer_email text NOT NULL, total_cents integer NOT NULL, access_token text NOT NULL,
   stripe_session_id text, invoice_number text, shipping jsonb, paid_at timestamptz);
 ALTER TABLE orders ADD COLUMN IF NOT EXISTS digital_consent boolean;
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS stripe_payment_intent text;
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS refunded_at timestamptz;
 CREATE TABLE IF NOT EXISTS cards (
   id text PRIMARY KEY, order_id text NOT NULL, code text NOT NULL UNIQUE, motif text NOT NULL, paper text NOT NULL,
   format text NOT NULL, price_cents integer NOT NULL, amount_cents integer NOT NULL, child_name text NOT NULL,
@@ -20,6 +22,7 @@ CREATE TABLE IF NOT EXISTS cards (
   transferred_at timestamptz, shipped_at timestamptz, created_at timestamptz NOT NULL DEFAULT now());
 CREATE INDEX IF NOT EXISTS cards_order_idx ON cards(order_id);
 CREATE INDEX IF NOT EXISTS cards_pay_token_idx ON cards(pay_token);
+CREATE INDEX IF NOT EXISTS orders_payment_intent_idx ON orders(stripe_payment_intent);
 CREATE TABLE IF NOT EXISTS wish_pages (
   slug text PRIMARY KEY, child_name text NOT NULL, parent_name text NOT NULL, parent_email text NOT NULL,
   message text NOT NULL DEFAULT '', occasion text NOT NULL DEFAULT 'weihnachten', iban_enc text NOT NULL,

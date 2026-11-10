@@ -90,3 +90,11 @@ export function wishPageCreated(slug: string, childName: string, editToken: stri
 ${btn(`${url}/bearbeiten?t=${editToken}`, "Wunschseite bearbeiten")}`);
   return { subject: `Wunschseite für ${childName}`, html, text: `${url} Die Seite wird nach 12 Monaten automatisch gelöscht. Ihr könnt sie jederzeit vorher löschen.` };
 }
+
+export function paymentFailed(order: Order) {
+  const url = `${SITE_URL}/karten`;
+  const html = layout("Die Zahlung hat nicht geklappt", `<p>Hallo ${esc(order.buyerName)},</p>
+<p>deine Bank hat die Zahlung über ${eur(order.totalCents)} nicht bestätigt. Es wurde nichts abgebucht, und die Bestellung ist nicht gültig.</p>
+<p>Wenn du die Karten noch verschenken willst, bestell sie bitte noch einmal.</p>${btn(url, "Zu den Karten")}`);
+  return { subject: "Die Zahlung für deine Bestellung hat nicht geklappt", html, text: `Hallo ${order.buyerName}, deine Bank hat die Zahlung über ${eur(order.totalCents)} nicht bestätigt. Es wurde nichts abgebucht. Karten neu bestellen: ${url}` };
+}

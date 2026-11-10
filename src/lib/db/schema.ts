@@ -3,15 +3,17 @@ import { pgTable, text, integer, timestamp, boolean, jsonb } from "drizzle-orm/p
 export const orders = pgTable("orders", {
   id: text("id").primaryKey(),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  status: text("status").notNull().default("pending"), // pending | paid | cancelled
+  status: text("status").notNull().default("pending"), // pending | processing | paid | failed | expired | cancelled | refunded
   buyerName: text("buyer_name").notNull(),
   buyerEmail: text("buyer_email").notNull(),
   totalCents: integer("total_cents").notNull(),
   accessToken: text("access_token").notNull(), // Zugriff auf Bestellseite/PDFs
   stripeSessionId: text("stripe_session_id"),
+  stripePaymentIntent: text("stripe_payment_intent"),
   invoiceNumber: text("invoice_number"),
   shipping: jsonb("shipping").$type<ShippingAddress | null>(),
   paidAt: timestamp("paid_at", { withTimezone: true }),
+  refundedAt: timestamp("refunded_at", { withTimezone: true }),
   // Zustimmung zur sofortigen Erstellung digitaler Karten (§ 18 Abs. 1 Z 11 FAGG). null = keine E-Mail-Karte in der Bestellung.
   digitalConsent: boolean("digital_consent"),
 });
@@ -32,7 +34,7 @@ export const cards = pgTable("cards", {
   recipientEmail: text("recipient_email"),
   goldEnvelope: boolean("gold_envelope").notNull().default(false),
   wishSlug: text("wish_slug"),
-  status: text("status").notNull().default("issued"), // issued | redeemed | transferred
+  status: text("status").notNull().default("issued"), // issued | redeemed | transferred | blocked (Bestellung erstattet, nicht eingelöst)
   // Eltern beim Einlösen (oder bekannt über Wunschseite / Schenkende)
   parentName: text("parent_name"),
   parentEmail: text("parent_email"),

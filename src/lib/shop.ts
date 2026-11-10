@@ -1,5 +1,5 @@
 import "server-only";
-import { eq, and, lt, isNotNull, isNull, sql } from "drizzle-orm";
+import { eq, and, lt, isNotNull, isNull, inArray, or, sql } from "drizzle-orm";
 import { z } from "zod";
 
 // Deutsche Fehlermeldungen für alle Schemas.
@@ -113,25 +113,103 @@ export async function getOrder(id: string) {
   return { order, cards };
 }
 
-/** Nach erfolgreicher Zahlung (Stripe-Webhook oder Demo): Status, Rechnungsnummer, Mails. Idempotent. */
-export async function markPaid(orderId: string, stripeSessionId?: string) {
+/** Bestellstatus, ab dem eine Zahlung noch als bezahlt verbucht werden darf. Stornierte und erstattete Bestellungen nie. */
+const PAYABLE = ["pending", "processing", "failed", "expired"];
+
+export interface PaymentRef {
+  stripeSessionId?: string;
+  paymentIntentId?: string | null;
+  /** Mails nur in den Postausgang legen, Zustellung später über deliverDue. */
+  deferMail?: boolean;
+}
+
+/**
+ * Nach erfolgreicher Zahlung (Stripe-Webhook, Rückkehr von Stripe oder Demo): Status, Rechnungsnummer, Mails.
+ * Idempotent und sicher bei gleichzeitigen Aufrufen: Nur der Aufruf, der den Status wirklich umstellt,
+ * vergibt die Rechnungsnummer und verschickt die Mails.
+ * Die Rechnungsnummer ist fortlaufend (Sequenz invoice_seq) mit dem Jahr der Zahlung, zum Beispiel ZG-2026-01001.
+ */
+export async function markPaid(orderId: string, ref: PaymentRef = {}) {
   const d = await db();
-  const res = await getOrder(orderId);
-  if (!res || res.order.status === "paid") return res;
-  const seq = await d.execute(sql`select nextval('invoice_seq') as n`);
-  const rows = (seq as unknown as { rows?: { n: number }[] }).rows ?? (seq as unknown as { n: number }[]);
-  const n = Number(rows[0]?.n ?? Date.now() % 100000);
-  const invoiceNumber = `ZG-${new Date().getFullYear()}-${String(n).padStart(5, "0")}`;
-  await d.update(schema.orders).set({ status: "paid", paidAt: new Date(), invoiceNumber, stripeSessionId: stripeSessionId ?? res.order.stripeSessionId }).where(eq(schema.orders.id, orderId));
-  const after = (await getOrder(orderId))!;
-  const conf = T.orderConfirmation(after.order, after.cards);
-  await queueMail({ to: after.order.buyerEmail, ...conf });
+  const claimed = await d
+    .update(schema.orders)
+    .set({
+      status: "paid",
+      paidAt: new Date(),
+      invoiceNumber: sql`(select 'ZG-' || to_char(now() at time zone 'Europe/Vienna', 'YYYY') || '-' || lpad(s.n::text, greatest(5, length(s.n::text)), '0') from (select nextval('invoice_seq') as n) s)`,
+      ...(ref.stripeSessionId ? { stripeSessionId: ref.stripeSessionId } : {}),
+      ...(ref.paymentIntentId ? { stripePaymentIntent: ref.paymentIntentId } : {}),
+    })
+    .where(and(eq(schema.orders.id, orderId), inArray(schema.orders.status, PAYABLE), isNull(schema.orders.invoiceNumber)))
+    .returning({ id: schema.orders.id });
+  const after = await getOrder(orderId);
+  if (!after || !claimed.length) return after;
+  const opts = { defer: ref.deferMail };
+  await queueMail({ to: after.order.buyerEmail, ...T.orderConfirmation(after.order, after.cards) }, opts);
   for (const c of after.cards) {
     if (c.format === "mail" && c.recipientEmail) {
-      await queueMail({ to: c.recipientEmail, ...T.cardDelivery(c), sendAt: c.deliveryAt ?? undefined });
+      await queueMail({ to: c.recipientEmail, ...T.cardDelivery(c), sendAt: c.deliveryAt ?? undefined }, opts);
     }
   }
   return after;
+}
+
+/** Checkout abgeschlossen, das Geld ist aber noch unterwegs (zum Beispiel bei verzögerten Zahlungsarten). */
+export async function markProcessing(orderId: string, ref: PaymentRef = {}) {
+  const d = await db();
+  await d
+    .update(schema.orders)
+    .set({
+      status: "processing",
+      ...(ref.stripeSessionId ? { stripeSessionId: ref.stripeSessionId } : {}),
+      ...(ref.paymentIntentId ? { stripePaymentIntent: ref.paymentIntentId } : {}),
+    })
+    .where(and(eq(schema.orders.id, orderId), eq(schema.orders.status, "pending")));
+  return getOrder(orderId);
+}
+
+/** Verzögerte Zahlung ist gescheitert. Schenkende bekommen eine kurze Mail. */
+export async function markPaymentFailed(orderId: string, ref: PaymentRef = {}) {
+  const d = await db();
+  const changed = await d
+    .update(schema.orders)
+    .set({ status: "failed" })
+    .where(and(eq(schema.orders.id, orderId), inArray(schema.orders.status, ["pending", "processing"])))
+    .returning({ id: schema.orders.id });
+  const res = await getOrder(orderId);
+  if (res && changed.length) await queueMail({ to: res.order.buyerEmail, ...T.paymentFailed(res.order) }, { defer: ref.deferMail });
+  return res;
+}
+
+/** Checkout-Sitzung ist abgelaufen, ohne dass bezahlt wurde. */
+export async function markExpired(orderId: string) {
+  const d = await db();
+  await d.update(schema.orders).set({ status: "expired" }).where(and(eq(schema.orders.id, orderId), eq(schema.orders.status, "pending")));
+  return getOrder(orderId);
+}
+
+/**
+ * Volle Erstattung: Bestellung auf „refunded“, noch nicht eingelöste Karten sperren, geplante Mails zur Bestellung löschen.
+ * Eingelöste Karten bleiben, wie sie sind: Dort haben die Eltern ihre Bankverbindung schon angegeben.
+ */
+export async function markRefunded(orderId: string) {
+  const d = await db();
+  const res = await getOrder(orderId);
+  if (!res || res.order.status === "refunded") return res;
+  await d.update(schema.orders).set({ status: "refunded", refundedAt: new Date() }).where(eq(schema.orders.id, orderId));
+  await d.update(schema.cards).set({ status: "blocked" }).where(and(eq(schema.cards.orderId, orderId), eq(schema.cards.status, "issued")));
+  const needles = [`/bestellung/${orderId}`, ...res.cards.map((c) => c.code)];
+  await d
+    .delete(schema.outbox)
+    .where(and(isNull(schema.outbox.sentAt), or(...needles.map((n) => sql`position(${n} in ${schema.outbox.html}) > 0`))));
+  return getOrder(orderId);
+}
+
+/** Bestellung zu einer Stripe-Zahlung (PaymentIntent). */
+export async function orderIdByPaymentIntent(paymentIntentId: string) {
+  const d = await db();
+  const [o] = await d.select({ id: schema.orders.id }).from(schema.orders).where(eq(schema.orders.stripePaymentIntent, paymentIntentId));
+  return o?.id ?? null;
 }
 
 export async function cardByCode(raw: string) {
@@ -155,6 +233,7 @@ export async function redeemCard(input: z.infer<typeof redeemSchema>) {
   const data = redeemSchema.parse(input);
   const card = await cardByCode(data.code);
   if (!card) throw new UserError("Diesen Code kennen wir nicht. Bitte prüft die Schreibweise.", 404);
+  if (card.status === "blocked") throw new UserError("Diese Karte ist nicht mehr gültig.", 410);
   if (card.status !== "issued") throw new UserError("Diese Karte wurde bereits eingelöst.", 409);
   if (card.ibanEnc) throw new UserError("Bei dieser Karte ist eure Bankverbindung schon hinterlegt. Ihr müsst nichts einlösen.", 409);
   const d = await db();

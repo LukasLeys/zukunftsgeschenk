@@ -6,13 +6,16 @@ import { MAIL_FROM, isDemoMail } from "./env";
 
 export interface Mail { to: string; subject: string; html: string; text: string; sendAt?: Date }
 
-/** Legt jede Mail im Postausgang ab. Fällige Mails werden sofort zugestellt (Resend), geplante per Cron. */
-export async function queueMail(m: Mail) {
+/**
+ * Legt jede Mail im Postausgang ab. Fällige Mails werden sofort zugestellt (Resend), geplante per Cron.
+ * Mit `defer` bleibt auch eine fällige Mail liegen, bis `deliverDue` läuft (zum Beispiel nach der Antwort an Stripe).
+ */
+export async function queueMail(m: Mail, opts: { defer?: boolean } = {}) {
   const d = await db();
   const id = newId();
   const sendAt = m.sendAt ?? new Date();
   await d.insert(schema.outbox).values({ id, to: m.to, subject: m.subject, html: m.html, text: m.text, sendAt });
-  if (sendAt <= new Date()) await deliver(id);
+  if (!opts.defer && sendAt <= new Date()) await deliver(id);
   return id;
 }
 
