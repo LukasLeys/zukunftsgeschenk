@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+const PURPOSE = "Gestaltung und Online-Verkauf personalisierter Geschenkkarten in digitaler und gedruckter Form";
+
 export default function ImpressumPage() {
   return (
     <>
@@ -50,7 +52,7 @@ export default function ImpressumPage() {
         <Section id="unternehmen" title="Unternehmensangaben">
           <Dl
             rows={[
-              { dt: "Unternehmensgegenstand", dd: "Gestaltung und Online-Verkauf personalisierter Geschenkkarten in digitaler und gedruckter Form" },
+              { dt: "Unternehmensgegenstand", dd: PURPOSE },
               { dt: "UID-Nummer", dd: <Co k="uid" /> },
               ...(showOptional("fn") ? [{ dt: "Firmenbuchnummer", dd: <Co k="fn" /> }] : []),
               ...(showOptional("fbCourt") ? [{ dt: "Firmenbuchgericht", dd: <Co k="fbCourt" /> }] : []),
@@ -67,7 +69,7 @@ export default function ImpressumPage() {
         <Section id="aufsicht" title="Gewerbe und Aufsicht">
           <Dl
             rows={[
-              { dt: "Gewerbe", dd: <Co k="trade" /> },
+              { dt: "Gewerbe", dd: <><Co k="trade" />, Gewerbeberechtigung erteilt in Österreich</> },
               { dt: "Gewerbebehörde", dd: <Co k="authority" /> },
               ...(showOptional("chamber")
                 ? [{ dt: "Kammer", dd: <><Co k="chamber" />{showOptional("chamberGroup") ? <>, <Co k="chamberGroup" /></> : null}</> }]
@@ -91,6 +93,7 @@ export default function ImpressumPage() {
           <Dl
             rows={[
               { dt: "Medieninhaber", dd: <CoNameAddress /> },
+              { dt: "Unternehmensgegenstand", dd: PURPOSE },
               ...(showOptional("owners") ? [{ dt: "Beteiligungen", dd: <Co k="owners" /> }] : []),
               {
                 dt: "Grundlegende Richtung",
@@ -114,13 +117,25 @@ export default function ImpressumPage() {
 
         <Section id="streit" title="Streitbeilegung">
           <p>
-            Die Plattform der EU zur Online-Streitbeilegung wurde am 20. Juli 2025 eingestellt. Ein Link darauf ist daher
-            nicht mehr erforderlich.
+            Bei Fragen oder Beschwerden schreiben Sie uns bitte zuerst an <Co k="email" link="mailto" />. Wir suchen gern
+            eine Lösung.
+          </p>
+          <p>
+            Verbraucherinnen und Verbraucher können sich bei Streitigkeiten aus einem Online-Kauf auch an eine staatlich
+            anerkannte Schlichtungsstelle wenden, etwa an die Verbraucherschlichtung Austria, Mariahilfer Straße 103/1/18,
+            1060 Wien,{" "}
+            <a href="https://www.verbraucherschlichtung.at/" target="_blank" rel="noopener noreferrer">
+              www.verbraucherschlichtung.at
+            </a>
+            , oder an die Internet Ombudsstelle,{" "}
+            <a href="https://www.ombudsstelle.at/" target="_blank" rel="noopener noreferrer">
+              www.ombudsstelle.at
+            </a>
+            . Das Verfahren ist für Verbraucherinnen und Verbraucher kostenlos.
           </p>
           <p>
             <Ph>Bitte wählen: Wir sind bereit / nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer
-            Verbraucherschlichtungsstelle teilzunehmen.</Ph> Zuständig wäre etwa die Schlichtungsstelle Verbraucherschlichtung
-            Austria oder die Internet Ombudsstelle.
+            Verbraucherschlichtungsstelle teilzunehmen.</Ph>
           </p>
         </Section>
 
