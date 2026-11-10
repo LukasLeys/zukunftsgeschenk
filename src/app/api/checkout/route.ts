@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 import { createOrder, markPaid } from "@/lib/shop";
-import { checkoutIdempotencyKey, checkoutSessionParams, orderUrl, stripe } from "@/lib/stripe";
+import { checkoutIdempotencyKey, checkoutSessionParams, stripe } from "@/lib/stripe";
+import { orderUrl } from "@/lib/links";
 import { db, schema } from "@/lib/db";
 import { errorResponse } from "@/lib/http";
 import { LIMITS, rateLimit } from "@/lib/ratelimit";

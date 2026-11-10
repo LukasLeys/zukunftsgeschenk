@@ -1,6 +1,7 @@
 import "server-only";
 import { SITE_URL } from "./env";
 import { formatEUR, formatById, motifById } from "./catalog";
+import { invoiceUrl, orderUrl } from "./links";
 import type { Card, Order } from "./db/schema";
 
 // Schlichte, robuste HTML-Mails (Tabellenlayout, Inline-Styles) im Markenstil.
@@ -23,7 +24,8 @@ const btn = (href: string, label: string) =>
   `<p style="margin:22px 0"><a href="${href}" style="background:#d81b6a;color:#ffffff;text-decoration:none;font-weight:700;padding:13px 22px;border-radius:999px;display:inline-block">${esc(label)}</a></p>`;
 
 export function orderConfirmation(order: Order, cards: Card[]) {
-  const url = `${SITE_URL}/bestellung/${order.id}?t=${order.accessToken}`;
+  const url = orderUrl(order);
+  const invoice = order.invoiceNumber ? invoiceUrl(order) : null;
   const qrNow = (c: Card) => Boolean(c.ibanEnc && c.payToken && c.status === "issued");
   const rows = cards
     .map((c) => `<li style="margin:0 0 8px"><b>${esc(motifById(c.motif)?.name ?? c.motif)}</b> für ${esc(c.childName)}. Geschenkbetrag ${eur(c.amountCents)}, ${esc(formatById(c.format)?.short ?? c.format)} (${eur(c.priceCents)})${
@@ -37,9 +39,10 @@ export function orderConfirmation(order: Order, cards: Card[]) {
   const html = layout("Danke für eure Bestellung!", `<p>Hallo ${esc(order.buyerName)},</p>
 <p>eure Karten sind bestellt. Bezahlt habt ihr nur die Karten: <b>${eur(order.totalCents)}</b> (inkl. 20 % USt.). Den Geschenkbetrag überweist ihr später direkt an die Eltern.</p>
 <ul style="padding-left:20px">${rows}</ul>${btn(url, "Bestellung ansehen und Karten laden")}
+${invoice ? `<p><a href="${invoice}" style="color:#b3124f;font-weight:700">Rechnung ${esc(order.invoiceNumber!)} als PDF laden</a></p>` : ""}
 <p style="font-size:14px;color:#5b4a5c">Rechnungsnummer ${esc(order.invoiceNumber ?? "folgt")}.${waiting ? " Sobald die Eltern eine Karte einlösen, bekommt ihr den Bank-QR-Code zum Überweisen per E-Mail." : ""}</p>${consent}`);
   const textConsent = order.digitalConsent ? " Ihr habt zugestimmt, dass wir die digitale Karte sofort erstellen und zum gewählten Termin versenden. Damit ist euer Rücktrittsrecht für E-Mail-Karten erloschen (§ 18 Abs. 1 Z 11 FAGG)." : "";
-  return { subject: `Eure Bestellung ${order.invoiceNumber ?? ""} bei Zukunftsgeschenk`.trim(), html, text: `Danke für eure Bestellung. Karten ansehen: ${url}${textConsent}` };
+  return { subject: `Eure Bestellung ${order.invoiceNumber ?? ""} bei Zukunftsgeschenk`.trim(), html, text: `Danke für eure Bestellung. Karten ansehen: ${url}${invoice ? ` Rechnung als PDF: ${invoice}` : ""}${textConsent}` };
 }
 
 export function cardDelivery(card: Card) {

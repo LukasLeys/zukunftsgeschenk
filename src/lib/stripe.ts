@@ -2,6 +2,7 @@ import "server-only";
 import Stripe from "stripe";
 import { SITE_URL } from "./env";
 import { formatById, motifById } from "./catalog";
+import { orderUrl } from "./links";
 import type { Card, Order } from "./db/schema";
 
 /** Fest eingestellte API-Version, damit ein Update der Bibliothek das Verhalten nicht still ändert. */
@@ -17,9 +18,6 @@ export function stripe(): Stripe | null {
   if (!client) client = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: STRIPE_API_VERSION, maxNetworkRetries: 2, timeout: 20_000 });
   return client;
 }
-
-/** Link zur Bestellseite mit Zugriffsschlüssel. */
-export const orderUrl = (order: Pick<Order, "id" | "accessToken">) => `${SITE_URL}/bestellung/${order.id}?t=${order.accessToken}`;
 
 /** Idempotenzschlüssel: Ein doppelter Aufruf für dieselbe Bestellung legt keine zweite Sitzung an. */
 export const checkoutIdempotencyKey = (orderId: string) => `checkout-session-${orderId}`;

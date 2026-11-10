@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { timingSafeEqual } from "node:crypto";
 import { formatById, motifById, type Paper } from "@/lib/catalog";
 import { getOrder } from "@/lib/shop";
+import { invoicePath } from "@/lib/links";
 import type { Card, Order } from "@/lib/db/schema";
 import { GiftCard, type CardEnvelope } from "@/components/GiftCard";
 import { Icon } from "@/components/Icon";
@@ -180,6 +181,13 @@ export default async function OrderPage({
                 <dd className="num">{formatVienna(paidAt)}</dd>
               </div>
             </dl>
+            {order.invoiceNumber ? (
+              <p>
+                <a className="sec-link" href={invoicePath(order)}>
+                  Rechnung {order.invoiceNumber} als PDF <Icon name="arrow" />
+                </a>
+              </p>
+            ) : null}
             <p className={s.giftNote}>
               <Icon name="direct" />
               <span>

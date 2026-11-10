@@ -116,6 +116,20 @@ export async function getOrder(id: string) {
 /** Bestellstatus, ab dem eine Zahlung noch als bezahlt verbucht werden darf. Stornierte und erstattete Bestellungen nie. */
 const PAYABLE = ["pending", "processing", "failed", "expired"];
 
+/**
+ * Nächste Rechnungsnummer ohne Lücken: höchste vergebene Nummer plus eins, mit dem Jahr der Zahlung (Wiener Zeit).
+ * Eine Datenbanksequenz kann nach einem Neustart Nummern überspringen, das wollen wir bei Rechnungen nicht.
+ * Der eindeutige Index auf invoice_number schützt vor doppelten Nummern.
+ */
+const NEXT_INVOICE_NUMBER = sql`(select 'ZG-' || to_char(now() at time zone 'Europe/Vienna', 'YYYY') || '-' || lpad(s.n::text, greatest(5, length(s.n::text)), '0')
+  from (select coalesce(max(split_part(invoice_number, '-', 3)::int), 1000) + 1 as n from orders where invoice_number ~ '^ZG-[0-9]{4}-[0-9]+$') s)`;
+
+function isUniqueViolation(e: unknown): boolean {
+  for (let x: unknown = e, i = 0; x && i < 4; x = (x as { cause?: unknown }).cause, i++)
+    if ((x as { code?: string }).code === "23505") return true;
+  return false;
+}
+
 export interface PaymentRef {
   stripeSessionId?: string;
   paymentIntentId?: string | null;
@@ -127,21 +141,31 @@ export interface PaymentRef {
  * Nach erfolgreicher Zahlung (Stripe-Webhook, Rückkehr von Stripe oder Demo): Status, Rechnungsnummer, Mails.
  * Idempotent und sicher bei gleichzeitigen Aufrufen: Nur der Aufruf, der den Status wirklich umstellt,
  * vergibt die Rechnungsnummer und verschickt die Mails.
- * Die Rechnungsnummer ist fortlaufend (Sequenz invoice_seq) mit dem Jahr der Zahlung, zum Beispiel ZG-2026-01001.
+ * Die Rechnungsnummer ist fortlaufend und lückenlos, mit dem Jahr der Zahlung, zum Beispiel ZG-2026-01001.
  */
 export async function markPaid(orderId: string, ref: PaymentRef = {}) {
   const d = await db();
-  const claimed = await d
-    .update(schema.orders)
-    .set({
-      status: "paid",
-      paidAt: new Date(),
-      invoiceNumber: sql`(select 'ZG-' || to_char(now() at time zone 'Europe/Vienna', 'YYYY') || '-' || lpad(s.n::text, greatest(5, length(s.n::text)), '0') from (select nextval('invoice_seq') as n) s)`,
-      ...(ref.stripeSessionId ? { stripeSessionId: ref.stripeSessionId } : {}),
-      ...(ref.paymentIntentId ? { stripePaymentIntent: ref.paymentIntentId } : {}),
-    })
-    .where(and(eq(schema.orders.id, orderId), inArray(schema.orders.status, PAYABLE), isNull(schema.orders.invoiceNumber)))
-    .returning({ id: schema.orders.id });
+  let claimed: { id: string }[] = [];
+  for (let attempt = 0; ; attempt++) {
+    try {
+      claimed = await d
+        .update(schema.orders)
+        .set({
+          status: "paid",
+          paidAt: new Date(),
+          invoiceNumber: NEXT_INVOICE_NUMBER,
+          ...(ref.stripeSessionId ? { stripeSessionId: ref.stripeSessionId } : {}),
+          ...(ref.paymentIntentId ? { stripePaymentIntent: ref.paymentIntentId } : {}),
+        })
+        .where(and(eq(schema.orders.id, orderId), inArray(schema.orders.status, PAYABLE), isNull(schema.orders.invoiceNumber)))
+        .returning({ id: schema.orders.id });
+      break;
+    } catch (e) {
+      // Zwei Zahlungen gleichzeitig haben dieselbe Nummer gezogen: Der eindeutige Index lehnt die zweite ab, wir ziehen neu.
+      if (attempt < 5 && isUniqueViolation(e)) continue;
+      throw e;
+    }
+  }
   const after = await getOrder(orderId);
   if (!after || !claimed.length) return after;
   const opts = { defer: ref.deferMail };

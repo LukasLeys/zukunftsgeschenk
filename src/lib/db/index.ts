@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS cards (
 CREATE INDEX IF NOT EXISTS cards_order_idx ON cards(order_id);
 CREATE INDEX IF NOT EXISTS cards_pay_token_idx ON cards(pay_token);
 CREATE INDEX IF NOT EXISTS orders_payment_intent_idx ON orders(stripe_payment_intent);
+CREATE UNIQUE INDEX IF NOT EXISTS orders_invoice_number_uq ON orders(invoice_number);
 CREATE TABLE IF NOT EXISTS wish_pages (
   slug text PRIMARY KEY, child_name text NOT NULL, parent_name text NOT NULL, parent_email text NOT NULL,
   message text NOT NULL DEFAULT '', occasion text NOT NULL DEFAULT 'weihnachten', iban_enc text NOT NULL,
