@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="de-AT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<title>Start-Checkliste Zukunftsgeschenk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Figtree:wght@400;500;700;800&display=swap">
+<style>
+:root{--bg:#fffafc;--card:#fff;--fg:#2a1f2d;--fg2:#5b4a5c;--line:#f1dde6;--pink:#d81b6a;--pinkd:#b3124f;--gelb:#ffd23f;--creme:#fffaeb;--ok:#1f7a4d;
+--display:"Bricolage Grotesque","Figtree",system-ui,sans-serif;--sans:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.02em;line-height:1.1;margin:0;text-wrap:balance}
+p{margin:0}
+a{color:var(--pinkd);font-weight:700}
+.wrap{max-width:980px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.hd{background:var(--pink);color:#fff}
+.hd .wrap{padding-block:34px 28px;display:grid;gap:10px}
+.eyebrow{font-weight:800;text-transform:uppercase;letter-spacing:.1em;font-size:14px;color:var(--gelb)}
+.hd h1{font-size:clamp(30px,2vw + 20px,46px);color:#fff}
+.hd p{color:#ffe9f2;max-width:66ch}
+.bar{position:sticky;top:0;z-index:3;background:#fff;border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:14px;padding-block:10px;font-weight:700}
+.meter{flex:1;max-width:260px;height:8px;border-radius:99px;background:#ffe4ee;overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:var(--pink);transition:width .3s}
+main .wrap{padding-block:26px 70px;display:grid;gap:30px}
+.phase h2{font-size:26px;display:flex;gap:12px;align-items:baseline;padding-bottom:10px;border-bottom:2px solid var(--line);margin-bottom:14px}
+.phase h2 .n{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--gelb);font-size:20px;flex:none}
+.phase .intro{color:var(--fg2);margin:-4px 0 14px;max-width:70ch}
+.items{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px}
+.item input{width:24px;height:24px;margin:3px 0 0;accent-color:var(--pink);grid-row:span 3;cursor:pointer}
+.item h3{font-size:19px}
+.item.done{background:#fbf7f9}
+.item.done h3{text-decoration:line-through}
+.who{display:inline-block;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:2px 9px;border-radius:99px;background:#ffe4ee;color:var(--pinkd);margin-left:6px;vertical-align:2px}
+.who.me{background:#e3f4ea;color:var(--ok)}
+.item p{color:var(--fg2)}
+.firms{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:4px}
+.firms li{padding-left:16px;position:relative}
+.firms li::before{content:"";position:absolute;left:2px;top:.7em;width:6px;height:6px;border-radius:50%;background:var(--pink)}
+.firms small{color:var(--fg2)}
+.box{background:var(--creme);border:1px solid #f1e2b8;border-radius:14px;padding:16px 18px}
+.box h2{font-size:22px;margin-bottom:6px}
+.src{font-size:14px;color:var(--fg2)}
+:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.meter i{transition:none}}
+</style>
+</head><body>
+<header class="hd"><div class="wrap">
+  <span class="eyebrow">Zukunftsgeschenk · Start in Österreich</span>
+  <h1>Checkliste bis zum Verkaufsstart</h1>
+  <p>Alles, was ihr braucht, um die Karten echt zu verkaufen, mit konkreten Firmen und Stellen in Österreich. Hakt ab, was erledigt ist. Euer Browser merkt sich den Stand.</p>
+</div></header>
+<div class="bar"><div class="wrap"><div class="meter" aria-hidden="true"><i id="meter"></i></div><span id="count">0 von 0 erledigt</span></div></div>
+<main><div class="wrap">
+
+<div class="box">
+  <h2>Das Wichtigste vorweg</h2>
+  <p>Das Geschenkgeld fließt nie über euch, es geht per Bank-QR-Code direkt an die Eltern. Ihr verkauft nur die Karte. Eine Bank oder ein Zahlungsinstitut mit Konzession braucht ihr dafür nach unserem Verständnis nicht. Lasst euch das vom Anwalt in Schritt 2 kurz schriftlich bestätigen.</p>
+</div>
+
+<section class="phase"><h2><span class="n">1</span>Firma aufstellen</h2>
+<p class="intro">Ohne Gewerbe und Geschäftskonto kein Stripe-Konto. Das kommt deshalb zuerst.</p>
+<ul class="items">
+  <li class="item"><input type="checkbox" id="c-gewerbe"><h3><label for="c-gewerbe">Gewerbe anmelden</label><span class="who">ihr</span></h3><p>Freies Gewerbe für den Handel mit Waren. Bei einer GmbH zusätzlich Firmenbuch und Notar.</p>
+    <ul class="firms"><li><a href="https://www.usp.gv.at" target="_blank" rel="noopener">Unternehmensserviceportal (USP)</a> <small>Gewerbeanmeldung online, mit ID Austria</small></li><li><a href="https://www.gruenderservice.at" target="_blank" rel="noopener">WKO Gründerservice</a> <small>kostenlose Beratung zur Rechtsform</small></li></ul></li>
+  <li class="item"><input type="checkbox" id="c-uid"><h3><label for="c-uid">Steuernummer und UID-Nummer</label><span class="who">ihr</span></h3><p>Für Rechnungen, Stripe und das Impressum.</p>
+    <ul class="firms"><li><a href="https://finanzonline.bmf.gv.at" target="_blank" rel="noopener">FinanzOnline</a> <small>Antrag beim Finanzamt Österreich</small></li></ul></li>
+  <li class="item"><input type="checkbox" id="c-bank"><h3><label for="c-bank">Geschäftskonto eröffnen</label><span class="who">ihr</span></h3><p>Auf dieses Konto zahlt Stripe die Kartenpreise aus.</p>
+    <ul class="firms"><li>Erste Bank und Sparkassen, Raiffeisen, Bank Austria, BAWAG <small>alle mit Gründerpaketen</small></li></ul></li>
+  <li class="item"><input type="checkbox" id="c-stb"><h3><label for="c-stb">Steuerberatung beauftragen</label><span class="who">ihr</span></h3><p>Umsatzsteuer 20 % auf den Kartenpreis, der Geschenkbetrag ist nicht euer Umsatz. Klären lassen: Registrierkassenpflicht für den reinen Onlineshop, Buchhaltung, Rechnungen aus Stripe.</p>
+    <ul class="firms"><li><a href="https://www.ksw.or.at" target="_blank" rel="noopener">Kammer der Steuerberater und Wirtschaftsprüfer (KSW)</a> <small>Suche nach Steuerberatung in eurer Nähe</small></li><li>BMD (Steyr) <small>österreichische Buchhaltungssoftware, viele Kanzleien arbeiten damit</small></li></ul></li>
+</ul></section>
+
+<section class="phase"><h2><span class="n">2</span>Rechtlich absichern</h2>
+<p class="intro">Im Shop sind alle offenen Stellen in den Rechtstexten markiert, zum Beispiel [Firmenbuchnummer].</p>
+<ul class="items">
+  <li class="item"><input type="checkbox" id="c-anwalt"><h3><label for="c-anwalt">Anwalt prüft Rechtstexte und Konzept</label><span class="who">ihr</span></h3><p>AGB, Datenschutz, Widerruf und Impressum. Dazu drei Fragen: kein Zahlungsdienst, weil das Geld direkt an die Eltern geht? Ist „Aktien &amp; Geld“ mit dem Rechner klar keine Anlageberatung? Dürfen wir „Zukunftsdepot“ als Begriff verwenden?</p>
+    <ul class="firms"><li><a href="https://www.rechtsanwaelte.at" target="_blank" rel="noopener">Österreichischer Rechtsanwaltskammertag (ÖRAK)</a> <small>Anwaltssuche nach Fachgebiet E-Commerce und Finanzmarktrecht</small></li><li><a href="https://www.wko.at/service/wirtschaftsrecht-gewerberecht.html" target="_blank" rel="noopener">WKO Wirtschaftsrecht</a> <small>Musterformulare und Erstauskunft für Mitglieder</small></li></ul></li>
+  <li class="item"><input type="checkbox" id="c-marke"><h3><label for="c-marke">Marke „Zukunftsgeschenk“ prüfen und anmelden</label><span class="who">ihr</span></h3><p>Damit niemand anderer den Namen besetzt.</p>
+    <ul class="firms"><li><a href="https://www.patentamt.at" target="_blank" rel="noopener">Österreichisches Patentamt</a> <small>Markenrecherche und Anmeldung</small></li></ul></li>
+</ul></section>
+
+<section class="phase"><h2><span class="n">3</span>Technik scharf schalten</h2>
+<p class="intro">Hier macht ihr Konten auf, den Rest erledige ich.</p>
+<ul class="items">
+  <li class="item"><input type="checkbox" id="c-domain"><h3><label for="c-domain">Domain zukunftsgeschenk.at sichern</label><span class="who">ihr</span></h3><p>Danach hänge ich sie an Vercel und richte den Mail-Absender ein.</p>
+    <ul class="firms"><li><a href="https://www.nic.at" target="_blank" rel="noopener">nic.at</a> <small>Registrierungsstelle für .at in Salzburg, zeigt auch freie Namen</small></li><li>World4You (Linz) oder easyname (Wien) <small>österreichische Anbieter für Domain und E-Mail-Postfach</small></li></ul></li>
+  <li class="item"><input type="checkbox" id="c-stripe"><h3><label for="c-stripe">Stripe-Konto auf die Firma</label><span class="who">ihr</span><span class="who me">dann ich</span></h3><p>Ist im Shop eingebaut. Ich schalte EPS-Überweisung, Karte, Apple Pay und Google Pay frei und teste eine echte Zahlung. Österreichische Alternativen, falls ihr lieber eine heimische Lösung wollt: hobex aus Salzburg. Die müsste ich erst einbauen.</p>
+    <ul class="firms"><li><a href="https://stripe.com/at" target="_blank" rel="noopener">Stripe</a> <small>bereits eingebaut</small></li><li><a href="https://www.hobex.at" target="_blank" rel="noopener">hobex</a> <small>Salzburger Zahlungsanbieter, Alternative</small></li></ul></li>
+  <li class="item"><input type="checkbox" id="c-mail"><h3><label for="c-mail">E-Mail-Versand einrichten</label><span class="who">ihr</span><span class="who me">dann ich</span></h3><p>Bestellbestätigung, Karten per E-Mail, Überweisungslinks. Ist eingebaut, braucht ein Konto und die Domain.</p>
+    <ul class="firms"><li><a href="https://resend.com" target="_blank" rel="noopener">Resend</a> <small>bereits eingebaut, mit Server in der EU</small></li></ul></li>
+  <li class="item"><input type="checkbox" id="c-db"><h3><label for="c-db">Datenbank verbinden</label><span class="who">ihr</span></h3><p>In Vercel unter Storage die Neon-Datenbank in Frankfurt verbinden. Jetzt läuft eine Testdatenbank, die bei jedem Neustart leer ist.</p>
+    <ul class="firms"><li><a href="https://vercel.com" target="_blank" rel="noopener">Vercel</a> mit Neon <small>Hosting und Datenbank in der EU</small></li></ul></li>
+  <li class="item"><input type="checkbox" id="c-keys"><h3><label for="c-keys">Drei Schlüssel bei Vercel eintragen</label><span class="who">ihr</span></h3><p>IBAN_ENCRYPTION_KEY, ADMIN_PASSWORD und CRON_SECRET. Ohne den IBAN-Schlüssel gehen Einlösen und Wunschseiten live nicht.</p></li>
+  <li class="item"><input type="checkbox" id="c-git"><h3><label for="c-git">GitHub mit Vercel verbinden</label><span class="who">ihr</span></h3><p>Dann geht jede Änderung automatisch online.</p></li>
+</ul></section>
+
+<section class="phase"><h2><span class="n">4</span>Druck und Versand</h2>
+<p class="intro">Für gedruckte Karten, Kuvert und Goldkuvert mit Siegel. Für den Start ist eine Druckerei mit Versand am einfachsten. Holt zwei Angebote ein, mit Muster.</p>
+<ul class="items">
+  <li class="item"><input type="checkbox" id="c-druck"><h3><label for="c-druck">Druckerei mit Kuvertierung beauftragen</label><span class="who">ihr</span></h3><p>Täglich die Druckliste aus dem Admin-Bereich, einzeln personalisiert, kuvertiert, frankiert. Fragt nach Büttenpapier und Goldkuvert für Premium.</p>
+    <ul class="firms"><li><a href="https://www.berger.at" target="_blank" rel="noopener">Druckerei Berger</a> <small>Horn, Niederösterreich, Druck und Weiterverarbeitung</small></li><li>Gugler <small>Melk, Niederösterreich, bekannt für ökologischen Druck</small></li><li>druck.at <small>Onlinedruckerei aus Niederösterreich für Karten und Kuverts</small></li></ul></li>
+  <li class="item"><input type="checkbox" id="c-post"><h3><label for="c-post">Versand mit der Post</label><span class="who">ihr</span></h3><p>Entweder verschickt die Druckerei, oder die Post übernimmt Druck, Kuvertieren und Versand selbst.</p>
+    <ul class="firms"><li><a href="https://www.post.at/g/c/geschaeftskunden" target="_blank" rel="noopener">Österreichische Post, Geschäftskunden</a> <small>Briefversand und Tarife für Firmen</small></li><li><a href="https://www.post.at/en/g/c/online-letter-mail-business-clients" target="_blank" rel="noopener">Post EinfachBrief</a> <small>druckt, kuvertiert und verschickt digital übergebene Briefe</small></li></ul></li>
+</ul></section>
+
+<section class="phase"><h2><span class="n">5</span>Start</h2>
+<ul class="items">
+  <li class="item"><input type="checkbox" id="c-test"><h3><label for="c-test">Echte Testbestellung</label><span class="who me">ich mit euch</span></h3><p>Eine Karte per E-Mail und eine gedruckte kaufen, einlösen, überweisen. Erst danach geht der Shop offiziell online.</p></li>
+  <li class="item"><input type="checkbox" id="c-index"><h3><label for="c-index">Für Google freischalten</label><span class="who me">ich</span></h3><p>ALLOW_INDEXING=1 setzen, Sitemap bei Google anmelden.</p></li>
+</ul></section>
+
+<p class="src">Angaben zu Firmen nach öffentlichen Webseiten, Stand November 2026. Preise und Leistungen bitte direkt bei den Anbietern anfragen. Keine Rechts- oder Steuerberatung.</p>
+</div></main>
+<script>
+(() => {
+  const KEY = "zg-checkliste-v1";
+  let st = {}; try { st = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch {}
+  const boxes = [...document.querySelectorAll(".item input")];
+  const upd = () => {
+    const n = boxes.filter((b) => b.checked).length;
+    document.getElementById("count").textContent = `${n} von ${boxes.length} erledigt`;
+    document.getElementById("meter").style.width = (n / boxes.length) * 100 + "%";
+    boxes.forEach((b) => b.closest(".item").classList.toggle("done", b.checked));
+  };
+  boxes.forEach((b) => { b.checked = !!st[b.id]; b.addEventListener("change", () => { st[b.id] = b.checked; try { localStorage.setItem(KEY, JSON.stringify(st)); } catch {} upd(); }); });
+  upd();
+})();
+</script>
+</body></html>
