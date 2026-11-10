@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { companyValue } from "@/lib/company";
 import { InfoBody, List, PageIntro, Section } from "@/components/info/InfoPage";
-import { DraftBox, Dl, Ph } from "@/components/info/Legal";
+import { Co, CoNameAddress, DraftBox, Dl, Ph, showOptional } from "@/components/info/Legal";
+// Firmendaten kommen zur Laufzeit aus Umgebungsvariablen. Deshalb wird die Seite bei jedem Aufruf erzeugt.
+export const dynamic = "force-dynamic";
+
 
 export const metadata: Metadata = {
   title: "Impressum",
@@ -33,11 +37,12 @@ export default function ImpressumPage() {
         <Section id="anbieter" title="Anbieter und Medieninhaber">
           <Dl
             rows={[
-              { dt: "Unternehmen", dd: <><Ph>Firmenname</Ph> <Ph>Rechtsform</Ph></> },
-              { dt: "Anschrift", dd: <Ph>Anschrift: Straße, Hausnummer, PLZ Ort, Österreich</Ph> },
-              { dt: "E-Mail", dd: <Ph>E-Mail-Adresse</Ph> },
-              { dt: "Telefon", dd: <Ph>Telefonnummer</Ph> },
-              { dt: "Vertretungsbefugt", dd: <Ph>Name der Geschäftsführung</Ph> },
+              { dt: "Unternehmen", dd: <Co k="name" /> },
+              { dt: "Rechtsform", dd: <Co k="form" /> },
+              { dt: "Anschrift", dd: <><Co k="street" />, <Co k="zipCity" />, Österreich</> },
+              { dt: "E-Mail", dd: <Co k="email" link="mailto" /> },
+              ...(showOptional("phone") ? [{ dt: "Telefon", dd: <Co k="phone" link="tel" /> }] : []),
+              { dt: "Vertretungsbefugt", dd: <Co k="manager" /> },
             ]}
           />
         </Section>
@@ -46,23 +51,27 @@ export default function ImpressumPage() {
           <Dl
             rows={[
               { dt: "Unternehmensgegenstand", dd: "Gestaltung und Online-Verkauf personalisierter Geschenkkarten in digitaler und gedruckter Form" },
-              { dt: "UID-Nummer", dd: <Ph>UID</Ph> },
-              { dt: "Firmenbuchnummer", dd: <Ph>Firmenbuchnummer</Ph> },
-              { dt: "Firmenbuchgericht", dd: <Ph>Firmenbuchgericht</Ph> },
-              { dt: "Sitz", dd: <Ph>Sitz der Gesellschaft</Ph> },
+              { dt: "UID-Nummer", dd: <Co k="uid" /> },
+              ...(showOptional("fn") ? [{ dt: "Firmenbuchnummer", dd: <Co k="fn" /> }] : []),
+              ...(showOptional("fbCourt") ? [{ dt: "Firmenbuchgericht", dd: <Co k="fbCourt" /> }] : []),
+              ...(showOptional("seat") ? [{ dt: "Sitz", dd: <Co k="seat" /> }] : []),
             ]}
           />
-          <p style={{ marginTop: 14 }}>
-            Bei einem Einzelunternehmen ohne Firmenbucheintrag entfallen Firmenbuchnummer und Firmenbuchgericht.
-          </p>
+          {showOptional("fn") && !companyValue("fn") ? (
+            <p style={{ marginTop: 14 }}>
+              Bei einem Einzelunternehmen ohne Firmenbucheintrag entfallen Firmenbuchnummer und Firmenbuchgericht.
+            </p>
+          ) : null}
         </Section>
 
         <Section id="aufsicht" title="Gewerbe und Aufsicht">
           <Dl
             rows={[
-              { dt: "Gewerbe", dd: <Ph>Gewerbewortlaut laut Gewerbeberechtigung</Ph> },
-              { dt: "Gewerbebehörde", dd: <Ph>zuständige Bezirkshauptmannschaft oder Magistrat</Ph> },
-              { dt: "Kammer", dd: <><Ph>Mitglied der Wirtschaftskammer</Ph>, <Ph>Fachgruppe</Ph></> },
+              { dt: "Gewerbe", dd: <Co k="trade" /> },
+              { dt: "Gewerbebehörde", dd: <Co k="authority" /> },
+              ...(showOptional("chamber")
+                ? [{ dt: "Kammer", dd: <><Co k="chamber" />{showOptional("chamberGroup") ? <>, <Co k="chamberGroup" /></> : null}</> }]
+                : []),
               {
                 dt: "Berufsrecht",
                 dd: (
@@ -81,8 +90,8 @@ export default function ImpressumPage() {
         <Section id="offenlegung" title="Offenlegung nach § 25 Mediengesetz">
           <Dl
             rows={[
-              { dt: "Medieninhaber", dd: <><Ph>Firmenname</Ph>, <Ph>Anschrift</Ph></> },
-              { dt: "Beteiligungen", dd: <Ph>Gesellschafter und Beteiligungsverhältnisse, falls zutreffend</Ph> },
+              { dt: "Medieninhaber", dd: <CoNameAddress /> },
+              ...(showOptional("owners") ? [{ dt: "Beteiligungen", dd: <Co k="owners" /> }] : []),
               {
                 dt: "Grundlegende Richtung",
                 dd: "Information über das Angebot von Geschenkkarten für Geldgeschenke an Familien sowie allgemeine Information über das geplante Zukunftsdepot in Österreich.",

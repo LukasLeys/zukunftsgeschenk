@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { InfoBody, List, Note, PageIntro, Section, infoStyles as s } from "@/components/info/InfoPage";
-import { DraftBox, Ph } from "@/components/info/Legal";
+import { Co, CoNameAddress, DraftBox, showOptional } from "@/components/info/Legal";
+// Firmendaten kommen zur Laufzeit aus Umgebungsvariablen. Deshalb wird die Seite bei jedem Aufruf erzeugt.
+export const dynamic = "force-dynamic";
+
 
 export const metadata: Metadata = {
   title: "Widerrufsbelehrung",
@@ -55,8 +58,8 @@ export default function WiderrufPage() {
             körperlichen Datenträger geliefert werden, beginnt die Frist mit dem Tag des Vertragsabschlusses.
           </p>
           <p>
-            Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (<Ph>Firmenname</Ph>, <Ph>Anschrift</Ph>, E-Mail:{" "}
-            <Ph>E-Mail-Adresse</Ph>, Telefon: <Ph>Telefonnummer</Ph>) mittels einer eindeutigen Erklärung, zum Beispiel
+            Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (<CoNameAddress />, E-Mail: <Co k="email" link="mailto" />
+            {showOptional("phone") ? <>, Telefon: <Co k="phone" link="tel" /></> : null}) mittels einer eindeutigen Erklärung, zum Beispiel
             einem mit der Post versandten Brief oder einer E-Mail, über Ihren Entschluss informieren, diesen Vertrag zu
             widerrufen. Sie können dafür das unten stehende Muster-Widerrufsformular verwenden, das jedoch nicht
             vorgeschrieben ist.
@@ -86,7 +89,7 @@ export default function WiderrufPage() {
           </p>
           <p>
             Sie haben die Waren unverzüglich und in jedem Fall spätestens binnen vierzehn Tagen ab dem Tag, an dem Sie uns über
-            den Widerruf dieses Vertrags unterrichten, an <Ph>Firmenname, Anschrift</Ph> zurückzusenden oder zu übergeben. Die
+            den Widerruf dieses Vertrags unterrichten, an <CoNameAddress /> zurückzusenden oder zu übergeben. Die
             Frist ist gewahrt, wenn Sie die Waren vor Ablauf der Frist von vierzehn Tagen absenden. Sie tragen die
             unmittelbaren Kosten der Rücksendung der Waren.
           </p>
@@ -135,7 +138,7 @@ export default function WiderrufPage() {
           </p>
           <div className={s.form}>
             <p>
-              An <Ph>Firmenname</Ph>, <Ph>Anschrift</Ph>, E-Mail: <Ph>E-Mail-Adresse</Ph>
+              An <CoNameAddress />, E-Mail: <Co k="email" />
             </p>
             <p>
               Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über den Kauf der folgenden Waren

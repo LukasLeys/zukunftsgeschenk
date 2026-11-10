@@ -3,7 +3,10 @@ import Link from "next/link";
 import { FORMATS, MAX_AMOUNT_EUR, MIN_AMOUNT_EUR } from "@/lib/catalog";
 import { eur, eurCents } from "@/components/format";
 import { InfoBody, List, Note, PageIntro, Section } from "@/components/info/InfoPage";
-import { DraftBox, Ph } from "@/components/info/Legal";
+import { Co, CoNameAddress, DraftBox, Ph } from "@/components/info/Legal";
+// Firmendaten kommen zur Laufzeit aus Umgebungsvariablen. Deshalb wird die Seite bei jedem Aufruf erzeugt.
+export const dynamic = "force-dynamic";
+
 
 export const metadata: Metadata = {
   title: "Allgemeine Geschäftsbedingungen",
@@ -36,7 +39,7 @@ export default function AgbPage() {
         title={"Allgemeine Geschäfts\u00adbedingungen"}
         lead="Diese Bedingungen gelten für den Kauf personalisierter Geschenkkarten im Online-Shop Zukunftsgeschenk."
         tag={{ top: "Stand", big: "Entwurf", line: "vor dem Start prüfen" }}
-        meta={<span>Fassung vom <Ph>Datum</Ph></span>}
+        meta={<span>Fassung vom <Co k="legalDate" /></span>}
       />
       <InfoBody legal before={<DraftBox />} toc={SECTIONS}>
         <Note>
@@ -49,8 +52,8 @@ export default function AgbPage() {
 
         <Section id="geltung" title={title("geltung")}>
           <p>
-            (1) Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Verträge zwischen <Ph>Firmenname</Ph>,{" "}
-            <Ph>Anschrift</Ph> (im Folgenden „wir“) und den Kundinnen und Kunden (im Folgenden „Sie“) über den Online-Shop
+            (1) Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Verträge zwischen <CoNameAddress />{" "}
+            (im Folgenden „wir“) und den Kundinnen und Kunden (im Folgenden „Sie“) über den Online-Shop
             Zukunftsgeschenk.
           </p>
           <p>
@@ -147,7 +150,7 @@ export default function AgbPage() {
           </p>
           <p>
             (2) <b>Gedruckte Karten</b> drucken wir nach Zahlungseingang und versenden sie per Post. Wir liefern nur an
-            Adressen in Österreich. Die Lieferzeit beträgt in der Regel <Ph>Anzahl</Ph> Werktage ab Zahlungseingang.
+            Adressen in Österreich. Die Lieferzeit beträgt in der Regel <Co k="deliveryDays" /> Werktage ab Zahlungseingang.
           </p>
           <p>
             (3) Für Bestellungen vor Weihnachten nennen wir im Shop einen Bestellschluss, zuletzt den 17. Dezember 2026. Wir
@@ -212,7 +215,7 @@ export default function AgbPage() {
         <Section id="gewaehr" title={title("gewaehr")}>
           <p>
             Es gilt die gesetzliche Gewährleistung, insbesondere nach dem Verbrauchergewährleistungsgesetz (VGG). Ist eine
-            Karte fehlerhaft gedruckt, beschädigt oder nicht angekommen, melden Sie sich bitte bei <Ph>E-Mail-Adresse</Ph>.
+            Karte fehlerhaft gedruckt, beschädigt oder nicht angekommen, melden Sie sich bitte bei <Co k="email" link="mailto" />.
             Wir drucken und versenden die Karte dann neu.
           </p>
         </Section>

@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { InfoBody, List, Note, PageIntro, Section } from "@/components/info/InfoPage";
-import { DraftBox, Dl, Ph } from "@/components/info/Legal";
+import { Co, CoNameAddress, DraftBox, Dl, Ph, showOptional } from "@/components/info/Legal";
+// Firmendaten kommen zur Laufzeit aus Umgebungsvariablen. Deshalb wird die Seite bei jedem Aufruf erzeugt.
+export const dynamic = "force-dynamic";
+
 
 export const metadata: Metadata = {
   title: "Datenschutzerklärung",
@@ -31,7 +34,7 @@ export default function DatenschutzPage() {
         title={"Datenschutz\u00aderklärung"}
         lead="Hier erklären wir, welche personenbezogenen Daten wir verarbeiten, wofür, wie lange und an wen wir sie weitergeben. Grundlage sind die Datenschutz-Grundverordnung (DSGVO) und das österreichische Datenschutzgesetz (DSG)."
         tag={{ top: "Stand", big: "Entwurf", line: "vor dem Start prüfen" }}
-        meta={<span>Fassung vom <Ph>Datum</Ph></span>}
+        meta={<span>Fassung vom <Co k="legalDate" /></span>}
       />
       <InfoBody legal before={<DraftBox />} toc={TOC}>
         <Note>
@@ -45,9 +48,9 @@ export default function DatenschutzPage() {
         <Section id="verantwortlich" title="Verantwortlich">
           <Dl
             rows={[
-              { dt: "Verantwortlicher", dd: <><Ph>Firmenname</Ph>, <Ph>Anschrift</Ph></> },
-              { dt: "E-Mail", dd: <Ph>E-Mail-Adresse für Datenschutzanfragen</Ph> },
-              { dt: "Datenschutzbeauftragte Person", dd: <Ph>falls bestellt: Name und Kontakt, sonst Zeile streichen</Ph> },
+              { dt: "Verantwortlicher", dd: <CoNameAddress /> },
+              { dt: "E-Mail", dd: <Co k="privacyEmail" or="email" link="mailto" /> },
+              ...(showOptional("dpo") ? [{ dt: "Datenschutzbeauftragte Person", dd: <Co k="dpo" /> }] : []),
             ]}
           />
         </Section>
@@ -162,7 +165,7 @@ export default function DatenschutzPage() {
 
         <Section id="druck" title="Druck und Versand">
           <p>
-            Für gedruckte Karten übermitteln wir Karteninhalt, Name und Lieferadresse an unsere Druckerei <Ph>Name und Anschrift der Druckerei</Ph>{" "}
+            Für gedruckte Karten übermitteln wir Karteninhalt, Name und Lieferadresse an unsere Druckerei <Co k="printShop" />{" "}
             als Auftragsverarbeiter. Die Druckerei übergibt die Karte an die Österreichische Post AG oder <Ph>Versanddienst</Ph>.
             Rechtsgrundlage ist die Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO).
           </p>
@@ -204,7 +207,7 @@ export default function DatenschutzPage() {
             rows={[
               { dt: "Stripe Payments Europe, Ltd.", dd: "Zahlungsabwicklung des Kartenpreises" },
               { dt: "Resend, Inc.", dd: "Versand von E-Mails" },
-              { dt: <Ph>Druckerei</Ph>, dd: "Druck und Versand gedruckter Karten" },
+              { dt: <Co k="printShop" />, dd: "Druck und Versand gedruckter Karten" },
               { dt: <Ph>Hosting-Anbieter</Ph>, dd: "Betrieb von Website und Datenbank, Serverstandort EU" },
               { dt: <Ph>Statistikdienst</Ph>, dd: "Cookiefreie Reichweitenmessung" },
               { dt: "Schenkende Person", dd: "Name und IBAN der Eltern im Bank-QR-Code" },
@@ -224,7 +227,7 @@ export default function DatenschutzPage() {
             <li>Widerruf einer Einwilligung mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO).</li>
           </List>
           <p>
-            Schreiben Sie dazu an <Ph>E-Mail-Adresse für Datenschutzanfragen</Ph>. Wenn Sie meinen, dass wir Ihre Daten nicht
+            Schreiben Sie dazu an <Co k="privacyEmail" or="email" link="mailto" />. Wenn Sie meinen, dass wir Ihre Daten nicht
             rechtmäßig verarbeiten, können Sie sich bei der Österreichischen Datenschutzbehörde beschweren: Barichgasse
             40 bis 42, 1030 Wien,{" "}
             <a href="https://www.dsb.gv.at/" target="_blank" rel="noopener noreferrer">

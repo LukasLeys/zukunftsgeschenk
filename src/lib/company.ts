@@ -26,6 +26,13 @@ export const COMPANY_FIELDS = {
   trade: { env: "COMPANY_TRADE", label: "Gewerbewortlaut", required: true },
   authority: { env: "COMPANY_AUTHORITY", label: "Gewerbebehörde", required: true },
   chamber: { env: "COMPANY_CHAMBER", label: "Wirtschaftskammer", required: false },
+  chamberGroup: { env: "COMPANY_CHAMBER_GROUP", label: "Fachgruppe", required: false },
+  owners: { env: "COMPANY_OWNERS", label: "Gesellschafter und Beteiligungsverhältnisse", required: false },
+  privacyEmail: { env: "COMPANY_PRIVACY_EMAIL", label: "E-Mail-Adresse für Datenschutzanfragen", required: false },
+  dpo: { env: "COMPANY_DPO", label: "Datenschutzbeauftragte Person, Name und Kontakt", required: false },
+  printShop: { env: "COMPANY_PRINT_SHOP", label: "Name und Anschrift der Druckerei", required: true },
+  deliveryDays: { env: "COMPANY_DELIVERY_DAYS", label: "Lieferzeit in Werktagen, z. B. 3 bis 5", required: true },
+  legalDate: { env: "COMPANY_LEGAL_DATE", label: "Datum der Fassung der Rechtstexte", required: true },
 } as const satisfies Record<string, CompanyField>;
 
 export type CompanyKey = keyof typeof COMPANY_FIELDS;
