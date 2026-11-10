@@ -3,8 +3,9 @@ import { COMPANY_FIELDS, companyValue, type CompanyKey } from "@/lib/company";
 import { InfoIcon } from "./InfoIcon";
 import s from "./info.module.css";
 
-/** Gut sichtbarer Kasten oben auf jeder Rechtsseite. */
+/** Gut sichtbarer Kasten oben auf jeder Rechtsseite. Verschwindet erst mit LEGAL_REVIEWED=1. */
 export function DraftBox() {
+  if (legalReviewed()) return null;
   return (
     <div className={s.draft} role="note" aria-label="Hinweis zum Entwurf">
       <InfoIcon name="scale" />
@@ -51,6 +52,17 @@ export function CoNameAddress() {
  *  Sobald der Firmenname gesetzt ist, entfallen optionale Zeilen ohne Wert. */
 export function showOptional(k: CompanyKey): boolean {
   return companyValue(k) !== null || companyValue("name") === null;
+}
+
+/** true, sobald die Kanzlei die Texte geprüft hat und LEGAL_REVIEWED=1 gesetzt ist. */
+export function legalReviewed(): boolean {
+  return process.env.LEGAL_REVIEWED?.trim() === "1";
+}
+
+/** Anhänger im Seitenkopf der Rechtsseiten: Entwurf bis zur Prüfung, danach das Datum der Fassung. */
+export function legalTag() {
+  if (!legalReviewed()) return { top: "Stand", big: "Entwurf", line: "vor dem Start prüfen" };
+  return { top: "Rechtstext", big: "Stand", line: companyValue("legalDate") ?? "aktuelle Fassung" };
 }
 
 /** Zweispaltige Angabenliste (z. B. Impressum). */

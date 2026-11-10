@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { companyValue } from "@/lib/company";
 import { InfoBody, List, PageIntro, Section } from "@/components/info/InfoPage";
-import { Co, CoNameAddress, DraftBox, Dl, Ph, showOptional } from "@/components/info/Legal";
+import { Co, CoNameAddress, DraftBox, legalTag, Dl, Ph, showOptional } from "@/components/info/Legal";
 // Firmendaten kommen zur Laufzeit aus Umgebungsvariablen. Deshalb wird die Seite bei jedem Aufruf erzeugt.
 export const dynamic = "force-dynamic";
 
@@ -19,7 +19,7 @@ export default function ImpressumPage() {
       <PageIntro
         title="Impressum"
         lead="Informationen nach § 5 E-Commerce-Gesetz (ECG), § 14 Unternehmensgesetzbuch (UGB) und Offenlegung nach § 25 Mediengesetz (MedienG)."
-        tag={{ top: "Stand", big: "Entwurf", line: "vor dem Start prüfen" }}
+        tag={legalTag()}
       />
       <InfoBody
         legal

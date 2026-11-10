@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { InfoBody, List, Note, PageIntro, Section, infoStyles as s } from "@/components/info/InfoPage";
-import { Co, CoNameAddress, DraftBox, showOptional } from "@/components/info/Legal";
+import { Co, CoNameAddress, DraftBox, legalTag, showOptional } from "@/components/info/Legal";
 // Firmendaten kommen zur Laufzeit aus Umgebungsvariablen. Deshalb wird die Seite bei jedem Aufruf erzeugt.
 export const dynamic = "force-dynamic";
 
@@ -26,7 +26,7 @@ export default function WiderrufPage() {
       <PageIntro
         title={"Widerrufs\u00adbelehrung"}
         lead="Als Verbraucherin oder Verbraucher haben Sie bei Online-Käufen grundsätzlich ein Widerrufsrecht nach dem Fern- und Auswärtsgeschäfte-Gesetz (FAGG). Für personalisierte Karten gelten gesetzliche Ausnahmen."
-        tag={{ top: "Stand", big: "Entwurf", line: "vor dem Start prüfen" }}
+        tag={legalTag()}
       />
       <InfoBody legal before={<DraftBox />} toc={TOC}>
         <Section id="kurz" title="Auf einen Blick">

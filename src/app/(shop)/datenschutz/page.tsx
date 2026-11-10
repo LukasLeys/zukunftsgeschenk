@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { InfoBody, List, Note, PageIntro, Section } from "@/components/info/InfoPage";
-import { Co, CoNameAddress, DraftBox, Dl, Ph, showOptional } from "@/components/info/Legal";
+import { Co, CoNameAddress, DraftBox, legalTag, Dl, Ph, showOptional } from "@/components/info/Legal";
 // Firmendaten kommen zur Laufzeit aus Umgebungsvariablen. Deshalb wird die Seite bei jedem Aufruf erzeugt.
 export const dynamic = "force-dynamic";
 
@@ -33,7 +33,7 @@ export default function DatenschutzPage() {
       <PageIntro
         title={"Datenschutz\u00aderklärung"}
         lead="Hier erklären wir, welche personenbezogenen Daten wir verarbeiten, wofür, wie lange und an wen wir sie weitergeben. Grundlage sind die Datenschutz-Grundverordnung (DSGVO) und das österreichische Datenschutzgesetz (DSG)."
-        tag={{ top: "Stand", big: "Entwurf", line: "vor dem Start prüfen" }}
+        tag={legalTag()}
         meta={<span>Fassung vom <Co k="legalDate" /></span>}
       />
       <InfoBody legal before={<DraftBox />} toc={TOC}>

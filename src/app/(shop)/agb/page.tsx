@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FORMATS, MAX_AMOUNT_EUR, MIN_AMOUNT_EUR } from "@/lib/catalog";
 import { eur, eurCents } from "@/components/format";
 import { InfoBody, List, Note, PageIntro, Section } from "@/components/info/InfoPage";
-import { Co, CoNameAddress, DraftBox, Ph } from "@/components/info/Legal";
+import { Co, CoNameAddress, DraftBox, legalTag, Ph } from "@/components/info/Legal";
 // Firmendaten kommen zur Laufzeit aus Umgebungsvariablen. Deshalb wird die Seite bei jedem Aufruf erzeugt.
 export const dynamic = "force-dynamic";
 
@@ -38,7 +38,7 @@ export default function AgbPage() {
       <PageIntro
         title={"Allgemeine Geschäfts\u00adbedingungen"}
         lead="Diese Bedingungen gelten für den Kauf personalisierter Geschenkkarten im Online-Shop Zukunftsgeschenk."
-        tag={{ top: "Stand", big: "Entwurf", line: "vor dem Start prüfen" }}
+        tag={legalTag()}
         meta={<span>Fassung vom <Co k="legalDate" /></span>}
       />
       <InfoBody legal before={<DraftBox />} toc={SECTIONS}>
